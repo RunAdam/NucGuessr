@@ -1,0 +1,27 @@
+Couleurs de statut simulées (fond --c-fond) : distance ΔE entre elles, contraste sur le fond
+
+[vision normale]
+  c-accent   #4db8ff  contraste sur fond  8.86:1
+  c-succes   #5fd39a  contraste sur fond 10.39:1
+  c-erreur   #ff6b5e  contraste sur fond  6.93:1
+  ΔE c-succes / c-erreur : 103.8   rapport de luminance 1.50
+  ΔE c-accent / c-erreur : 102.6   rapport de luminance 1.28
+  ΔE c-accent / c-succes :  73.0   rapport de luminance 1.17
+
+[deuteranopie]
+  c-accent   #7fa8fe  contraste sur fond  8.26:1
+  c-succes   #c0b99e  contraste sur fond  9.87:1
+  c-erreur   #b6a75a  contraste sur fond  8.01:1
+  ΔE c-succes / c-erreur :  27.9   rapport de luminance 1.23
+  ΔE c-accent / c-erreur :  89.6   rapport de luminance 1.03
+  ΔE c-accent / c-succes :  62.9   rapport de luminance 1.19
+
+[protanopie]
+  c-accent   #97b9ff  contraste sur fond  9.84:1
+  c-succes   #d1c597  contraste sur fond 11.16:1
+  c-erreur   #91875c  contraste sur fond  5.35:1
+  ΔE c-succes / c-erreur :  23.2   rapport de luminance 2.09
+  ΔE c-accent / c-erreur :  66.1   rapport de luminance 1.84
+  ΔE c-accent / c-succes :  63.6   rapport de luminance 1.14
+
+Images simulées écrites dans design/captures/daltonisme-*.png

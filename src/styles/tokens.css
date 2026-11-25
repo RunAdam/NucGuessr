@@ -1,0 +1,137 @@
+/*
+ * NucGuessr — design tokens (phase 3, direction « Synoptique »).
+ *
+ * Fichier unique des valeurs visuelles : toute couleur, police, taille, espacement, rayon ou durée
+ * utilisée dans l'interface doit venir d'ici (aucune valeur en dur dans les composants).
+ * Guide d'usage : design/TOKENS.md. Choix et tests : design/CHOIX.md, docs/decisions-phase3.md.
+ * Contrastes vérifiés par `python -I design/tests/contraste.py` (WCAG AA) : relancer après toute
+ * modification d'une couleur.
+ *
+ * Préfixes : --c-* couleurs, --police-* / --taille-* typographie, --esp-* espacements,
+ * --rayon-* rayons, --duree-* / --courbe-* animations, --carte-* carte du mode Distance.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* ---------------------------------------------------------------------------
+   * Couleurs — fond et surfaces (quasi noir, teinté bleu nuit)
+   * ------------------------------------------------------------------------- */
+  --c-fond: #0a0e13;            /* fond de page */
+  --c-surface: #10161d;         /* panneaux (bandeau, journal) */
+  --c-surface-2: #161e27;       /* champ de saisie, liste de suggestions, survol */
+  --c-trait: #253140;           /* filets, graduations secondaires, séparateurs (décoratif) */
+  --c-trait-fort: #627285;      /* contour des composants interactifs (≥ 3:1 sur le fond et sur --c-surface-2) */
+
+  /* Textes : 3 niveaux de gris, tous ≥ 4,5:1 sur --c-fond et --c-surface-2 */
+  --c-texte: #e4eaf0;           /* texte principal, chiffres */
+  --c-texte-2: #a3afbc;         /* texte secondaire, libellés */
+  --c-texte-3: #8593a2;         /* texte tertiaire : unités, texte fantôme de l'autocomplétion */
+
+  /* Accent unique : bleu Tcherenkov. Réservé au temps restant, au focus et à l'élément actif.
+     Ne jamais introduire un second accent. */
+  --c-accent: #4db8ff;
+  --c-accent-doux: rgb(77 184 255 / 0.14);  /* fond de la suggestion active, halo du focus */
+  --c-sur-accent: #04121f;                  /* texte posé sur un aplat d'accent */
+
+  /* Statuts : toujours doublés d'une forme (icône ✓ / ✕ dessinée en SVG), d'un mot ou d'un barré.
+     La couleur seule ne porte jamais l'information (daltonisme). */
+  --c-succes: #5fd39a;
+  --c-succes-doux: rgb(95 211 154 / 0.14);
+  --c-erreur: #ff6b5e;
+  --c-erreur-doux: rgb(255 107 94 / 0.16);
+
+  /* ---------------------------------------------------------------------------
+   * Typographie — IBM Plex Sans (texte, titres) + IBM Plex Mono (tous les chiffres)
+   * Polices auto-hébergées : voir src/styles/fonts.css et public/fonts/.
+   * ------------------------------------------------------------------------- */
+  --police-texte: "IBM Plex Sans", "Segoe UI", Roboto, sans-serif;
+  --police-chiffres: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --graisse-normale: 400;
+  --graisse-forte: 600;
+  /* À appliquer à tout nombre qui change (chrono, score, distance) avec --police-chiffres.
+     Plex Mono est à chasse fixe (largeur stable, mesurée : 0 px d'écart de « 0,0 » à « 20,0 ») et son
+     zéro est pointé par défaut (0 ≠ O). La déclaration garde des chiffres tabulaires si la police de
+     secours s'affiche. Séparateur de milliers : espace insécable U+00A0 (U+202F absent du sous-ensemble). */
+  --chiffres-variante: tabular-nums;
+
+  /* Échelle (rem = 16 px). Les tailles « chrono » et « score » sont fluides : lisibles à 360 px
+     comme à 1280 px. */
+  --taille-micro: 0.6875rem;    /* 11 px — libellés d'instrument en capitales (CANAL, ROUND) */
+  --taille-petite: 0.8125rem;   /* 13 px — légendes, graduations */
+  --taille-base: 1rem;          /* 16 px — texte courant */
+  --taille-saisie: 1.25rem;     /* 20 px — champ de saisie (≥ 16 px : pas de zoom auto sur iOS) */
+  --taille-titre: 1.5rem;       /* 24 px */
+  --taille-score: clamp(1.25rem, 1rem + 1vw, 1.75rem);   /* 20 → 28 px */
+  --taille-chrono: clamp(1.875rem, 1.2rem + 2.2vw, 2.75rem); /* 30 → 44 px (chiffre de 21 à 31 px de haut) */
+  --interlettre-libelle: 0.08em; /* capitales des libellés d'instrument */
+  --interligne: 1.4;
+
+  /* ---------------------------------------------------------------------------
+   * Espacements (base 4 px) et dimensions
+   * ------------------------------------------------------------------------- */
+  --esp-1: 0.25rem;  /* 4 px */
+  --esp-2: 0.5rem;   /* 8 px */
+  --esp-3: 0.75rem;  /* 12 px */
+  --esp-4: 1rem;     /* 16 px */
+  --esp-5: 1.5rem;   /* 24 px */
+  --esp-6: 2rem;     /* 32 px */
+  --esp-7: 3rem;     /* 48 px */
+
+  --trait-fin: 1px;              /* épaisseur des filets et graduations */
+  --hauteur-barre-temps: 0.75rem; /* 12 px : la barre de temps */
+  --hauteur-saisie: 3.25rem;     /* 52 px : champ de saisie (cible tactile confortable) */
+  --hauteur-suggestion: 2.5rem;  /* 40 px : une suggestion (≥ 40 px au doigt) */
+  --largeur-max-jeu: 80rem;      /* 1280 px */
+
+  /* ---------------------------------------------------------------------------
+   * Rayons : quasi droits, comme un pupitre. Pas de cartes arrondies.
+   * ------------------------------------------------------------------------- */
+  --rayon-0: 0;
+  --rayon-1: 2px;   /* champs, boutons, suggestions */
+  --rayon-rond: 50%; /* uniquement les marqueurs de carte et les voyants */
+
+  /* ---------------------------------------------------------------------------
+   * Animations : chacune a un rôle (temps qui passe, erreur, révélation). Rien de décoratif.
+   * ------------------------------------------------------------------------- */
+  --duree-instant: 80ms;      /* survol, changement de suggestion active */
+  --duree-courte: 160ms;      /* apparition de la liste de suggestions, du « −2 s » */
+  --duree-secousse: 300ms;    /* secousse du champ après une mauvaise réponse */
+  --duree-saut-temps: 450ms;  /* le segment de 2 s perdu s'efface de la barre de temps */
+  --duree-penalite: 900ms;    /* durée d'affichage du « −2 s » */
+  --duree-revelation: 240ms;  /* apparition de la bonne réponse */
+  --duree-camera-carte: 700ms; /* recadrage de la carte sur proposition + réponse (Distance) */
+  --courbe-sortie: cubic-bezier(0.2, 0, 0, 1);  /* décélération : apparitions */
+  --courbe-secousse: cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  --amplitude-secousse: 6px;  /* déplacement horizontal maximal de la secousse */
+  --seuil-alerte-s: 5;        /* sous ce nombre de secondes, la barre passe en --c-erreur (info, lue en JS) */
+
+  /* ---------------------------------------------------------------------------
+   * Carte du mode Distance (style « synoptique » : traits fins sur fond sombre)
+   * ------------------------------------------------------------------------- */
+  --carte-mer: #070a0e;               /* plus sombre que le fond : la terre ressort */
+  --carte-terre: #18212b;
+  --carte-frontiere: #56677c;         /* contour de la France et frontières (≥ 3:1 sur la mer) */
+  --carte-frontiere-epaisseur: 1px;
+  --carte-limite-region: #222c38;     /* limites administratives éventuelles, très discrètes */
+  --carte-fleuve: #2c5f86;            /* bleu désaturé, nettement distinct de l'accent */
+  --carte-fleuve-epaisseur: 1.25px;
+  --carte-ville: #8593a2;             /* repères éventuels (points + noms en --taille-petite) */
+  --carte-marqueur-joueur: #4db8ff;   /* proposition du joueur = accent (élément actif) */
+  --carte-marqueur-reponse: #e4eaf0;  /* position réelle : blanc, forme différente (losange) */
+  --carte-trait: #e4eaf0;             /* trait proposition → réponse, en tirets */
+  --carte-trait-tirets: 4 3;          /* stroke-dasharray */
+  --carte-trait-epaisseur: 1.5px;
+  --carte-cercle-parfait: rgb(95 211 154 / 0.35); /* rayon « dans le mille » (5 km), si affiché */
+}
+
+/* Mouvement réduit : la secousse et les déplacements disparaissent, l'information reste portée par
+   la couleur du contour, le barré et le « −2 s » (qui apparaît sans glisser). */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --amplitude-secousse: 0px;
+    --duree-saut-temps: 0ms;
+    --duree-camera-carte: 0ms;
+    --duree-revelation: 0ms;
+  }
+}

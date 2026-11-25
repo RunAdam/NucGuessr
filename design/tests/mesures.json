@@ -1,0 +1,325 @@
+{
+  "test-glyphes": [
+    {
+      "police": "IBM Plex Mono",
+      "ecart_tabulaire_px": 0,
+      "ecart_proportionnel_px": 0,
+      "hauteur_chiffre_a_28px": 20,
+      "largeur_12_4_a_28px": 67.2
+    },
+    {
+      "police": "JetBrains Mono",
+      "ecart_tabulaire_px": 0,
+      "ecart_proportionnel_px": 0,
+      "hauteur_chiffre_a_28px": 22,
+      "largeur_12_4_a_28px": 67.2
+    },
+    {
+      "police": "Space Mono",
+      "ecart_tabulaire_px": 0,
+      "ecart_proportionnel_px": 0,
+      "hauteur_chiffre_a_28px": 19,
+      "largeur_12_4_a_28px": 68.5
+    },
+    {
+      "police": "IBM Plex Sans",
+      "ecart_tabulaire_px": 0,
+      "ecart_proportionnel_px": 0,
+      "hauteur_chiffre_a_28px": 20,
+      "largeur_12_4_a_28px": 58.8
+    },
+    {
+      "police": "Space Grotesk",
+      "ecart_tabulaire_px": 0,
+      "ecart_proportionnel_px": 27.7,
+      "hauteur_chiffre_a_28px": 21,
+      "largeur_12_4_a_28px": 54.8
+    },
+    {
+      "police": "Barlow Semi Condensed",
+      "ecart_tabulaire_px": 0,
+      "ecart_proportionnel_px": 27.2,
+      "hauteur_chiffre_a_28px": 20,
+      "largeur_12_4_a_28px": 43.6
+    }
+  ],
+  "a-bureau-jeu": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "a-bureau-erreur": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "a-mobile-jeu": {
+    "vue": "360x400",
+    "taille_chrono_px": 30,
+    "taille_score_px": 16,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.48,
+    "photo_px": "336x205",
+    "tout_visible": true
+  },
+  "a-mobile-erreur": {
+    "vue": "360x400",
+    "taille_chrono_px": 30,
+    "taille_score_px": 16,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.59,
+    "photo_px": "336x253",
+    "tout_visible": true
+  },
+  "a-bureau-bonne": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "b-bureau-jeu": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.44,
+    "photo_px": "862x523",
+    "tout_visible": true
+  },
+  "b-bureau-erreur": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.44,
+    "photo_px": "862x523",
+    "tout_visible": true
+  },
+  "b-mobile-jeu": {
+    "vue": "360x400",
+    "taille_chrono_px": 30,
+    "taille_score_px": 16,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.41,
+    "photo_px": "318x185",
+    "tout_visible": true
+  },
+  "b-mobile-erreur": {
+    "vue": "360x400",
+    "taille_chrono_px": 30,
+    "taille_score_px": 16,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.49,
+    "photo_px": "318x221",
+    "tout_visible": true
+  },
+  "b-bureau-bonne": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.44,
+    "photo_px": "862x523",
+    "tout_visible": true
+  },
+  "a-typo-plex-mobile": {
+    "vue": "360x400",
+    "taille_chrono_px": 30,
+    "taille_score_px": 16,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.48,
+    "photo_px": "336x205",
+    "tout_visible": true
+  },
+  "a-typo-jetbrains-mobile": {
+    "vue": "360x400",
+    "taille_chrono_px": 30,
+    "taille_score_px": 16,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.48,
+    "photo_px": "336x204",
+    "tout_visible": true
+  },
+  "a-typo-barlow-mobile": {
+    "vue": "360x400",
+    "taille_chrono_px": 30,
+    "taille_score_px": 16,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.48,
+    "photo_px": "336x205",
+    "tout_visible": true
+  },
+  "a-palette-graphite-bureau": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "a-perdu-bureau": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "a-alerte-mobile": {
+    "vue": "360x400",
+    "taille_chrono_px": 30,
+    "taille_score_px": 16,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.48,
+    "photo_px": "336x205",
+    "tout_visible": true
+  },
+  "barre-lineaire-15s": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "barre-lineaire-10s": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "barre-lineaire-5s": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "barre-lineaire-avant-erreur": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "barre-lineaire-apres-erreur": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.56,
+    "photo_px": "888x644",
+    "tout_visible": true
+  },
+  "barre-expo-15s": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.53,
+    "photo_px": "888x608",
+    "tout_visible": true
+  },
+  "barre-expo-10s": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.53,
+    "photo_px": "888x608",
+    "tout_visible": true
+  },
+  "barre-expo-5s": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.53,
+    "photo_px": "888x608",
+    "tout_visible": true
+  },
+  "barre-expo-avant-erreur": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.53,
+    "photo_px": "888x608",
+    "tout_visible": true
+  },
+  "barre-expo-apres-erreur": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.53,
+    "photo_px": "888x608",
+    "tout_visible": true
+  },
+  "barre-grappes-15s": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.54,
+    "photo_px": "888x628",
+    "tout_visible": true
+  },
+  "barre-grappes-10s": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.54,
+    "photo_px": "888x628",
+    "tout_visible": true
+  },
+  "barre-grappes-5s": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.54,
+    "photo_px": "888x628",
+    "tout_visible": true
+  },
+  "barre-grappes-avant-erreur": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.54,
+    "photo_px": "888x628",
+    "tout_visible": true
+  },
+  "barre-grappes-apres-erreur": {
+    "vue": "1280x800",
+    "taille_chrono_px": 44,
+    "taille_score_px": 28,
+    "taille_saisie_px": 20,
+    "photo_part_ecran": 0.54,
+    "photo_px": "888x628",
+    "tout_visible": true
+  }
+}

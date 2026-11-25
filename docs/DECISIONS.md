@@ -173,3 +173,256 @@ Table pour la formule retenue (B1), en points :
 **Choix retenu : pas de bonus, mais un rayon de tolérance de 5 km** : tout clic à moins de 5 km vaut 5000 points (« dans le mille »), puis le score décroît de façon continue : `score = 5000 × exp(−max(0, d − 5) / 75)`.
 
 **Raison :** le maximum de 25 000 devient atteignable par un joueur qui connaît vraiment les sites, sur ordinateur comme sur mobile, sans exiger un zoom extrême au doigt. La formule reste continue (aucun effet de seuil). 5 km est sans ambiguïté : deux centrales ne sont jamais à moins de 34 km l'une de l'autre.
+
+---
+
+## Phase 1 — Données des sites
+
+**Validation des données :** `npm run validate:data` (Vitest + Ajv, ≈ 1 s). Le test `tests/data/sites.test.ts` vérifie `data/sites.json` contre le schéma `data/schema/sites.schema.json` (JSON Schema 2020-12, strict), puis les règles que le schéma ne peut pas exprimer : exactement les 18 identifiants attendus, aucun nom ni alias (normalisé comme l'autocomplétion : minuscules, sans accents, tirets et apostrophes changés en espaces) partagé entre deux sites, nombre de réacteurs cohérent (57 au total), `mise_en_service` égale au premier couplage, aucune paire de sites à moins de 20 km. Il valide aussi `data/photos.json` (phase 2) quand il existe.
+
+**État des données :** les 18 sites sont saisis, mais **de mémoire** : chaque site porte un champ `verification` qui liste les champs encore à contrôler (voir plus bas). Au départ, les 18 sites sont `A_VERIFIER` (80 champs au total : `lat`/`lon` et puissances pour les 18, années de couplage pour 10, commune pour 4, anecdote pour 2).
+
+### 1.1 Convention de date de mise en service
+
+**Question :** quelle date retenir pour « mise en service » (divergence, couplage au réseau ou mise en service commerciale), et comment la représenter pour un site à plusieurs réacteurs ?
+
+**Options testées :**
+- **Événement :** divergence (première réaction en chaîne entretenue) ; **couplage au réseau** (premier raccordement, « grid connection » dans la base PRIS de l'AIEA) ; mise en service commerciale (déclarée par l'exploitant) ;
+- **Granularité :** (a) une seule année par site (premier réacteur) ; (b) **une année par réacteur**, affichée en plage ; (c) une date complète (jour/mois/année) par réacteur.
+
+**Test :** rendu de la ligne « réacteurs » de la fiche de fin de partie pour Gravelines (6 réacteurs étalés sur 5 ans), Flamanville (2 P4 + l'EPR) et Civaux, puis longueur sur les 18 sites (un écran de mobile affiche ≈ 40 caractères par ligne).
+
+| Site | (a) année du site | (b) année par réacteur, en plage | (c) date complète par réacteur |
+|---|---|---|---|
+| Gravelines | 6 × 900 MWe (CP1) · en service depuis 1980 | 6 × 900 MWe (CP1), 1980–1985 | 165 caractères |
+| Flamanville | … · en service depuis 1985 | 2 × 1 300 MWe (P4), 1985–1986 + 1 × 1 600 MWe (EPR), 2024 | 84 caractères |
+| Civaux | 2 × 1 450 MWe (N4) · en service depuis 1997 | 2 × 1 450 MWe (N4), 1997–1999 | 45 caractères |
+| 18 sites : plus de 2 lignes sur mobile | 0 | 0 (57 caractères au plus) | 10 sites |
+
+*(Puissances affichées à la valeur nominale du palier ; le format exact de la fiche sera fixé en phase 5.)*
+
+**Résultat :** (a) efface l'information la plus parlante de Flamanville (l'EPR de 2024) ; (c) déborde sur 10 sites et réclame des jours et des mois que personne ne retient. (b) reste sur une ou deux lignes et montre les étalements (Gravelines 1980–1985, Flamanville 1985–1986 puis 2024). Côté vérification, le couplage est un événement unique et daté dans toutes les sources publiques (PRIS, tableaux Wikipédia, communiqués EDF) ; la mise en service commerciale est une notion contractuelle propre à l'exploitant, moins bien documentée et floue pour Flamanville 3 ; la divergence est rarement donnée dans les tableaux publics.
+
+**Choix retenu : année du couplage au réseau, par réacteur** (`reacteurs.tranches[].couplage`, entier). `mise_en_service` du site vaut l'année du premier couplage d'un réacteur encore en exploitation (redondant, mais pratique pour trier ou pour un futur mode « date » ; le test vérifie l'égalité). Les réacteurs arrêtés (Bugey 1, Chinon A, Chooz A, Saint-Laurent A) ne sont pas listés : ils apparaissent dans les anecdotes.
+
+**Raison :** c'est la date la plus vérifiable (une seule définition, la même partout) et la plus parlante pour un ingénieur (« le réacteur produit pour le réseau »). Stocker l'année par réacteur permet d'afficher une plage courte qui tient sur mobile sans perdre l'EPR de Flamanville. L'année suffit au joueur ; le jour et le mois ajouteraient surtout du risque d'erreur.
+
+### 1.2 Format des données : JSON ou YAML
+
+**Question :** écrire les données des sites en JSON ou en YAML ?
+
+**Options testées :** **JSON** (importé tel quel) ; YAML lu dans le navigateur (bibliothèque `js-yaml`) ; YAML converti en JSON au build (plugin ou script).
+
+**Test :** conversion de `data/sites.json` en YAML avec `js-yaml`, mesure des poids, coût de la bibliothèque dans un bundle minifié (esbuild), et saisie « à la main » de valeurs typiques par un camarade qui oublierait les guillemets.
+
+| | JSON | YAML |
+|---|---|---|
+| Fichier (18 sites) | 33,7 Ko, 4,6 Ko gzip, 1 104 lignes | 27,7 Ko, 4,4 Ko gzip, 943 lignes |
+| Lecture dans le jeu | native (`import` Vite, `JSON.parse`) | + `js-yaml` : 43 Ko minifié, **14 Ko gzip** (7 % du budget de 200 Ko de la phase 8), ou un plugin de build en plus |
+| Validation (Ajv) | directe | après conversion |
+| `code: 01` (département de l'Ain) | `"01"` (texte, guillemets obligatoires) | **`1`** (nombre) : erreur silencieuse |
+
+**Résultat :** le YAML ne gagne que 0,2 Ko compressé et 15 % de lignes, mais ajoute 14 Ko de bibliothèque (ou une étape de build) et un piège réel : un code de département non mis entre guillemets (`01`, `07`, `08`) devient un nombre. Le JSON est un peu plus verbeux à relire, mais le schéma signale immédiatement toute faute de syntaxe ou de type.
+
+**Choix retenu : JSON** (`data/sites.json`), validé par un JSON Schema (`data/schema/sites.schema.json`).
+
+**Raison :** zéro dépendance et zéro conversion : le fichier relu par les camarades est exactement celui que charge le jeu. Le confort de lecture du YAML ne compense pas ses pièges de typage pour des relecteurs occasionnels ; à qualité égale, on garde le plus simple.
+
+### Structure du champ `verification`
+
+Chaque site porte :
+
+```json
+"verification": {
+  "statut": "A_VERIFIER",
+  "champs": ["lat", "lon", "reacteurs.tranches.puissance_mwe"],
+  "notes": "Ce qui reste douteux et comment le vérifier.",
+  "sources": []
+}
+```
+
+- `champs` liste les champs à contrôler, avec des chemins pris dans une énumération du schéma (`lat`, `lon`, `commune`, `reacteurs.tranches.couplage`, `anecdote`…), ce qui évite les fautes de frappe et permet de compter ce qui reste ;
+- `statut` vaut `VERIFIE` seulement si `champs` est vide **et** `sources` contient au moins une référence (règle imposée par le schéma) ;
+- `sources` reçoit les références consultées pendant la relecture (base PRIS de l'AIEA, fiches ASNR et EDF, orthophotos IGN pour les coordonnées).
+
+Les coordonnées doivent viser le **centre de l'îlot nucléaire** (bâtiments réacteurs) et être relevées sur les orthophotos IGN : celles saisies de mémoire peuvent être fausses de plus d'un kilomètre, ce qui fausserait le rayon « dans le mille » de 5 km du mode Distance.
+
+---
+
+## Phase 2 — Photos
+
+**Outillage :** `scripts/process_photos.py` (traitement des vraies photos), `scripts/generate_placeholders.py` (images de test), tests : `python -m unittest discover scripts/tests` (Python 3 + Pillow, ≈ 30 s). Procédure pour ajouter des photos : [`docs/SOURCING_PHOTOS.md`](SOURCING_PHOTOS.md).
+
+Les deux tests ci-dessous sont des simulations rapides (graine fixe). Les profils de joueurs (expert, moyen, débutant) sont ceux de la phase 0 ; les probabilités de perdre un round selon la difficulté de la photo sont des hypothèses, pas des mesures : elles servent à comparer les options entre elles.
+
+### 2.1 Difficulté par photo
+
+**Question :** faut-il une difficulté par photo, et si oui, à quoi sert-elle ? Elle pourrait réserver les photos faciles au mode Rapidité, où l'on n'a que 20 s.
+
+**Options testées** (difficulté saisie à la main, 1 facile / 2 moyenne / 3 difficile) :
+- **A** — difficulté notée mais ignorée par le tirage ;
+- **B** — Rapidité : photos faciles (1) seulement ;
+- **C** — Rapidité : toutes sauf les difficiles (1 et 2) ; Distance : toutes.
+
+Dans tous les cas, le tirage reste la rotation par site de la phase 0, appliquée aux photos que le mode accepte (repli sur toutes les photos du site si aucune ne passe le filtre).
+
+**Test :** 1 000 séries de 30 parties d'un joueur qui joue 70 % en Rapidité et 30 % en Distance (historique commun aux deux modes). Banque réaliste de 72 photos (3 à 5 par site : une ou deux vues d'ensemble faciles, une aérienne moyenne, un détail difficile), et banque minimale de 54 photos (3 par site). Hypothèse de rounds perdus en Rapidité pour un joueur moyen : 15 % sur une photo facile, 30 % moyenne, 60 % difficile.
+
+| 72 photos (32 faciles, 22 moyennes, 18 difficiles) | Rapidité : photo déjà vue à la partie précédente | … dans les 3 précédentes | Rapidité : rounds perdus | Distance : part de photos difficiles |
+|---|---|---|---|---|
+| A ignorée | 0 % | 1,4 % | 31 % | 26 % |
+| B faciles seulement | 6,9 % | 34 % | 15 % | 41 % |
+| **C sans les difficiles** | **0 %** | **7,9 %** | **21 %** | **56 %** |
+
+Avec 54 photos (3 par site) : A 0 % / 6 %, B 32 % / 68 %, C 0 % / 26 %. Avec une seule photo facile par site, B donne 32 % / 68 % même avec 72 photos.
+
+**Coût de saisie :** une colonne `difficulte` (1, 2 ou 3) dans `credits.csv`, soit quelques secondes par photo (moins de 15 min pour 90 photos) ; le script refuse une ligne où elle manque.
+
+**Résultat :** B réduit de moitié les rounds perdus mais casse l'anti-répétition : avec une ou deux photos faciles par site, le joueur revoit la même photo une partie sur trois, et finit par reconnaître la photo plutôt que la centrale. C retire un tiers des rounds perdus en Rapidité (31 % → 21 %) en gardant 0 % de photo revue d'une partie à la suivante ; en contrepartie, un joueur qui alterne les modes voit surtout les photos difficiles en Distance (56 %), où il a tout son temps.
+
+**Choix retenu : C.** Une difficulté par photo, **obligatoire et saisie à la main** (1 facile : vue d'ensemble reconnaissable en quelques secondes par un connaisseur ; 2 moyenne : vue partielle ou aérienne qui demande de réfléchir ; 3 difficile : détail ou angle inhabituel). Le mode **Rapidité n'utilise que les photos de difficulté 1 et 2** (`RAPIDITE_DIFFICULTE_MAX = 2`), le mode **Distance les utilise toutes**. Si un site n'a aucune photo de difficulté ≤ 2, toutes ses photos restent tirables. Règle de sourcing associée : **au moins 2 photos de difficulté 1 ou 2 par site** (le script le signale).
+
+**Raison :** en Rapidité, une photo de détail est presque toujours un round perdu en 20 s : c'est de la frustration, pas de la tension. En Distance, sans limite de temps, la même photo devient une énigme intéressante (fleuve ou mer, relief, type de bâtiment). Exclure les seules photos difficiles préserve la rotation, alors que garder uniquement les faciles la détruit. Une échelle à 3 niveaux se saisit sans hésiter ; elle pourra être recalibrée en phase 8 à partir des taux de réussite réels.
+
+### 2.2 Version basse résolution pendant le chargement
+
+**Question :** faut-il une version basse résolution (≈ 400 px, floutée) à afficher pendant le chargement de la photo ?
+
+**Options testées :**
+- **A** — rien : fond neutre et indicateur de chargement, la photo apparaît d'un coup, le chrono démarre à ce moment ;
+- **B** — fichier 400 px flouté, chargé avant la vraie photo ;
+- **C** — aperçu minuscule (16 px) en base64 dans `photos.json` (LQIP), agrandi et flouté en CSS ;
+- et, en complément de A, la profondeur du préchargement (1 ou 2 rounds d'avance, ou toute la partie).
+
+**Test :** poids mesurés sur 19 photos de paysage (fonds d'écran de Windows, pas des photos de centrale) : 1600 px WebP qualité 80 : médiane 39 Ko, maximum 111 Ko ; une vraie photo industrielle détaillée est plus lourde, d'où un plafond de 300 Ko imposé par le script (qualité baissée par pas de 5 jusqu'à 60). 400 px flouté : 1 à 2 Ko. LQIP 16 px : ≈ 120 octets en base64 (11 Ko pour 90 photos). Temps de chargement d'une photo de 150 / 300 Ko : 0,9 / 1,7 s en 4G lente (1,6 Mbit/s, 150 ms) ; 5,1 / 8,1 s en 3G lente (0,4 Mbit/s, 2 s de latence) ; l'aperçu 400 px met lui-même 2 s à arriver en 3G lente (la latence domine). Puis 5 000 parties de Rapidité simulées par profil, photos de 150 à 300 Ko, 5 s passées sur l'accueil :
+
+| Attente totale par partie (Rapidité) | Expert | Moyen | Débutant |
+|---|---|---|---|
+| 4G lente, préchargement du round suivant | 0 s | 0 s | 0 s |
+| 3G lente, préchargement du round suivant | 8,2 s | 2,6 s | 1,7 s |
+| **3G lente, 2 rounds d'avance** | **5,4 s** | **1,8 s** | **1,6 s** |
+| 3G lente, les 8 photos en file dès l'accueil | 5,4 s | 1,8 s | 1,6 s |
+
+**Résultat :** en 4G, même lente, le préchargement suffit : le joueur n'attend jamais, et l'aperçu ne serait jamais vu. En 3G lente, l'attente vient de la latence et de la bande passante ; un aperçu 400 px arrive trop tard pour servir (2 s), et un aperçu flou montré avant le chrono offre du temps de réflexion gratuit (mer ou fleuve, nombre de tours de refroidissement), ce qui fausse le mode Rapidité. Précharger 2 rounds d'avance réduit l'attente d'un tiers pour un joueur rapide ; tout précharger n'apporte rien de plus et consomme des données si le joueur abandonne.
+
+**Choix retenu : A, pas de version basse résolution en v1.** Pendant le chargement : fond neutre et indicateur de chargement ; le chrono démarre quand la vraie photo est affichée (phase 0). Préchargement **2 rounds d'avance** (`PHOTOS_PRECHARGEMENT_AVANCE = 2`), en commençant dès l'écran d'accueil. Photos plafonnées à **300 Ko** (1600 px, WebP qualité 80, abaissée si nécessaire).
+
+**Raison :** l'aperçu flou n'améliore l'expérience que sur un réseau où il arrive lui-même trop tard, et il crée une iniquité en Rapidité. Le préchargement plus profond et le plafond de poids règlent le vrai problème, sans fichier ni champ supplémentaire à maintenir.
+
+### 2.3 Remplacement des images de substitution
+
+**Question (choix d'outillage) :** quand de vraies photos arrivent pour un site, que deviennent ses 3 images de test ?
+
+**Choix retenu :** elles sont **retirées dès que le site a au moins une vraie photo** (`process_photos.py` s'en charge, et `generate_placeholders.py` n'en recrée pas pour ce site).
+
+**Raison :** une image de test est impossible à reconnaître : la laisser à côté d'une vraie photo ne ferait que produire des rounds perdus d'avance. Un site avec une seule vraie photo la remontre à chaque fois qu'il sort, ce qui est moins gênant ; le script signale tous les sites qui n'ont pas encore 3 vraies photos. Avant la mise en ligne, il ne doit plus rester aucun substitut (`substitut: true`).
+
+---
+
+## Phase 3 — Direction artistique
+
+**Prototypes et tests :** tout est dans [`design/`](../design/) ; synthèse illustrée dans [`design/CHOIX.md`](../design/CHOIX.md), guide d'usage des tokens dans [`design/TOKENS.md`](../design/TOKENS.md). Les prototypes HTML s'ouvrent par un double-clic et sont jouables. Les tests ne demandent aucune dépendance dans le dépôt (Playwright et fontTools sont installés dans un dossier temporaire, le navigateur est Microsoft Edge) :
+
+| Script | Question |
+|---|---|
+| `node design/outils/capturer.mjs` (avec `PW_DIR`) | captures à 1280 × 800 et 360 × 400, mesures de mise en page (`design/tests/mesures.json`) |
+| `python -I design/tests/contraste.py` | 3.3 Contraste WCAG de chaque paire de couleurs (lit `src/styles/tokens.css`) |
+| `python -I design/tests/barre_temps.py` | 3.4 Ce que chaque barre de temps donne à lire, et visibilité du −2 s |
+| `python -I design/tests/daltonisme.py` | 3.3 Simulation de deutéranopie et de protanopie |
+| `design/tests/glyphes.html` | 3.3 Glyphes ambigus, stabilité et hauteur des chiffres |
+
+Les valeurs retenues sont réglables dans [`src/styles/tokens.css`](../src/styles/tokens.css) (fichier unique, variables commentées). Les choix sont **proposés** : la direction doit encore être validée avec la promo.
+
+### 3.1 Maquettes : Figma ou prototypes HTML
+
+**Question :** dessiner les maquettes dans Figma, ou prototyper directement en HTML ?
+
+**Options :** Figma (gratuit) ; prototypes HTML autonomes.
+
+**Test :** aucun test comparatif : la consigne de la phase impose les prototypes HTML.
+
+**Choix retenu : prototypes HTML autonomes** (un fichier par direction, polices et tokens embarqués, jouable sans serveur).
+
+**Raison :** les questions de cette phase portent sur des choses qu'une image fixe ne montre pas : le défilement du chrono, le saut de −2 s, la secousse, le clavier virtuel sur mobile. Le HTML permet aussi de **mesurer** (taille de la photo, contraste, pixels de la barre) et sert directement de référence aux phases 4-5, avec les mêmes tokens CSS que le jeu. Pas de compte ni d'outil à installer pour la promo : un double-clic suffit.
+
+### 3.2 Direction artistique de l'écran Rapidité
+
+**Question :** quelle direction pour l'écran de jeu du mode Rapidité, le plus contraint ?
+
+**Options testées :**
+- **A « Synoptique »** (salle de commande) : bandeau d'instrumentation, photo cadrée comme un moniteur, pupitre de saisie à droite, barre graduée sous la photo ;
+- **B « Plan technique »** : cadre de dessin avec repères, fond quadrillé façon carte des nucléides, temps restant affiché comme une cote, cartouche.
+
+**Test :** les deux prototypes à 1280 × 800 et à 360 × 400 (mobile avec clavier virtuel ouvert), en jeu, après une erreur, après une bonne réponse ; mesures dans le navigateur.
+
+| Critère | A | B |
+|---|---|---|
+| Photo, part de l'écran (bureau / mobile) | **56 % / 48 %** | 44 % / 41 % |
+| Position du chrono | fixe | se déplace avec la cote |
+| Essais barrés visibles sur mobile | oui | non |
+| Suggestions à 1280 × 800 | dans le pupitre | débordent du cadre |
+
+**Résultat :** A montre une photo 27 % plus grande sur bureau (17 % sur mobile), garde le chrono immobile et a une place naturelle pour les suggestions et les essais. B est le plus original, mais son ornement coûte de la place et le chrono mobile se lit moins vite.
+
+**Choix proposé : direction A « Synoptique »**, à valider avec la promo. On garde de B le cartouche et le tableau de relevé pour l'écran de fin.
+
+**Raison :** la lisibilité en jeu passe avant l'originalité : en 20 s, le joueur regarde la photo, le champ et le temps, rien d'autre. A reste typée (filets, libellés d'instrument, voyants, asymétrie) sans rien prendre à la photo.
+
+### 3.3 Typographie et palette
+
+**Question :** quelle paire de polices (texte + chasse fixe pour les chiffres), et quelle palette ?
+
+**Options testées :**
+- typographie : **IBM Plex Sans + IBM Plex Mono** ; Space Grotesk + JetBrains Mono ; Barlow Semi Condensed + Space Mono ;
+- palette : **Tcherenkov** (fond bleu nuit `#0a0e13`, accent `#4db8ff`) ; Graphite (fond neutre `#0d0d0e`, accent `#3d8bff`).
+
+**Test :** les trois paires dans le prototype A à 360 × 400 ; planche de glyphes (0/O, 1/l/I, 5/S, 8/B) ; largeur du chrono de « 0,0 » à « 20,0 » ; hauteur réelle d'un chiffre ; poids des fichiers ; contraste WCAG de 24 paires texte/fond (accent, statuts, texte fantôme et carte compris) ; simulation de deutéranopie et de protanopie.
+
+| Police à chasse fixe | Glyphes ambigus | Écart de largeur du chrono | Chiffre à 28 px | Poids (400 + 600) |
+|---|---|---|---|---|
+| **IBM Plex Mono** | tous distincts, zéro pointé | 0 px | 20 px | **30 Ko** |
+| JetBrains Mono | tous distincts, zéro pointé | 0 px | 22 px | 43 Ko |
+| Space Mono | distincts, 1 très typé | 0 px | 19 px | 33 Ko |
+
+| Contraste (WCAG AA) | Tcherenkov | Graphite |
+|---|---|---|
+| Texte fantôme / champ | 5,36 | 4,96 |
+| Accent (chrono) / fond | 8,86 | 5,86 |
+| Texte du bouton / accent | 8,65 | 3,31 ✕ |
+| Succès / fond, erreur / fond | 10,39 / 6,93 | 8,77 / 5,76 |
+| Paires en échec | **0 sur 24** | 3 sur 24 |
+
+**Résultat :** les trois polices à chasse fixe lèvent les ambiguïtés et gardent un chrono stable ; les polices de texte confondent I et l, d'où la règle « tous les chiffres en chasse fixe ». Plex est la plus légère et forme une vraie famille ; JetBrains a des chiffres 10 % plus hauts, compensés en portant le chrono mobile à 30 px. Tcherenkov passe tous les contrastes, Graphite en rate trois. En deutéranopie, succès et erreur restent distincts mais proches (ΔE 28) : d'où la règle couleur + forme.
+
+**Choix retenu :**
+- **IBM Plex Sans (400, 600) + IBM Plex Mono (400, 600)**, WOFF2 latin auto-hébergés dans `public/fonts/` (OFL), **77 Ko au total** ;
+- **palette Tcherenkov** : fond `#0a0e13`, surfaces `#10161d` / `#161e27`, textes `#e4eaf0` / `#a3afbc` / `#8593a2`, accent unique `#4db8ff`, succès `#5fd39a`, erreur `#ff6b5e` ;
+- statuts toujours doublés d'une forme (✓ / ✕ dessinés en SVG, barré, hachures, texte).
+
+**Raison :** une famille unique, dessinée pour des documents techniques, donne un ton « ingénierie » sans effet de mode, pour le plus petit poids. La palette Tcherenkov est la seule à passer tous les contrastes, et son fond bleuté accorde l'accent au reste de l'écran.
+
+### 3.4 Métaphores visuelles
+
+**Question :** barre de temps en décroissance exponentielle ou en insertion de barres de contrôle ? Score en relevé d'instrument ? Écran de fin en compte rendu d'essai ? Jusqu'où aller ?
+
+**Options testées (barre de temps) :** barre linéaire graduée ; aire sous une exponentielle (τ = 5 s) ; 20 barres de contrôle qui s'insèrent (une par seconde).
+
+**Test :** captures de chaque barre à 15, 10 et 5 s restantes ; part de bleu affichée (ce que l'œil lit) comparée à la part de temps réellement restante ; pixels rouges juste après une erreur.
+
+| Restant | Linéaire | Exponentielle | Barres de contrôle |
+|---|---|---|---|
+| 15 s (75 %) | 75 % | 32 % | 75 % |
+| 10 s (50 %) | 50 % | 9 % | 50 % |
+| 5 s (25 %) | 25 % | 1 % | 25 % |
+| Rouge après une erreur | 7,8 % + « −2 s » | 6,1 % | 12,2 % |
+
+**Résultat :** l'exponentielle ment de 5 à 9 s sur le temps restant : à mi-temps, elle affiche 9 % de bleu. Linéaire et barres de contrôle disent la vérité ; les barres rendent le −2 s plus visible, mais prennent 28 px de haut au lieu de 12, ce qui compte sur mobile, et leur métaphore demande une explication.
+
+**Choix retenu :**
+- **barre de temps linéaire de 12 px, graduée à la seconde** (étiquettes 0-5-10-15-20), rouge sous 5 s, chrono numérique à côté ; le segment perdu reste hachuré 0,9 s avec « −2 s » ;
+- **score en relevé d'instrument, version légère** : libellé en petites capitales, valeur en chasse fixe, « / 8 000 » en gris, sans animation ;
+- **écran de fin en compte rendu d'essai, version légère** : en-tête « Compte rendu d'essai · Essai n° … », total, trois mesures et tableau de relevé round par round ; pas de faux tampon ni de signature.
+
+**Raison :** une métaphore n'est gardée que si elle ne coûte rien à la lecture. Le temps s'écoule linéairement, la barre doit donc l'être ; les graduations à la seconde reprennent l'idée des barres de contrôle (on compte les crans) sans en payer le prix. Le relevé d'instrument et le compte rendu d'essai ne changent que la forme (libellés, tableau), pas la lisibilité.
+
+> Scripts des simulations de la phase 2 : `python scripts/sim/photos-difficulte.py`, `python scripts/sim/photos-chargement.py`, `python scripts/sim/photos-mesure-lqip.py`.

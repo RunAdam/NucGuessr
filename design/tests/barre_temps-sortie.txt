@@ -1,0 +1,17 @@
+Barre de temps : part affichée (ce que l'œil lit) contre part réelle du temps restant
+variante    restant   réel  affiché  écart (s)
+lineaire       15 s    75%      75%      +0.0
+lineaire       10 s    50%      50%      +0.0
+lineaire        5 s    25%      25%      +0.0
+expo           15 s    75%      32%      -8.6
+expo           10 s    50%       9%      -8.3
+expo            5 s    25%       1%      -4.8
+grappes        15 s    75%      75%      +0.0
+grappes        10 s    50%      50%      +0.0
+grappes         5 s    25%      25%      +0.0
+
+Saut de −2 s : pixels « erreur » dans la zone de la barre, avant et juste après une erreur
+variante     avant   après  part de la barre
+lineaire         0     710             7.8%
+expo             0     507             6.1%
+grappes          0    2300            12.2%

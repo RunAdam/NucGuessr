@@ -84,7 +84,7 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 
 **Objectif :** une source de vérité unique décrivant chaque site.
 
-- [ ] Créer `data/sites.json`, avec pour chaque site :
+- [x] Créer `data/sites.json`, avec pour chaque site :
   - `id` (slug stable, ex. `nogent`) ;
   - `nom_complet` (« Centrale nucléaire de Nogent-sur-Seine »), `nom_court` (« Nogent-sur-Seine ») ;
   - `alias` acceptés par l'autocomplétion (« Nogent », « St-Laurent », « Saint-Laurent-des-Eaux ») ;
@@ -93,11 +93,13 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
   - `reacteurs` : nombre, palier(s) (CP0, CP1, CP2, P4, P'4, N4, EPR), puissance ;
   - `source_froide` : nom et type (fleuve / mer / estuaire) ;
   - `mise_en_service`, `statut` ;
-  - `anecdote` : 2 ou 3 phrases historiques ou techniques, affichées en fin de partie.
+  - `anecdote` : 2 ou 3 phrases historiques ou techniques, affichées en fin de partie ;
+  - `verification` : statut (`A_VERIFIER` / `VERIFIE`), liste des champs encore à contrôler, notes et sources.
 - [ ] Sources : Wikipédia, rapports de l'ASNR, pages EDF, cours. **Vérifier chaque valeur**, coordonnées comprises (contrôle sur les orthophotos IGN).
-  - ⚠️ **À trancher** : la convention de date (divergence, couplage ou mise en service commerciale).
-- [ ] Définir un schéma (type TypeScript ou JSON Schema) et le valider en CI.
-  - ⚠️ **À trancher** : JSON ou YAML.
+  - ✅ **Décidé : année du couplage au réseau, par réacteur** (`reacteurs.tranches[].couplage`) ; `mise_en_service` du site = premier couplage. Date la plus vérifiable (PRIS, Wikipédia, EDF) ; la fiche affiche une plage courte par palier (« 6 × 900 MWe (CP1), 1980–1985 »), qui garde l'EPR 2024 de Flamanville et tient sur mobile (voir `docs/decisions-phase1.md`).
+  - Reste à vérifier : **18 sites sur 18 `A_VERIFIER`, 80 champs** (`lat`/`lon` et puissances des 18 sites, années de couplage de 10 sites, commune de 4, anecdote de 2). Le détail est dans le champ `verification` de chaque site.
+- [x] Définir un schéma (type TypeScript ou JSON Schema) et le valider en CI.
+  - ✅ **Décidé : JSON**, validé par `data/schema/sites.schema.json` (JSON Schema 2020-12) avec `npm run validate:data` (à brancher dans le workflow de la phase 7). Le YAML ne gagne que 0,2 Ko compressé, mais coûte 14 Ko de bibliothèque et transforme en nombre un code de département non mis entre guillemets (`01` → `1`).
 - [ ] Faire relire les données par 1 ou 2 camarades.
 
 **Livrable :** `data/sites.json` complet pour les 18 centrales.
@@ -109,31 +111,37 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 **Objectif :** une banque d'images libres de droits, qui ne trahissent pas la réponse.
 
 ### 2.1 Sourcing et droits
-- [ ] Sources autorisées :
+- [x] Sources autorisées :
   - **Wikimedia Commons** (CC0, CC BY, CC BY-SA) : afficher l'auteur et la licence, avec un lien vers l'original ;
   - **Orthophotos IGN / Géoplateforme** (licence ouverte Etalab 2.0) ;
   - **photos personnelles** de la promo, avec l'accord explicite de leurs auteurs.
-- [ ] Sources **interdites** : Google Images, photos de presse EDF, Orano ou CEA sans autorisation, captures Google Maps/Earth.
-- [ ] Créer `data/photos.json` : `id` opaque, `site_id`, `type` (sol / aérienne / satellite / détail), `auteur`, `licence`, `url_source`, `difficulte`.
-  - ⚠️ **À trancher** : faut-il une difficulté par photo ? Elle pourrait servir à réserver les photos faciles (vues d'ensemble) au mode Rapidité, où l'on n'a que 20 s.
+- [x] Sources **interdites** : Google Images, photos de presse EDF, Orano ou CEA sans autorisation, captures Google Maps/Earth.
+  - Procédure complète, vérification des licences et check-list anti-triche : [`docs/SOURCING_PHOTOS.md`](docs/SOURCING_PHOTOS.md). Le script refuse les licences NC/ND et les liens vers les sources interdites.
+- [x] Créer `data/photos.json` : `id` opaque, `site_id`, `type` (sol / aérienne / satellite / détail), `auteur`, `licence`, `url_source`, `difficulte` (plus `fichier`, `alt`, `largeur`, `hauteur`, `poids_octets`, `substitut`). Schéma : [`data/schema/photos.schema.json`](data/schema/photos.schema.json).
+  - ✅ **Décidé : oui, difficulté 1 / 2 / 3 saisie à la main ; le mode Rapidité n'utilise que les difficultés 1 et 2, le mode Distance toutes** (`RAPIDITE_DIFFICULTE_MAX = 2`). Réserver aux seules photos faciles casserait la rotation (photo revue une partie sur trois) ; exclure les difficiles garde 0 % de photo revue d'une partie à la suivante et retire un tiers des rounds perdus en Rapidité. Il faut au moins 2 photos de difficulté 1 ou 2 par site (voir [`docs/decisions-phase2.md`](docs/decisions-phase2.md)).
 
 ### 2.2 Anti-triche involontaire
-- [ ] Noms de fichiers opaques (hash).
-- [ ] **Suppression de toutes les métadonnées EXIF**, GPS compris.
+- [x] Noms de fichiers opaques (hash salé du contenu de l'image, jamais de son nom).
+- [x] **Suppression de toutes les métadonnées EXIF**, GPS compris (et XMP, profil ICC), vérifiée par les tests.
 - [ ] Recadrer ou flouter les panneaux, logos et noms visibles.
-- [ ] Aucun nom de site dans le texte `alt` pendant le round.
+  - Outillage prêt, en attente des vraies photos (procédure dans [`docs/SOURCING_PHOTOS.md`](docs/SOURCING_PHOTOS.md#2-préparer-la-photo-anti-triche)).
+- [x] Aucun nom de site dans le texte `alt` pendant le round (alt neutre écrit par le script à partir du type).
 
 ### 2.3 Traitement automatique
-- [ ] Script `scripts/process_photos.py` (Pillow) qui prend `photos_sources/` (ignoré par git) et :
+- [x] Script `scripts/process_photos.py` (Pillow) qui prend `photos_sources/` (ignoré par git) et :
   - redimensionne à 1600 px de large au maximum ;
   - convertit en WebP (~150-300 Ko) ;
   - supprime les EXIF et renomme avec un hash ;
   - écrit dans `public/photos/` et met à jour `data/photos.json`.
-- ⚠️ **À trancher** : faut-il en plus une version basse résolution (~400 px, floutée) pour l'affichage pendant le chargement ?
+  - Crédits saisis dans un seul tableau `photos_sources/credits.csv` ; relancer le script ne crée pas de doublon. Tests : `python -m unittest discover scripts/tests`.
+  - Images de test : `scripts/generate_placeholders.py` (3 par site, « PHOTO DE TEST », `substitut: true`), retirées dès qu'un site a une vraie photo.
+- ✅ **Décidé : pas de version basse résolution en v1.** Fond neutre pendant le chargement, préchargement **2 rounds d'avance** dès l'accueil (`PHOTOS_PRECHARGEMENT_AVANCE = 2`), photos plafonnées à 300 Ko. En 4G le joueur n'attend jamais ; en 3G lente un aperçu arrive lui-même trop tard, et un aperçu flou montré avant le chrono donnerait du temps de réflexion gratuit en Rapidité.
 
 ### 2.4 Volume
 - [ ] Objectif v1 : **3 à 5 photos par site**, soit 55 à 90 photos. En jeu libre, il n'y a pas de calendrier à remplir, mais plus la banque est grande, moins on reconnaît la photo plutôt que le site.
+  - Outillage prêt, en attente des vraies photos : en attendant, 54 images de test (3 par site) rendent le jeu jouable de bout en bout. Le script affiche le bilan par site.
 - [ ] Varier les angles pour chaque site : vue lointaine, aérienne, détail.
+  - Outillage prêt, en attente des vraies photos (conseils de variété dans [`docs/SOURCING_PHOTOS.md`](docs/SOURCING_PHOTOS.md#7-conseils-de-variété)).
 
 **Livrable :** des photos traitées et `data/photos.json` avec les crédits complets.
 
@@ -158,7 +166,7 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
   - la barre de temps vue comme une **décroissance radioactive** (courbe exponentielle) ou une **insertion des barres de contrôle** ;
   - le score affiché comme un relevé d'instrument ;
   - l'écran de fin vu comme un **compte rendu d'essai**.
-  - ⚠️ **À trancher** après prototypage : une métaphore trop poussée peut nuire à la lisibilité.
+  - ✅ **Décidé : métaphores légères.** Barre de temps **linéaire graduée à la seconde** (l'exponentielle ment : à mi-temps elle n'affiche que 9 % de bleu ; les crans d'une seconde reprennent l'idée des barres de contrôle), score en relevé d'instrument sans animation, écran de fin en compte rendu d'essai (tableau de relevé, sans faux tampon). Voir [`design/CHOIX.md`](design/CHOIX.md).
 
 ### 3.3 À éviter
 - **Clichés anti-nucléaires ou alarmistes** : trèfle radioactif à toutes les sauces, vert « toxique » fluo, fûts suintants, rayures jaune et noir, champignons atomiques, références Tchernobyl ou Simpson.
@@ -171,18 +179,20 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 - Les animations gratuites. Chaque animation doit avoir un rôle : signaler une erreur, montrer le temps qui passe, révéler une réponse.
 
 ### 3.4 Démarche
-- [ ] Constituer un moodboard (captures de salles de commande, schémas, typographies, photos de piscines de réacteur).
-- [ ] Produire **2 ou 3 directions** sous forme de maquettes rapides de l'écran de jeu du mode Rapidité (le plus contraint), puis en choisir une avec la promo.
-  - ⚠️ **À trancher** : maquettes dessinées dans Figma (gratuit), ou prototypes HTML directement.
-- [ ] Choisir la typographie : une police pour les titres et le texte, et une police à chasse fixe pour les chiffres (temps, score, distances).
+- [x] Constituer un moodboard (captures de salles de commande, schémas, typographies, photos de piscines de réacteur) : [`design/MOODBOARD.md`](design/MOODBOARD.md), textuel, sans image téléchargée.
+- [x] Produire **2 ou 3 directions** sous forme de maquettes rapides de l'écran de jeu du mode Rapidité (le plus contraint) : A « Synoptique » et B « Plan technique », jouables, à 1280 et 360 px.
+  - [ ] Choix proposé : **A « Synoptique »** (photo 27 % plus grande, chrono immobile), à valider avec la promo.
+  - ✅ **Décidé : prototypes HTML autonomes** (`design/*.html`, un double-clic suffit) : ils montrent le temps qui défile, le −2 s et le clavier mobile, et permettent de mesurer.
+- [x] Choisir la typographie : une police pour les titres et le texte, et une police à chasse fixe pour les chiffres (temps, score, distances).
   - Toutes les polices doivent être sous licence libre (OFL) et auto-hébergées, sans dépendre de Google Fonts.
-  - ⚠️ **À trancher** : pistes à tester, comme IBM Plex (Sans + Mono, esprit industriel), JetBrains Mono, Space Mono, ou une police d'affichage plus marquée pour le titre.
-- [ ] Définir une palette restreinte : fond quasi noir légèrement teinté, 2-3 gris, **un seul accent** (bleu Tcherenkov), et des couleurs de statut sobres (succès, erreur).
+  - ✅ **Décidé : IBM Plex Sans + IBM Plex Mono** (400 et 600, WOFF2 latin dans `public/fonts/`, 77 Ko au total), préférées à Space Grotesk + JetBrains Mono et Barlow + Space Mono : glyphes 0/O et 1/l/I distincts, chrono de largeur fixe, famille unique et la plus légère.
+- [x] Définir une palette restreinte : fond quasi noir légèrement teinté, 2-3 gris, **un seul accent** (bleu Tcherenkov), et des couleurs de statut sobres (succès, erreur).
   - Les couleurs ne doivent pas être le seul indicateur (pensez aux daltoniens).
   - Contraste conforme WCAG AA.
-- [ ] Concevoir l'identité : logo ou wordmark « NucGuessr » et favicon.
-- [ ] Traduire tout cela en **design tokens** (variables CSS : couleurs, espacements, rayons, durées d'animation), utilisés partout dans le code.
-- [ ] Style de la carte du mode Distance, en cohérence avec le reste du design (voir phase 6).
+  - ✅ **Décidé : palette « Tcherenkov »** : fond `#0a0e13`, surfaces `#10161d` / `#161e27`, textes `#e4eaf0` / `#a3afbc` / `#8593a2`, accent unique `#4db8ff`, succès `#5fd39a`, erreur `#ff6b5e`. 0 échec WCAG AA sur 24 paires (texte fantôme 5,4:1, accent 8,9:1), contre 3 pour la palette « Graphite » ; statuts toujours doublés d'une forme (✓ / ✕, barré, hachures), vérifié en deutéranopie simulée.
+- [x] Concevoir l'identité : logo ou wordmark « NucGuessr » et favicon : case de la carte des nucléides « ?Ng » (isotope à deviner), `src/assets/wordmark.svg`, `public/favicon.svg` + PNG 32 px et 180 px.
+- [x] Traduire tout cela en **design tokens** (variables CSS : couleurs, espacements, rayons, durées d'animation), utilisés partout dans le code : `src/styles/tokens.css` et `src/styles/fonts.css`, guide [`design/TOKENS.md`](design/TOKENS.md) pour les phases 4 à 6.
+- [x] Style de la carte du mode Distance, en cohérence avec le reste du design (voir phase 6) : traits fins sur fond sombre, tokens `--carte-*`, échantillon `design/carte-style.svg`.
 
 **Livrable :** maquettes validées, tokens CSS, polices et logo.
 
@@ -350,13 +360,13 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 | 5 | 0 | Limite de temps du mode Distance | ✅ **Décidé : aucune** |
 | 6 | 0 | Barème du mode Distance | ✅ **Décidé : `5000 × exp(−(d−5)/k)`, k = 75 km** |
 | 7 | 0 | Bonus de précision du mode Distance | ✅ **Décidé : non, mais 5000 points à moins de 5 km** |
-| 8 | 1 | Convention de date de mise en service | Couplage au réseau |
-| 9 | 1 | JSON ou YAML | JSON |
-| 10 | 2 | Difficulté par photo | Oui, manuelle |
-| 11 | 2 | Version basse résolution pour le chargement | Non en v1 |
-| 12 | 3 | Métaphores visuelles (barres de contrôle, décroissance…) | À prototyper |
-| 13 | 3 | Maquettes Figma ou HTML | Prototypes HTML |
-| 14 | 3 | Typographies | IBM Plex Sans + Mono, à tester |
+| 8 | 1 | Convention de date de mise en service | ✅ **Décidé : année du couplage au réseau, par réacteur** |
+| 9 | 1 | JSON ou YAML | ✅ **Décidé : JSON** (+ JSON Schema) |
+| 10 | 2 | Difficulté par photo | ✅ **Décidé : oui, 1 à 3, manuelle ; Rapidité sans les difficiles (≤ 2), Distance toutes** |
+| 11 | 2 | Version basse résolution pour le chargement | ✅ **Décidé : non en v1 ; préchargement 2 rounds d'avance, 300 Ko max** |
+| 12 | 3 | Métaphores visuelles (barres de contrôle, décroissance…) | ✅ **Décidé : légères** (barre linéaire graduée à la seconde, pas d'exponentielle ; score en relevé ; fin en compte rendu d'essai) |
+| 13 | 3 | Maquettes Figma ou HTML | ✅ **Décidé : prototypes HTML autonomes** |
+| 14 | 3 | Typographies | ✅ **Décidé : IBM Plex Sans + IBM Plex Mono** (77 Ko) |
 | 15 | 4 | Framework UI | Svelte |
 | 16 | 4 | Tailwind ou bibliothèque de composants | Non, CSS natif + tokens |
 | 17 | 4 | Routage | Par hash |
