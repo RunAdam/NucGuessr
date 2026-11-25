@@ -1,0 +1,5 @@
+# Scripts Python de NucGuessr (photos). Installation dans un environnement virtuel :
+#   python -m venv .venv
+#   .venv\Scripts\activate        (Windows)   |   source .venv/bin/activate   (macOS, Linux)
+#   pip install -r scripts/requirements.txt
+Pillow>=10.1

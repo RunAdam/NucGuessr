@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nucguessr.local/schema/photos.schema.json",
+  "title": "NucGuessr — banque de photos",
+  "description": "Fichier data/photos.json, écrit par scripts/process_photos.py et scripts/generate_placeholders.py. Ne pas éditer à la main : modifier photos_sources/credits.csv puis relancer le script (voir docs/SOURCING_PHOTOS.md).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "photos"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "description": "Version du format de ce fichier.", "const": 1 },
+    "photos": { "type": "array", "items": { "$ref": "#/$defs/photo" } }
+  },
+  "$defs": {
+    "photo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "fichier", "site_id", "type", "difficulte", "auteur", "licence", "url_source", "alt",
+        "largeur", "hauteur", "poids_octets", "substitut"
+      ],
+      "properties": {
+        "id": {
+          "description": "Identifiant opaque : 16 caractères hexadécimaux d'un hash salé du contenu de l'image (jamais de son nom).",
+          "type": "string",
+          "pattern": "^[0-9a-f]{16}$"
+        },
+        "fichier": {
+          "description": "Nom du fichier dans public/photos/ : toujours <id>.webp.",
+          "type": "string",
+          "pattern": "^[0-9a-f]{16}\\.webp$"
+        },
+        "site_id": {
+          "description": "Identifiant du site, tel que dans data/sites.json.",
+          "enum": [
+            "belleville", "blayais", "bugey", "cattenom", "chinon", "chooz", "civaux", "cruas", "dampierre",
+            "flamanville", "golfech", "gravelines", "nogent", "paluel", "penly", "saint-alban", "saint-laurent",
+            "tricastin"
+          ]
+        },
+        "type": {
+          "description": "Point de vue : sol, aérienne, satellite (orthophoto) ou détail. Sans accents dans les valeurs.",
+          "enum": ["sol", "aerienne", "satellite", "detail"]
+        },
+        "difficulte": {
+          "description": "Saisie à la main. 1 facile (vue d'ensemble reconnaissable en quelques secondes), 2 moyenne, 3 difficile (détail, angle inhabituel). Le mode Rapidité n'utilise que les photos de difficulté ≤ RAPIDITE_DIFFICULTE_MAX (src/config.ts).",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "auteur": {
+          "description": "Auteur à créditer, tel qu'indiqué sur la page de l'original.",
+          "type": "string",
+          "minLength": 1
+        },
+        "licence": {
+          "description": "Licence normalisée. CC0, CC BY et CC BY-SA (versions portées comprises, ex. CC-BY-SA-3.0-FR), Etalab 2.0, domaine public, accord écrit de l'auteur (photo de la promo) ; image-generee pour les substituts. Jamais NC ni ND.",
+          "type": "string",
+          "pattern": "^(CC0-1\\.0|CC-BY(-SA)?-(1\\.0|2\\.0|2\\.5|3\\.0|4\\.0)(-[A-Z]{2})?|Etalab-2\\.0|domaine-public|accord-auteur|image-generee)$"
+        },
+        "url_source": {
+          "description": "Lien vers la page de l'original (page « File: » de Wikimedia Commons, page Géoplateforme…). null seulement pour une photo de la promo ou un substitut. Peut contenir le nom du site : ne l'afficher qu'après le round.",
+          "type": ["string", "null"],
+          "pattern": "^https://"
+        },
+        "alt": {
+          "description": "Texte alternatif NEUTRE, sans aucun nom de site (affiché pendant le round).",
+          "type": "string",
+          "minLength": 1
+        },
+        "largeur": { "description": "Largeur en pixels (1600 au plus).", "type": "integer", "minimum": 1, "maximum": 1600 },
+        "hauteur": { "description": "Hauteur en pixels (1200 au plus).", "type": "integer", "minimum": 1, "maximum": 1200 },
+        "poids_octets": { "description": "Poids du fichier WebP.", "type": "integer", "minimum": 1 },
+        "substitut": {
+          "description": "true pour une image de test générée (« PHOTO DE TEST »), à remplacer par de vraies photos avant la mise en ligne.",
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "substitut": { "const": true } } },
+          "then": { "properties": { "licence": { "const": "image-generee" }, "url_source": { "type": "null" } } },
+          "else": { "properties": { "licence": { "not": { "const": "image-generee" } } } }
+        },
+        {
+          "if": { "properties": { "licence": { "not": { "enum": ["accord-auteur", "image-generee"] } } } },
+          "then": { "properties": { "url_source": { "type": "string" } } }
+        }
+      ]
+    }
+  }
+}

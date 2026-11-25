@@ -103,3 +103,49 @@ export function scoreDistance(distanceKm: number): number {
   const exces = Math.max(0, distanceKm - DISTANCE_RAYON_PARFAIT_KM);
   return Math.round(DISTANCE_SCORE_MAX * Math.exp(-exces / DISTANCE_K_KM));
 }
+
+// =============================================================================
+// Photos
+// =============================================================================
+
+/**
+ * Banque de photos : data/photos.json (format : data/schema/photos.schema.json), fichiers dans public/photos/.
+ * Les réglages du traitement des images (largeur max 1600 px, WebP qualité 80, 300 Ko au plus) sont des
+ * constantes en tête de scripts/process_photos.py. Décisions : docs/decisions-phase2.md.
+ */
+
+/** Dossier des photos, relatif à la racine du site publié. Chaque fichier s'appelle `<id>.webp`. */
+export const PHOTOS_DOSSIER = 'photos/';
+
+/** Difficulté d'une photo, saisie à la main : 1 facile (vue d'ensemble), 2 moyenne, 3 difficile (détail, angle inhabituel). */
+export type DifficultePhoto = 1 | 2 | 3;
+
+/** Point de vue d'une photo. */
+export type TypePhoto = 'sol' | 'aerienne' | 'satellite' | 'detail';
+
+/**
+ * Difficulté maximale des photos tirées en mode Rapidité (20 s pour répondre).
+ * 2 : les photos difficiles (détails, angles inhabituels) sont réservées au mode Distance, sans limite de temps.
+ * Mettre 3 pour ne rien filtrer. Le mode Distance utilise toutes les photos.
+ */
+export const RAPIDITE_DIFFICULTE_MAX: DifficultePhoto = 2;
+
+/**
+ * Photos d'un site pouvant être tirées dans un mode, AVANT la rotation par site (photo vue il y a le plus longtemps).
+ * Si aucune photo du site ne passe le filtre de difficulté, on les garde toutes : le site reste jouable,
+ * le tirage ne bloque jamais et tous les sites sortent aussi souvent.
+ */
+export function photosTirables<P extends { difficulte: number }>(photosDuSite: readonly P[], mode: 'rapidite' | 'distance'): P[] {
+  if (mode === 'distance') return [...photosDuSite];
+  const faciles = photosDuSite.filter((p) => p.difficulte <= RAPIDITE_DIFFICULTE_MAX);
+  return faciles.length > 0 ? faciles : [...photosDuSite];
+}
+
+/**
+ * Nombre de photos téléchargées à l'avance (dans l'ordre des rounds), en plus de celle affichée.
+ * Les premières photos de la partie se chargent dès l'écran d'accueil. 2 rounds d'avance : en 3G lente,
+ * l'attente d'un joueur rapide passe de 8 à 5 s par partie ; en 4G, aucune attente dans tous les cas.
+ * Pas d'aperçu flou (basse résolution) pendant le chargement : le chronomètre ne démarre qu'une fois
+ * la vraie photo affichée, et un aperçu donnerait du temps de réflexion gratuit avant le chrono.
+ */
+export const PHOTOS_PRECHARGEMENT_AVANCE = 2;
