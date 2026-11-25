@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nucguessr.local/schema/sites.schema.json",
+  "title": "NucGuessr — sites nucléaires",
+  "description": "Source de vérité unique des sites du jeu (data/sites.json). Convention de date : année du couplage au réseau, par réacteur (voir docs/DECISIONS.md, phase 1).",
+  "type": "array",
+  "items": { "$ref": "#/$defs/site" },
+  "$defs": {
+    "texte": { "type": "string", "minLength": 1, "pattern": "^\\S(.*\\S)?$" },
+    "annee": {
+      "type": "integer",
+      "minimum": 1955,
+      "maximum": 2040,
+      "description": "Année civile du couplage au réseau (premier raccordement au réseau électrique)."
+    },
+    "palier": {
+      "enum": ["CP0", "CP1", "CP2", "P4", "P'4", "N4", "EPR"],
+      "description": "Palier technique EDF du réacteur à eau sous pression."
+    },
+    "region": {
+      "enum": [
+        "Auvergne-Rhône-Alpes",
+        "Bourgogne-Franche-Comté",
+        "Bretagne",
+        "Centre-Val de Loire",
+        "Corse",
+        "Grand Est",
+        "Hauts-de-France",
+        "Île-de-France",
+        "Normandie",
+        "Nouvelle-Aquitaine",
+        "Occitanie",
+        "Pays de la Loire",
+        "Provence-Alpes-Côte d'Azur"
+      ]
+    },
+    "champ_verifiable": {
+      "enum": [
+        "nom_complet",
+        "nom_court",
+        "alias",
+        "lat",
+        "lon",
+        "commune",
+        "departement",
+        "region",
+        "exploitant",
+        "type_site",
+        "reacteurs.nombre",
+        "reacteurs.tranches.nom",
+        "reacteurs.tranches.palier",
+        "reacteurs.tranches.puissance_mwe",
+        "reacteurs.tranches.couplage",
+        "source_froide",
+        "mise_en_service",
+        "statut",
+        "anecdote"
+      ]
+    },
+    "tranche": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nom", "palier", "puissance_mwe", "couplage"],
+      "properties": {
+        "nom": { "$ref": "#/$defs/texte", "description": "Nom usuel du réacteur, ex. « Chinon B1 »." },
+        "palier": { "$ref": "#/$defs/palier" },
+        "puissance_mwe": {
+          "type": "integer",
+          "minimum": 800,
+          "maximum": 1700,
+          "description": "Puissance électrique nette, en MWe."
+        },
+        "couplage": { "$ref": "#/$defs/annee" }
+      }
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "nom_complet",
+        "nom_court",
+        "alias",
+        "lat",
+        "lon",
+        "commune",
+        "departement",
+        "region",
+        "exploitant",
+        "type_site",
+        "reacteurs",
+        "source_froide",
+        "mise_en_service",
+        "statut",
+        "anecdote",
+        "verification"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z]+(-[a-z]+)*$",
+          "description": "Slug stable (minuscules ASCII et tirets), partagé avec data/photos.json."
+        },
+        "nom_complet": { "type": "string", "pattern": "^Centrale nucléaire (de |d'|du |des )\\S(.*\\S)?$" },
+        "nom_court": { "$ref": "#/$defs/texte" },
+        "alias": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/texte" },
+          "description": "Autres noms acceptés par l'autocomplétion (en plus de nom_court et nom_complet)."
+        },
+        "lat": {
+          "type": "number",
+          "minimum": 41.3,
+          "maximum": 51.1,
+          "description": "Latitude WGS84 du centre de l'îlot nucléaire (France métropolitaine)."
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -5.2,
+          "maximum": 9.6,
+          "description": "Longitude WGS84 du centre de l'îlot nucléaire (France métropolitaine)."
+        },
+        "commune": { "$ref": "#/$defs/texte" },
+        "departement": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["code", "nom"],
+          "properties": {
+            "code": { "type": "string", "pattern": "^(0[1-9]|[1-8][0-9]|9[0-5]|2A|2B)$" },
+            "nom": { "$ref": "#/$defs/texte" }
+          }
+        },
+        "region": { "$ref": "#/$defs/region" },
+        "exploitant": { "$ref": "#/$defs/texte" },
+        "type_site": {
+          "enum": ["centrale", "cycle_combustible", "recherche", "stockage", "demantelement"],
+          "description": "v1 : uniquement « centrale »."
+        },
+        "reacteurs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["nombre", "tranches"],
+          "properties": {
+            "nombre": { "type": "integer", "minimum": 1, "maximum": 6 },
+            "tranches": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 6,
+              "items": { "$ref": "#/$defs/tranche" },
+              "description": "Réacteurs en exploitation sur le site (les réacteurs arrêtés ne sont pas listés)."
+            }
+          }
+        },
+        "source_froide": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["nom", "type"],
+          "properties": {
+            "nom": { "$ref": "#/$defs/texte" },
+            "type": { "enum": ["fleuve", "riviere", "estuaire", "mer"] }
+          }
+        },
+        "mise_en_service": {
+          "$ref": "#/$defs/annee",
+          "description": "Année du premier couplage au réseau d'un réacteur en exploitation du site (= min des tranches[].couplage)."
+        },
+        "statut": { "enum": ["en_exploitation", "en_construction", "arrete", "en_demantelement"] },
+        "anecdote": {
+          "type": "string",
+          "minLength": 60,
+          "maxLength": 420,
+          "description": "2 ou 3 phrases sobres et exactes, affichées en fin de partie."
+        },
+        "verification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["statut", "champs", "notes", "sources"],
+          "properties": {
+            "statut": { "enum": ["A_VERIFIER", "VERIFIE"] },
+            "champs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/champ_verifiable" },
+              "description": "Champs restant à vérifier (vide si statut = VERIFIE)."
+            },
+            "notes": { "type": "string" },
+            "sources": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/texte" },
+              "description": "Sources consultées lors de la vérification (URL ou référence)."
+            }
+          },
+          "if": { "properties": { "statut": { "const": "VERIFIE" } } },
+          "then": {
+            "properties": { "champs": { "type": "array", "maxItems": 0 }, "sources": { "type": "array", "minItems": 1 } }
+          },
+          "else": { "properties": { "champs": { "type": "array", "minItems": 1 } } }
+        }
+      }
+    }
+  }
+}

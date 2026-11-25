@@ -1,0 +1,1103 @@
+[
+  {
+    "id": "belleville",
+    "nom_complet": "Centrale nucléaire de Belleville",
+    "nom_court": "Belleville",
+    "alias": [
+      "Belleville-sur-Loire"
+    ],
+    "lat": 47.5103,
+    "lon": 2.875,
+    "commune": "Belleville-sur-Loire",
+    "departement": {
+      "code": "18",
+      "nom": "Cher"
+    },
+    "region": "Centre-Val de Loire",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 2,
+      "tranches": [
+        {
+          "nom": "Belleville 1",
+          "palier": "P'4",
+          "puissance_mwe": 1310,
+          "couplage": 1987
+        },
+        {
+          "nom": "Belleville 2",
+          "palier": "P'4",
+          "puissance_mwe": 1310,
+          "couplage": 1988
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Loire",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1987,
+    "statut": "en_exploitation",
+    "anecdote": "C'est la plus en amont des quatre centrales de la Loire, devant Dampierre, Saint-Laurent et Chinon. Ses deux réacteurs de 1 300 MWe, du palier P'4, sont refroidis par deux tours aéroréfrigérantes.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA.",
+      "sources": []
+    }
+  },
+  {
+    "id": "blayais",
+    "nom_complet": "Centrale nucléaire du Blayais",
+    "nom_court": "Blayais",
+    "alias": [
+      "Le Blayais",
+      "Blaye",
+      "Braud-et-Saint-Louis",
+      "Braud-et-St-Louis"
+    ],
+    "lat": 45.256,
+    "lon": -0.693,
+    "commune": "Braud-et-Saint-Louis",
+    "departement": {
+      "code": "33",
+      "nom": "Gironde"
+    },
+    "region": "Nouvelle-Aquitaine",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 4,
+      "tranches": [
+        {
+          "nom": "Blayais 1",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1981
+        },
+        {
+          "nom": "Blayais 2",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1982
+        },
+        {
+          "nom": "Blayais 3",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1983
+        },
+        {
+          "nom": "Blayais 4",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1983
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Estuaire de la Gironde",
+      "type": "estuaire"
+    },
+    "mise_en_service": 1981,
+    "statut": "en_exploitation",
+    "anecdote": "Ses quatre réacteurs de 900 MWe sont refroidis directement par l'eau de l'estuaire de la Gironde, sans tour aéroréfrigérante. Lors de la tempête de décembre 1999, la conjonction de la marée et du vent a inondé une partie du site ; cet incident a conduit à revoir la protection contre les inondations de toutes les centrales françaises.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "reacteurs.tranches.couplage",
+        "mise_en_service"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »).",
+      "sources": []
+    }
+  },
+  {
+    "id": "bugey",
+    "nom_complet": "Centrale nucléaire du Bugey",
+    "nom_court": "Bugey",
+    "alias": [
+      "Le Bugey",
+      "Saint-Vulbas",
+      "St-Vulbas"
+    ],
+    "lat": 45.798,
+    "lon": 5.271,
+    "commune": "Saint-Vulbas",
+    "departement": {
+      "code": "01",
+      "nom": "Ain"
+    },
+    "region": "Auvergne-Rhône-Alpes",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 4,
+      "tranches": [
+        {
+          "nom": "Bugey 2",
+          "palier": "CP0",
+          "puissance_mwe": 910,
+          "couplage": 1978
+        },
+        {
+          "nom": "Bugey 3",
+          "palier": "CP0",
+          "puissance_mwe": 910,
+          "couplage": 1978
+        },
+        {
+          "nom": "Bugey 4",
+          "palier": "CP0",
+          "puissance_mwe": 880,
+          "couplage": 1979
+        },
+        {
+          "nom": "Bugey 5",
+          "palier": "CP0",
+          "puissance_mwe": 880,
+          "couplage": 1979
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Rhône",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1978,
+    "statut": "en_exploitation",
+    "anecdote": "Le site a d'abord accueilli Bugey 1, le dernier réacteur de la filière uranium naturel-graphite-gaz, arrêté en 1994. Ses quatre réacteurs à eau sous pression appartiennent au palier CP0, le plus ancien du parc, qu'ils partageaient avec Fessenheim, fermée en 2020.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "reacteurs.tranches.couplage",
+        "mise_en_service"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »).",
+      "sources": []
+    }
+  },
+  {
+    "id": "cattenom",
+    "nom_complet": "Centrale nucléaire de Cattenom",
+    "nom_court": "Cattenom",
+    "alias": [],
+    "lat": 49.416,
+    "lon": 6.218,
+    "commune": "Cattenom",
+    "departement": {
+      "code": "57",
+      "nom": "Moselle"
+    },
+    "region": "Grand Est",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 4,
+      "tranches": [
+        {
+          "nom": "Cattenom 1",
+          "palier": "P'4",
+          "puissance_mwe": 1300,
+          "couplage": 1986
+        },
+        {
+          "nom": "Cattenom 2",
+          "palier": "P'4",
+          "puissance_mwe": 1300,
+          "couplage": 1987
+        },
+        {
+          "nom": "Cattenom 3",
+          "palier": "P'4",
+          "puissance_mwe": 1300,
+          "couplage": 1990
+        },
+        {
+          "nom": "Cattenom 4",
+          "palier": "P'4",
+          "puissance_mwe": 1300,
+          "couplage": 1991
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Moselle",
+      "type": "riviere"
+    },
+    "mise_en_service": 1986,
+    "statut": "en_exploitation",
+    "anecdote": "Avec quatre réacteurs de 1 300 MWe, c'est l'une des centrales les plus puissantes de France, à quelques kilomètres du Luxembourg et de l'Allemagne. L'eau prélevée dans la Moselle est complétée par le lac de Mirgenbach, un réservoir créé pour la centrale.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "reacteurs.tranches.couplage",
+        "mise_en_service"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »).",
+      "sources": []
+    }
+  },
+  {
+    "id": "chinon",
+    "nom_complet": "Centrale nucléaire de Chinon",
+    "nom_court": "Chinon",
+    "alias": [
+      "Avoine",
+      "Chinon B"
+    ],
+    "lat": 47.231,
+    "lon": 0.17,
+    "commune": "Avoine",
+    "departement": {
+      "code": "37",
+      "nom": "Indre-et-Loire"
+    },
+    "region": "Centre-Val de Loire",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 4,
+      "tranches": [
+        {
+          "nom": "Chinon B1",
+          "palier": "CP2",
+          "puissance_mwe": 905,
+          "couplage": 1982
+        },
+        {
+          "nom": "Chinon B2",
+          "palier": "CP2",
+          "puissance_mwe": 905,
+          "couplage": 1983
+        },
+        {
+          "nom": "Chinon B3",
+          "palier": "CP2",
+          "puissance_mwe": 905,
+          "couplage": 1986
+        },
+        {
+          "nom": "Chinon B4",
+          "palier": "CP2",
+          "puissance_mwe": 905,
+          "couplage": 1987
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Loire",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1982,
+    "statut": "en_exploitation",
+    "anecdote": "Le site abrite Chinon A1, le premier réacteur électronucléaire d'EDF, mis en service en 1963. Son enceinte sphérique, surnommée « la boule », a été conservée et transformée en musée.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "reacteurs.tranches.couplage",
+        "mise_en_service"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »).",
+      "sources": []
+    }
+  },
+  {
+    "id": "chooz",
+    "nom_complet": "Centrale nucléaire de Chooz",
+    "nom_court": "Chooz",
+    "alias": [
+      "Chooz B"
+    ],
+    "lat": 50.09,
+    "lon": 4.789,
+    "commune": "Chooz",
+    "departement": {
+      "code": "08",
+      "nom": "Ardennes"
+    },
+    "region": "Grand Est",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 2,
+      "tranches": [
+        {
+          "nom": "Chooz B1",
+          "palier": "N4",
+          "puissance_mwe": 1500,
+          "couplage": 1996
+        },
+        {
+          "nom": "Chooz B2",
+          "palier": "N4",
+          "puissance_mwe": 1500,
+          "couplage": 1997
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Meuse",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1996,
+    "statut": "en_exploitation",
+    "anecdote": "Le site a accueilli Chooz A, le premier réacteur à eau sous pression de France, construit dans des cavernes creusées dans la colline. Les deux réacteurs actuels, Chooz B1 et B2, sont les têtes de série du palier N4 (1 450 MWe), le plus puissant du parc avant l'EPR.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "anecdote"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Anecdote : « têtes de série du palier N4 » à confirmer (Chooz B1 couplé avant Civaux 1).",
+      "sources": []
+    }
+  },
+  {
+    "id": "civaux",
+    "nom_complet": "Centrale nucléaire de Civaux",
+    "nom_court": "Civaux",
+    "alias": [],
+    "lat": 46.457,
+    "lon": 0.653,
+    "commune": "Civaux",
+    "departement": {
+      "code": "86",
+      "nom": "Vienne"
+    },
+    "region": "Nouvelle-Aquitaine",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 2,
+      "tranches": [
+        {
+          "nom": "Civaux 1",
+          "palier": "N4",
+          "puissance_mwe": 1495,
+          "couplage": 1997
+        },
+        {
+          "nom": "Civaux 2",
+          "palier": "N4",
+          "puissance_mwe": 1495,
+          "couplage": 1999
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Vienne",
+      "type": "riviere"
+    },
+    "mise_en_service": 1997,
+    "statut": "en_exploitation",
+    "anecdote": "Civaux 2, couplé au réseau en 1999, est le dernier réacteur mis en service en France avant l'EPR de Flamanville, vingt-cinq ans plus tard. La centrale est refroidie par la Vienne, un affluent de la Loire, grâce à deux tours aéroréfrigérantes.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA.",
+      "sources": []
+    }
+  },
+  {
+    "id": "cruas",
+    "nom_complet": "Centrale nucléaire de Cruas",
+    "nom_court": "Cruas",
+    "alias": [
+      "Cruas-Meysse",
+      "Meysse"
+    ],
+    "lat": 44.633,
+    "lon": 4.756,
+    "commune": "Cruas",
+    "departement": {
+      "code": "07",
+      "nom": "Ardèche"
+    },
+    "region": "Auvergne-Rhône-Alpes",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 4,
+      "tranches": [
+        {
+          "nom": "Cruas 1",
+          "palier": "CP2",
+          "puissance_mwe": 915,
+          "couplage": 1983
+        },
+        {
+          "nom": "Cruas 2",
+          "palier": "CP2",
+          "puissance_mwe": 915,
+          "couplage": 1984
+        },
+        {
+          "nom": "Cruas 3",
+          "palier": "CP2",
+          "puissance_mwe": 915,
+          "couplage": 1984
+        },
+        {
+          "nom": "Cruas 4",
+          "palier": "CP2",
+          "puissance_mwe": 915,
+          "couplage": 1984
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Rhône",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1983,
+    "statut": "en_exploitation",
+    "anecdote": "Construite dans une zone sismique, la centrale repose sur des appuis parasismiques. L'une de ses quatre tours aéroréfrigérantes porte une immense fresque, « Le Verseau », peinte par l'artiste Jean-Marie Pierret.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "reacteurs.tranches.couplage",
+        "mise_en_service",
+        "commune"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »). Commune : la centrale est à cheval sur Cruas et Meysse, vérifier la commune de l'îlot nucléaire.",
+      "sources": []
+    }
+  },
+  {
+    "id": "dampierre",
+    "nom_complet": "Centrale nucléaire de Dampierre",
+    "nom_court": "Dampierre",
+    "alias": [
+      "Dampierre-en-Burly"
+    ],
+    "lat": 47.733,
+    "lon": 2.517,
+    "commune": "Dampierre-en-Burly",
+    "departement": {
+      "code": "45",
+      "nom": "Loiret"
+    },
+    "region": "Centre-Val de Loire",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 4,
+      "tranches": [
+        {
+          "nom": "Dampierre 1",
+          "palier": "CP1",
+          "puissance_mwe": 890,
+          "couplage": 1980
+        },
+        {
+          "nom": "Dampierre 2",
+          "palier": "CP1",
+          "puissance_mwe": 890,
+          "couplage": 1980
+        },
+        {
+          "nom": "Dampierre 3",
+          "palier": "CP1",
+          "puissance_mwe": 890,
+          "couplage": 1981
+        },
+        {
+          "nom": "Dampierre 4",
+          "palier": "CP1",
+          "puissance_mwe": 890,
+          "couplage": 1981
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Loire",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1980,
+    "statut": "en_exploitation",
+    "anecdote": "Ses quatre réacteurs de 900 MWe, du palier CP1, sont refroidis par quatre tours aéroréfrigérantes alimentées par la Loire. C'est la deuxième centrale de la Loire en partant de l'amont, entre Belleville et Saint-Laurent.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "reacteurs.tranches.couplage",
+        "mise_en_service"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »).",
+      "sources": []
+    }
+  },
+  {
+    "id": "flamanville",
+    "nom_complet": "Centrale nucléaire de Flamanville",
+    "nom_court": "Flamanville",
+    "alias": [
+      "Flamanville 3",
+      "EPR de Flamanville",
+      "FLA3"
+    ],
+    "lat": 49.536,
+    "lon": -1.882,
+    "commune": "Flamanville",
+    "departement": {
+      "code": "50",
+      "nom": "Manche"
+    },
+    "region": "Normandie",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 3,
+      "tranches": [
+        {
+          "nom": "Flamanville 1",
+          "palier": "P4",
+          "puissance_mwe": 1330,
+          "couplage": 1985
+        },
+        {
+          "nom": "Flamanville 2",
+          "palier": "P4",
+          "puissance_mwe": 1330,
+          "couplage": 1986
+        },
+        {
+          "nom": "Flamanville 3",
+          "palier": "EPR",
+          "puissance_mwe": 1600,
+          "couplage": 2024
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Manche",
+      "type": "mer"
+    },
+    "mise_en_service": 1985,
+    "statut": "en_exploitation",
+    "anecdote": "Construite au pied d'une falaise de granit, en bord de Manche, la centrale accueille aussi Flamanville 3, le premier EPR français. Lancé en 2007, son chantier s'est achevé par un couplage au réseau en décembre 2024.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Flamanville 3 : 1 600 MWe nets ou 1 650 MWe selon les sources ; Flamanville 1-2 couplés en 1985-1986, confiance moyenne.",
+      "sources": []
+    }
+  },
+  {
+    "id": "golfech",
+    "nom_complet": "Centrale nucléaire de Golfech",
+    "nom_court": "Golfech",
+    "alias": [],
+    "lat": 44.107,
+    "lon": 0.845,
+    "commune": "Golfech",
+    "departement": {
+      "code": "82",
+      "nom": "Tarn-et-Garonne"
+    },
+    "region": "Occitanie",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 2,
+      "tranches": [
+        {
+          "nom": "Golfech 1",
+          "palier": "P'4",
+          "puissance_mwe": 1310,
+          "couplage": 1990
+        },
+        {
+          "nom": "Golfech 2",
+          "palier": "P'4",
+          "puissance_mwe": 1310,
+          "couplage": 1993
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Garonne",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1990,
+    "statut": "en_exploitation",
+    "anecdote": "C'est la seule centrale implantée sur la Garonne. Golfech 2, couplé au réseau en 1993, est le dernier réacteur de 1 300 MWe mis en service en France.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "anecdote"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Anecdote : vérifier que Golfech 2 (1993) est bien postérieur à Penly 2.",
+      "sources": []
+    }
+  },
+  {
+    "id": "gravelines",
+    "nom_complet": "Centrale nucléaire de Gravelines",
+    "nom_court": "Gravelines",
+    "alias": [
+      "Graveline"
+    ],
+    "lat": 51.015,
+    "lon": 2.136,
+    "commune": "Gravelines",
+    "departement": {
+      "code": "59",
+      "nom": "Nord"
+    },
+    "region": "Hauts-de-France",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 6,
+      "tranches": [
+        {
+          "nom": "Gravelines 1",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1980
+        },
+        {
+          "nom": "Gravelines 2",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1980
+        },
+        {
+          "nom": "Gravelines 3",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1980
+        },
+        {
+          "nom": "Gravelines 4",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1981
+        },
+        {
+          "nom": "Gravelines 5",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1984
+        },
+        {
+          "nom": "Gravelines 6",
+          "palier": "CP1",
+          "puissance_mwe": 910,
+          "couplage": 1985
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Mer du Nord",
+      "type": "mer"
+    },
+    "mise_en_service": 1980,
+    "statut": "en_exploitation",
+    "anecdote": "Avec six réacteurs de 900 MWe, c'est la centrale la plus puissante de France en puissance installée. Elle est refroidie par l'eau de mer, sans tour aéroréfrigérante.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "reacteurs.tranches.couplage",
+        "mise_en_service"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »).",
+      "sources": []
+    }
+  },
+  {
+    "id": "nogent",
+    "nom_complet": "Centrale nucléaire de Nogent-sur-Seine",
+    "nom_court": "Nogent-sur-Seine",
+    "alias": [
+      "Nogent"
+    ],
+    "lat": 48.515,
+    "lon": 3.518,
+    "commune": "Nogent-sur-Seine",
+    "departement": {
+      "code": "10",
+      "nom": "Aube"
+    },
+    "region": "Grand Est",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 2,
+      "tranches": [
+        {
+          "nom": "Nogent 1",
+          "palier": "P'4",
+          "puissance_mwe": 1310,
+          "couplage": 1987
+        },
+        {
+          "nom": "Nogent 2",
+          "palier": "P'4",
+          "puissance_mwe": 1310,
+          "couplage": 1988
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Seine",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1987,
+    "statut": "en_exploitation",
+    "anecdote": "C'est la centrale la plus proche de Paris, à une centaine de kilomètres au sud-est, et la seule implantée sur la Seine. Ses deux réacteurs de 1 300 MWe sont refroidis par deux tours aéroréfrigérantes.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA.",
+      "sources": []
+    }
+  },
+  {
+    "id": "paluel",
+    "nom_complet": "Centrale nucléaire de Paluel",
+    "nom_court": "Paluel",
+    "alias": [],
+    "lat": 49.858,
+    "lon": 0.636,
+    "commune": "Paluel",
+    "departement": {
+      "code": "76",
+      "nom": "Seine-Maritime"
+    },
+    "region": "Normandie",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 4,
+      "tranches": [
+        {
+          "nom": "Paluel 1",
+          "palier": "P4",
+          "puissance_mwe": 1330,
+          "couplage": 1984
+        },
+        {
+          "nom": "Paluel 2",
+          "palier": "P4",
+          "puissance_mwe": 1330,
+          "couplage": 1984
+        },
+        {
+          "nom": "Paluel 3",
+          "palier": "P4",
+          "puissance_mwe": 1330,
+          "couplage": 1985
+        },
+        {
+          "nom": "Paluel 4",
+          "palier": "P4",
+          "puissance_mwe": 1330,
+          "couplage": 1986
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Manche",
+      "type": "mer"
+    },
+    "mise_en_service": 1984,
+    "statut": "en_exploitation",
+    "anecdote": "Installée au pied des falaises du pays de Caux, Paluel est la tête de série du palier P4 de 1 300 MWe. Ses quatre réacteurs sont refroidis directement par l'eau de la Manche, sans tour aéroréfrigérante.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "reacteurs.tranches.couplage",
+        "mise_en_service"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »).",
+      "sources": []
+    }
+  },
+  {
+    "id": "penly",
+    "nom_complet": "Centrale nucléaire de Penly",
+    "nom_court": "Penly",
+    "alias": [
+      "Petit-Caux"
+    ],
+    "lat": 49.977,
+    "lon": 1.212,
+    "commune": "Petit-Caux",
+    "departement": {
+      "code": "76",
+      "nom": "Seine-Maritime"
+    },
+    "region": "Normandie",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 2,
+      "tranches": [
+        {
+          "nom": "Penly 1",
+          "palier": "P'4",
+          "puissance_mwe": 1330,
+          "couplage": 1990
+        },
+        {
+          "nom": "Penly 2",
+          "palier": "P'4",
+          "puissance_mwe": 1330,
+          "couplage": 1992
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Manche",
+      "type": "mer"
+    },
+    "mise_en_service": 1990,
+    "statut": "en_exploitation",
+    "anecdote": "Ses deux réacteurs de 1 300 MWe sont refroidis par l'eau de la Manche. Penly est le premier site retenu pour accueillir une paire de nouveaux réacteurs EPR2, dans le programme annoncé en 2022.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "commune"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Commune : Penly a fusionné dans la commune nouvelle de Petit-Caux (2016), à confirmer.",
+      "sources": []
+    }
+  },
+  {
+    "id": "saint-alban",
+    "nom_complet": "Centrale nucléaire de Saint-Alban",
+    "nom_court": "Saint-Alban",
+    "alias": [
+      "St-Alban",
+      "Saint-Alban-du-Rhône",
+      "St-Alban-du-Rhône",
+      "Saint-Maurice-l'Exil",
+      "St-Maurice-l'Exil",
+      "Saint-Alban-Saint-Maurice"
+    ],
+    "lat": 45.404,
+    "lon": 4.755,
+    "commune": "Saint-Alban-du-Rhône",
+    "departement": {
+      "code": "38",
+      "nom": "Isère"
+    },
+    "region": "Auvergne-Rhône-Alpes",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 2,
+      "tranches": [
+        {
+          "nom": "Saint-Alban 1",
+          "palier": "P4",
+          "puissance_mwe": 1335,
+          "couplage": 1985
+        },
+        {
+          "nom": "Saint-Alban 2",
+          "palier": "P4",
+          "puissance_mwe": 1335,
+          "couplage": 1986
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Rhône",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1985,
+    "statut": "en_exploitation",
+    "anecdote": "Son nom complet, Saint-Alban–Saint-Maurice, rappelle qu'elle est implantée sur deux communes, Saint-Alban-du-Rhône et Saint-Maurice-l'Exil. C'est la seule centrale du Rhône équipée de réacteurs de 1 300 MWe : Bugey, Cruas et Tricastin ont des réacteurs de 900 MWe.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "commune",
+        "reacteurs.tranches.couplage",
+        "mise_en_service"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »). Commune : vérifier sur laquelle des deux communes se trouve l'îlot nucléaire.",
+      "sources": []
+    }
+  },
+  {
+    "id": "saint-laurent",
+    "nom_complet": "Centrale nucléaire de Saint-Laurent",
+    "nom_court": "Saint-Laurent",
+    "alias": [
+      "St-Laurent",
+      "Saint-Laurent-des-Eaux",
+      "St-Laurent-des-Eaux",
+      "Saint-Laurent-Nouan",
+      "St-Laurent-Nouan"
+    ],
+    "lat": 47.72,
+    "lon": 1.578,
+    "commune": "Saint-Laurent-Nouan",
+    "departement": {
+      "code": "41",
+      "nom": "Loir-et-Cher"
+    },
+    "region": "Centre-Val de Loire",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 2,
+      "tranches": [
+        {
+          "nom": "Saint-Laurent B1",
+          "palier": "CP2",
+          "puissance_mwe": 915,
+          "couplage": 1981
+        },
+        {
+          "nom": "Saint-Laurent B2",
+          "palier": "CP2",
+          "puissance_mwe": 915,
+          "couplage": 1981
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Loire",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1981,
+    "statut": "en_exploitation",
+    "anecdote": "En 1969 puis en 1980, le site a connu les deux accidents les plus graves de l'histoire du nucléaire civil français : des fusions partielles de combustible dans les réacteurs graphite-gaz A1 et A2, classées au niveau 4 de l'échelle INES. Les deux réacteurs actuels, B1 et B2, sont des réacteurs à eau sous pression de 900 MWe.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA.",
+      "sources": []
+    }
+  },
+  {
+    "id": "tricastin",
+    "nom_complet": "Centrale nucléaire du Tricastin",
+    "nom_court": "Tricastin",
+    "alias": [
+      "Le Tricastin",
+      "Saint-Paul-Trois-Châteaux",
+      "St-Paul-Trois-Châteaux",
+      "Pierrelatte"
+    ],
+    "lat": 44.33,
+    "lon": 4.732,
+    "commune": "Saint-Paul-Trois-Châteaux",
+    "departement": {
+      "code": "26",
+      "nom": "Drôme"
+    },
+    "region": "Auvergne-Rhône-Alpes",
+    "exploitant": "EDF",
+    "type_site": "centrale",
+    "reacteurs": {
+      "nombre": 4,
+      "tranches": [
+        {
+          "nom": "Tricastin 1",
+          "palier": "CP1",
+          "puissance_mwe": 915,
+          "couplage": 1980
+        },
+        {
+          "nom": "Tricastin 2",
+          "palier": "CP1",
+          "puissance_mwe": 915,
+          "couplage": 1980
+        },
+        {
+          "nom": "Tricastin 3",
+          "palier": "CP1",
+          "puissance_mwe": 915,
+          "couplage": 1981
+        },
+        {
+          "nom": "Tricastin 4",
+          "palier": "CP1",
+          "puissance_mwe": 915,
+          "couplage": 1981
+        }
+      ]
+    },
+    "source_froide": {
+      "nom": "Rhône (canal de Donzère-Mondragon)",
+      "type": "fleuve"
+    },
+    "mise_en_service": 1980,
+    "statut": "en_exploitation",
+    "anecdote": "La centrale est alimentée par le canal de Donzère-Mondragon, une dérivation du Rhône. Pendant des décennies, trois de ses quatre réacteurs ont surtout servi à alimenter l'usine voisine d'enrichissement de l'uranium Eurodif (Georges-Besse), arrêtée en 2012.",
+    "verification": {
+      "statut": "A_VERIFIER",
+      "champs": [
+        "lat",
+        "lon",
+        "reacteurs.tranches.puissance_mwe",
+        "commune",
+        "reacteurs.tranches.couplage",
+        "mise_en_service"
+      ],
+      "notes": "Coordonnées saisies de mémoire (précision de l'ordre du km au mieux) : placer le point sur le centre de l'îlot nucléaire à l'aide des orthophotos IGN. Puissances : valeurs nettes (MWe) de mémoire, à contrôler sur la fiche ASNR/EDF ou la base PRIS de l'AIEA. Années de couplage au réseau de mémoire, à contrôler (PRIS AIEA, « grid connection »). Commune : la centrale est entre Saint-Paul-Trois-Châteaux et Pierrelatte (Drôme), vérifier la commune de l'îlot nucléaire. « Pierrelatte » est aussi la commune du site Orano : alias à revoir si les sites du cycle sont ajoutés (phase 9).",
+      "sources": []
+    }
+  }
+]

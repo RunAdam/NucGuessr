@@ -1,0 +1,15 @@
+{
+  "name": "nucguessr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "validate:data": "vitest run tests/data"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "vitest": "^5.1.2"
+  }
+}
