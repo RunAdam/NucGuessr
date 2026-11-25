@@ -1,17 +1,28 @@
 /**
- * Mode Distance (phase 6) : point d'entrée, déjà branché dans le registre et la navigation (`#/distance`).
- *
- * État actuel : écran provisoire « en construction » (RoundDistance.svelte). Pour construire le mode,
- * ne modifier que ce dossier (et tests/distance/, et sa section de src/config.ts) : remplacer
- * RoundDistance.svelte, définir le type du détail d'un round, remplir `colonnesRecap` et `mesures`,
- * ajouter si besoin un composant `Recap` (carte récapitulative), puis retirer `enConstruction`.
- * Interface : src/modes/types.ts ; exemple complet : src/modes/factice/ ; vue d'ensemble : docs/ARCHITECTURE.md.
+ * Mode Distance (phase 6) : 5 rounds, placer la centrale sur une carte de France zoomable.
+ * Score : `scoreDistance` (src/config.ts). Carte : Carte.svelte (chargée à la demande), fond Natural Earth
+ * (docs/CARTE.md). Décisions : docs/DECISIONS.md, phase 6.
  */
-import { DISTANCE_ROUNDS, DISTANCE_SCORE_MAX, RAPIDITE_DELAI_ANTIREBOND_MS } from '../../config';
+import {
+  DISTANCE_RAYON_PARFAIT_KM,
+  DISTANCE_ROUNDS,
+  DISTANCE_SCORE_MAX,
+  RAPIDITE_DELAI_ANTIREBOND_MS,
+} from '../../config';
 import { definirMode } from '../types';
+import CarteRecap from './CarteRecap.svelte';
+import { formaterDistance, type LatLon } from './geo';
 import RoundDistance from './RoundDistance.svelte';
 
-export default definirMode<null>({
+/** Détail d'un round du mode Distance. */
+export interface DetailDistance {
+  /** Repère validé par le joueur. */
+  repere: LatLon;
+  /** Distance du grand cercle entre le repère et la centrale. */
+  distanceKm: number;
+}
+
+export default definirMode<DetailDistance>({
   id: 'distance',
   nom: 'Distance',
   resume: `${DISTANCE_ROUNDS} rounds, placer le site sur la carte de France`,
@@ -20,12 +31,22 @@ export default definirMode<null>({
   filtrePhotos: 'distance',
   // Pas de délai : le joueur regarde la carte de la réponse aussi longtemps qu'il veut.
   delaiReponseMs: () => null,
-  // Anti-rebond de l'`Entrée` qui valide la proposition (même valeur que le mode Rapidité, à régler en phase 6).
+  // Anti-rebond de l'`Entrée` qui valide la proposition.
   antiRebondMs: RAPIDITE_DELAI_ANTIREBOND_MS,
   // En phase réponse, le joueur peut encore déplacer ou zoomer la carte : un clic ne doit pas passer.
   passerAuTap: false,
   Round: RoundDistance,
-  colonnesRecap: [],
-  mesures: () => [],
-  enConstruction: true,
+  colonnesRecap: [{ titre: 'Distance', valeur: (r) => formaterDistance(r.detail.distanceKm), numerique: true }],
+  mesures(resultats) {
+    const n = Math.max(1, resultats.length);
+    const moyenne = resultats.reduce((s, r) => s + r.detail.distanceKm, 0) / n;
+    const meilleure = Math.min(...resultats.map((r) => r.detail.distanceKm));
+    const mille = resultats.filter((r) => r.detail.distanceKm <= DISTANCE_RAYON_PARFAIT_KM).length;
+    return [
+      { libelle: 'Distance moyenne', valeur: formaterDistance(moyenne) },
+      { libelle: 'Meilleur repère', valeur: resultats.length ? formaterDistance(meilleure) : '—' },
+      { libelle: 'Dans le mille', valeur: `${mille}/${resultats.length}` },
+    ];
+  },
+  Recap: CarteRecap,
 });

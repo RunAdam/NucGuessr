@@ -267,36 +267,36 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 **Objectif :** placer la centrale sur une carte de France.
 
 ### 6.1 Carte
-- [ ] Choix technique :
+- [x] Choix technique :
   - **Option A** : **carte vectorielle sur mesure** (SVG ou Canvas, projection avec `d3-geo`, zoom avec `d3-zoom`). Style entièrement maîtrisé et cohérent avec la direction artistique, aucune dépendance à un serveur de tuiles, fonctionne hors ligne.
   - **Option B** : **Leaflet / MapLibre** avec des tuiles sombres (ex. CARTO Dark Matter). Plus rapide à mettre en place, mais l'aspect est plus générique et il faut respecter les conditions d'utilisation des fournisseurs de tuiles.
-  - ⚠️ **À trancher** : l'option A est recommandée pour l'identité visuelle, à condition que le zoom (obligatoire, voir 6.2) reste fluide sur mobile. Sinon, il faut se rabattre sur l'option B.
-- [ ] Données géographiques libres :
+  - ✅ **Décidé : option A, carte sur mesure en SVG** (d3-geo, projection conique conforme de Lambert, d3-zoom, zoom ×1 à ×24). Zoom et déplacement à 60 images/s à 360 px avec un processeur ralenti 4 fois ; module carte chargé à la demande, 66 Ko gzip (voir [`docs/DECISIONS.md`](docs/DECISIONS.md#61-technique-de-carte)).
+- [x] Données géographiques libres : Natural Earth 1:10m (domaine public), script reproductible `scripts/geo/construire-carte.mjs` (voir [`docs/CARTE.md`](docs/CARTE.md)) :
   - contours de la France métropolitaine (Natural Earth ou IGN Admin Express, simplifiés avec mapshaper) ;
   - **principaux fleuves** (Loire, Rhône, Seine, Garonne, Meuse, Moselle, Vienne, Gironde), issus de Natural Earth ou de la BD TOPO IGN.
-  - ⚠️ **À trancher** : faut-il afficher les fleuves ? Ce sont des repères géographiques et non des réponses, et un physicien sait qu'une centrale a besoin d'une source froide. Mais ils rendent le jeu nettement plus facile. On pourrait aussi les afficher seulement à partir d'un certain zoom.
-  - ⚠️ **À trancher** : afficher les limites des régions ou départements, et quelques grandes villes comme repères ?
-- [ ] **Ne jamais afficher la position des centrales avant la réponse.**
+  - ✅ **Décidé : oui, les 8 grands fleuves toujours, les affluents à partir du zoom ×3.** Savoir seulement « sur la Loire » ne rapporte que +100 à +280 points par round grâce aux fleuves affichés, aucun site n'est déductible du seul fleuve.
+  - ✅ **Décidé : pas de limites administratives ; 8 grandes villes, et 20 autres à partir du zoom ×2,5.** Les limites chargent la carte (confusion avec les fleuves) ; aucune ville repère n'est à moins de 28 km d'une centrale.
+- [x] **Ne jamais afficher la position des centrales avant la réponse.**
 
 ### 6.2 Interaction
-- [ ] Un clic ou un tap pose un marqueur, qu'on peut déplacer ou reposer, puis un bouton (ou `Entrée`) valide.
-- [ ] **Zoom et déplacement de la carte, comme sur GeoGuessr** ✅ *Décidé* :
+- [x] Un clic ou un tap pose un marqueur, qu'on peut déplacer ou reposer, puis un bouton (ou `Entrée`) valide.
+- [x] **Zoom et déplacement de la carte, comme sur GeoGuessr** ✅ *Décidé* :
   - zoom à la molette et avec des boutons `+` / `−` sur ordinateur, par pincement sur mobile ;
   - déplacement de la carte par glisser ;
   - zoom suffisant pour viser à quelques km près (à l'échelle d'un département) ;
   - indispensable sur mobile : la France y fait environ 350 px de large et un doigt couvre environ 40 px, soit plus de 100 km.
-- [ ] Le choix de la technique de carte (6.1) doit garantir un zoom fluide, avec un niveau de détail adapté : les fleuves secondaires et les villes n'apparaissent qu'en zoomant.
-- [ ] Afficher la photo et la carte côte à côte sur ordinateur. Sur mobile, prévoir une bascule photo / carte, ou une photo réductible.
-  - ⚠️ **À trancher** après prototypage.
+- [x] Le choix de la technique de carte (6.1) doit garantir un zoom fluide, avec un niveau de détail adapté : les fleuves secondaires et les villes n'apparaissent qu'en zoomant.
+- [x] Afficher la photo et la carte côte à côte sur ordinateur. Sur mobile, prévoir une bascule photo / carte, ou une photo réductible.
+  - ✅ **Décidé : photo réduite en haut, carte en dessous, photo agrandissable par-dessus la carte.** La photo reste visible pendant qu'on vise, 3 à 5 gestes par round (contre 5 à 7 avec une bascule), tout tient à 360 × 560.
 
 ### 6.3 Résultat d'un round
-- [ ] Afficher la vraie position, un **trait entre la proposition et la réponse**, la distance en km et le score.
-- [ ] Courte fiche du site : nom, réacteurs, source froide.
-- [ ] Animation sobre : la caméra zoome pour cadrer les deux points.
+- [x] Afficher la vraie position, un **trait entre la proposition et la réponse**, la distance en km et le score.
+- [x] Courte fiche du site : nom, réacteurs, source froide.
+- [x] Animation sobre : la caméra zoome pour cadrer les deux points (instantané si `prefers-reduced-motion`).
 
 ### 6.4 Fin de partie
-- [ ] Score total sur 5 rounds, distance moyenne, meilleur score personnel.
-- [ ] Carte récapitulative avec les 5 propositions et les 5 réponses.
+- [x] Score total sur 5 rounds, distance moyenne, meilleur score personnel.
+- [x] Carte récapitulative avec les 5 propositions et les 5 réponses.
 
 **Livrable :** le mode Distance jouable en local, sur ordinateur et sur mobile.
 
@@ -374,10 +374,10 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 | 18 | 5 | `Tab` complète ou valide | ✅ **Décidé : complète seulement** (`Entrée` valide la suggestion en surbrillance) |
 | 19 | 5 | Son | ✅ **Décidé : aucun son en v1** |
 | 20 | 5 | Onglet en arrière-plan pendant un round | ✅ **Décidé : le temps continue de s'écouler** |
-| 21 | 6 | Carte sur mesure ou tuiles (zoom obligatoire ✅) | Sur mesure (d3-geo), si le zoom est fluide |
-| 22 | 6 | Affichage des fleuves | Oui, à tester |
-| 23 | 6 | Repères (régions, villes) | Quelques villes, à tester |
-| 24 | 6 | Mise en page photo/carte sur mobile | À prototyper |
+| 21 | 6 | Carte sur mesure ou tuiles (zoom obligatoire ✅) | ✅ **Décidé : sur mesure, SVG (d3-geo + d3-zoom)**, 60 images/s sur mobile lent simulé |
+| 22 | 6 | Affichage des fleuves | ✅ **Décidé : oui, grands fleuves toujours, affluents à partir du zoom ×3** |
+| 23 | 6 | Repères (régions, villes) | ✅ **Décidé : 8 grandes villes (+20 en zoomant), pas de limites administratives** |
+| 24 | 6 | Mise en page photo/carte sur mobile | ✅ **Décidé : photo réduite en haut (agrandissable), carte en dessous** |
 | 25 | 7 | Hébergeur | GitHub Pages |
 | 26 | 7 | Licence du code | MIT |
 | 27 | 8 | PWA | Plus tard |

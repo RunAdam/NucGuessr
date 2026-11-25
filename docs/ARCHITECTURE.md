@@ -48,8 +48,8 @@ src/
     types.ts                INTERFACE D'UN MODE (à lire en premier)
     registre.ts             liste des modes (ne pas modifier pour faire évoluer un mode)
     factice/                mode de démonstration, exemple complet et minimal
-    rapidite/               phase 5 (écran provisoire « en construction »)
-    distance/               phase 6 (écran provisoire « en construction »)
+    rapidite/               mode Rapidité (phase 5) : recherche, chrono, mesures
+    distance/               mode Distance (phase 6) : carte d3, géométrie, recap
   styles/
     fonts.css, tokens.css   phase 3 (ne pas modifier tokens.css sans relancer les tests de contraste)
     tokens-socle.css        tokens ajoutés en phase 4

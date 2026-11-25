@@ -158,6 +158,62 @@ export function scoreDistance(distanceKm: number): number {
 }
 
 // =============================================================================
+// Mode Distance : carte (phase 6)
+// =============================================================================
+
+/**
+ * Carte vectorielle sur mesure (SVG, projection conique conforme centrée sur la France, d3-geo + d3-zoom),
+ * fond Natural Earth construit par scripts/geo/construire-carte.mjs (voir docs/CARTE.md).
+ * Les facteurs de zoom sont relatifs à la vue de départ, où la France entière tient dans la carte.
+ */
+
+/** Rayon moyen de la Terre (IUGG), pour la distance du grand cercle (formule de haversine). */
+export const DISTANCE_RAYON_TERRE_KM = 6371.0088;
+
+/**
+ * Zoom maximal. À 360 px de large, 24 × donne environ 0,14 km par pixel : un doigt (40 px) couvre 6 km,
+ * on vise donc à 1 ou 2 km près ; sur ordinateur, environ 50 m par pixel.
+ */
+export const DISTANCE_ZOOM_MAX = 24;
+
+/** Facteur de zoom d'un appui sur les boutons `+` / `−` (et sur les touches `+` / `−`). */
+export const DISTANCE_ZOOM_BOUTON = 2;
+
+/** Durée de l'animation des boutons de zoom (0 si `prefers-reduced-motion`). */
+export const DISTANCE_ZOOM_BOUTON_MS = 200;
+
+/** Afficher les grands fleuves (Loire, Rhône, Seine, Garonne, Meuse, Moselle, Vienne, Rhin), dès la vue de départ. */
+export const DISTANCE_AFFICHER_FLEUVES = true;
+
+/** Les affluents (Saône, Dordogne, Marne, Allier…) n'apparaissent qu'à partir de ce zoom. */
+export const DISTANCE_ZOOM_FLEUVES_SECONDAIRES = 3;
+
+/** Afficher les villes repères (8 grandes villes dès la vue de départ). */
+export const DISTANCE_AFFICHER_VILLES = true;
+
+/** Les 20 autres villes repères (préfectures de région, grandes villes) n'apparaissent qu'à partir de ce zoom. */
+export const DISTANCE_ZOOM_VILLES_SECONDAIRES = 2.5;
+
+/**
+ * Un appui suivi d'un déplacement de plus de ce nombre de pixels est un glisser de la carte, pas un tap :
+ * il ne pose pas de repère.
+ */
+export const DISTANCE_TOLERANCE_TAP_PX = 6;
+
+/** Déplacement de la carte par appui sur une flèche du clavier (la carte a le focus). */
+export const DISTANCE_PAS_CLAVIER_PX = 60;
+
+/** Durée du recadrage de la carte sur le repère et la réponse (0 si `prefers-reduced-motion`). Même valeur que `--duree-camera-carte`. */
+export const DISTANCE_RECADRAGE_MS = 700;
+
+/** Recadrage : zoom maximal (deux points très proches ne doivent pas faire perdre tout repère) et marge autour des points. */
+export const DISTANCE_RECADRAGE_ZOOM_MAX = 8;
+export const DISTANCE_RECADRAGE_MARGE_PX = 56;
+
+/** Compte rendu : « Près de Cruas » si le repère est à moins de cette distance d'une centrale (sinon « Loin des centrales »). */
+export const DISTANCE_PRES_DE_KM = 40;
+
+// =============================================================================
 // Photos
 // =============================================================================
 

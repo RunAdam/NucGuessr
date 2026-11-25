@@ -575,4 +575,89 @@ Les tests de cette phase ont été faits **hors du dépôt** (dossier temporaire
 
 ## Phase 6 — Mode Distance
 
-_À compléter en phase 6._
+**Carte et données :** [`docs/CARTE.md`](CARTE.md) (sources Natural Earth, script `scripts/geo/construire-carte.mjs`). Code : `src/modes/distance/`. Tests : `tests/distance/` (17 tests : haversine, aller-retour de projection, recadrage, mise en forme). Réglages : `src/config.ts`, section « Mode Distance : carte ».
+
+Les tests de cette phase ont été faits **hors du dépôt** (dossier temporaire) : prototypes HTML avec les vrais contours Natural Earth, mesurés dans Microsoft Edge sans tête (Playwright) avec un processeur ralenti 4 fois par le protocole DevTools ; analyse de difficulté en Node sur la géométrie Natural Earth brute et les positions de `data/sites.json` ; parties complètes jouées sur le build (`npm run build`) à 1280 × 800 (souris, molette) et à 360 × 740 (gestes tactiles simulés : pincement, glisser, taps), sans erreur dans la console.
+
+### 6.1 Technique de carte
+
+**Question :** carte vectorielle sur mesure (d3-geo + d3-zoom, SVG ou Canvas) ou tuiles (Leaflet / MapLibre) ?
+
+**Options testées :** **SVG sur mesure** (un groupe transformé, traits `vector-effect: non-scaling-stroke`) ; Canvas sur mesure (redessin complet à chaque image) ; tuiles (écartées sans montage, voir la raison).
+
+**Test :** France, voisins et fleuves réels (≈ 7 800 points après simplification), zoom simulé de ×1 à ×16 vers Lyon puis déplacement, pendant 4 s.
+
+| | SVG | Canvas |
+|---|---|---|
+| Premier rendu, 360 × 740, CPU ×4 | 89 ms | 93 ms |
+| Images par seconde, zoom + déplacement, 360 × 740, CPU ×4 | 60 (0 image > 25 ms) | 60 (0 image > 25 ms) |
+| Idem à 1280 × 800, CPU ×4 | 60 (0 image > 25 ms) | 60 (0 image > 25 ms) |
+
+Fond de carte final : 34 Ko gzip ; module carte complet (d3 + fond + composant), chargé seulement au premier round Distance : **66 Ko gzip** (+ 1 Ko de CSS). Bundle principal : 37,3 → **41,1 Ko gzip** (+3,8 Ko : écran du round, compte rendu, calcul des distances). Précision : à 360 px de large et au zoom maximal (×24), un pixel couvre 0,14 km et la largeur d'un doigt (40 px) 6 km.
+
+**Résultat :** les deux rendus sur mesure sont parfaitement fluides, même sur un téléphone lent simulé : la carte a peu de points. Le SVG est plus simple (repères, étiquettes et styles en CSS avec les tokens, événements du DOM, accessibilité) ; les tuiles imposeraient un fournisseur externe et ses conditions d'utilisation, un aspect générique, et ne fonctionneraient pas hors ligne.
+
+**Choix retenu : carte sur mesure en SVG**, projection conique conforme de Lambert (parallèles 44° et 49°, méridien 3° E, comme le Lambert-93), zoom ×1 à ×24 (`DISTANCE_ZOOM_MAX`), déplacement borné autour de la France, double tap sans zoom (deux taps reposent le repère). Molette, pincement, boutons `+` / `−` / « toute la France », clavier (flèches, `+`, `−`, `Espace` pose le repère au réticule central).
+
+**Raison :** fluide sur mobile, fidèle à la direction « Synoptique », sans dépendance réseau, et le plus simple à faire évoluer.
+
+### 6.2 Affichage des fleuves
+
+**Question :** afficher les fleuves ? Toujours, jamais, ou seulement en zoomant ?
+
+**Options testées :** aucun fleuve ; grands fleuves toujours affichés ; grands fleuves + affluents dès le départ ; affluents seulement en zoomant.
+
+**Test :** pour les 18 centrales, points moyens d'un joueur qui sait seulement « sur la Loire » (ou « sur le Rhône »…) et clique au hasard le long de ce fleuve, en France : avec les fleuves affichés (clic sur le tracé) et sans fleuves (il se trompe en plus de 20 à 40 km sur la position du fleuve, écart gaussien σ). Le joueur « en bord de mer » ne change pas : la côte est toujours visible. Plus des captures à 360 px.
+
+| Points moyens par round | Hasard complet | Sans fleuves (σ 40 km) | Sans fleuves (σ 20 km) | **Avec fleuves** |
+|---|---|---|---|---|
+| 13 sites de fleuve | 286 | 1 437 | 1 617 | **1 717** |
+| 18 sites | 253 | 1 129 | 1 259 | **1 331** |
+
+**Résultat :** afficher les fleuves ne rapporte que **+100 à +280 points par round** (6 à 19 %) à ce joueur, qui reste à un tiers du maximum : savoir « Loire » ne suffit pas, il faut savoir *où* sur la Loire (4 sites sur la Loire, 4 sur le Rhône). Aucun site n'est déductible du seul fleuve. Sans fleuves, la carte n'offre presque aucun repère à l'intérieur des terres, et le joueur qui connaît le site est pénalisé par sa mémoire du tracé plutôt que récompensé pour sa connaissance des centrales. Avec les affluents dès la vue de départ, la carte est chargée à 360 px.
+
+**Choix retenu : les 8 grands fleuves toujours affichés** (Loire, Rhône, Seine, Garonne, Meuse, Moselle, Vienne, Rhin ; la Gironde est visible comme estuaire dans le tracé de la côte), **les 25 affluents à partir du zoom ×3** (`DISTANCE_ZOOM_FLEUVES_SECONDAIRES`), sans nom affiché. `DISTANCE_AFFICHER_FLEUVES = false` les retire.
+
+**Raison :** ce sont des repères géographiques justes qui récompensent une connaissance réelle (la source froide fait partie du métier) sans donner la réponse ; le niveau de détail garde la vue de départ lisible.
+
+### 6.3 Repères : limites administratives et villes
+
+**Question :** afficher les limites des régions ou des départements, et quelques grandes villes ?
+
+**Options testées :** rien ; 8 grandes villes ; villes + limites des 13 régions ; limites des départements (poids seulement).
+
+**Test :** captures à 360 px de large, poids gzip, distance de chaque centrale à la ville repère la plus proche.
+
+**Résultat :** les limites des régions coûtent 8 Ko gzip (départements : 24 Ko) et ajoutent des traits gris qu'on confond avec les fleuves à petite taille ; les départements sont un repère que peu de joueurs maîtrisent. Les villes se lisent bien et ne sont jamais la réponse : la centrale la plus proche d'une ville repère en est à 28 km (Civaux – Poitiers), médiane 60 km, toujours au-delà du rayon « dans le mille ». Elles servent d'ancre (« Saint-Alban, au sud de Lyon »).
+
+**Choix retenu : pas de limites administratives ; 8 grandes villes dès le départ** (Paris, Lyon, Marseille, Lille, Toulouse, Bordeaux, Nantes, Strasbourg) **et 20 autres à partir du zoom ×2,5** (`DISTANCE_ZOOM_VILLES_SECONDAIRES` ; préfectures de région et grandes villes, Ajaccio compris).
+
+**Raison :** les villes aident à se repérer sans encombrer ni donner la réponse ; les limites alourdissent la carte pour un bénéfice faible.
+
+### 6.4 Mise en page photo / carte sur mobile
+
+**Question :** comment montrer la photo et la carte sur un téléphone ?
+
+**Options comparées :** bascule photo / carte (onglets) ; **photo réduite en haut et carte en dessous, photo agrandissable par-dessus la carte** ; carte plein écran avec une vignette de la photo.
+
+**Test :** partie complète à 360 × 740 avec gestes simulés, mesures à 360 × 560 (petit écran, barres du navigateur).
+
+| | Photo visible en visant | Gestes par round | Surfaces à 360 × 740 | à 360 × 560 |
+|---|---|---|---|---|
+| Bascule (onglets) | non | 5 à 7 (deux bascules en plus) | carte ≈ 336 × 600 | carte ≈ 336 × 420 |
+| **Photo réduite + carte** | **oui** | **3 à 5** (pincer, éventuellement glisser, taper, Valider, Suivant) | photo 336 × 206, carte 336 × 384 | photo 336 × 152, carte 336 × 258 |
+| Vignette sur la carte | à peine (≈ 120 px de large) | 3 à 5 | carte ≈ 336 × 600 | — |
+
+**Résultat :** avec la photo réduite, on vise en regardant la photo, sans aller-retour, et tout tient sans défilement même à 360 × 560. La bascule double presque le nombre de gestes et oblige à mémoriser la photo ; la vignette est trop petite pour reconnaître un site. Le bouton « Agrandir » montre la photo entière (sans recadrage) par-dessus la carte, sans changer la taille ni le zoom de la carte.
+
+**Choix retenu : photo réduite en haut (30 % de la hauteur), carte au milieu, pupitre en bas** (consigne et « Valider », puis fiche et « Suivant ») ; bouton « Agrandir / Réduire » sur la photo. Sur ordinateur : photo et pupitre à gauche (2/5), carte à droite (3/5), côte à côte.
+
+**Raison :** c'est l'option qui demande le moins de gestes et garde la photo sous les yeux pendant qu'on vise.
+
+### Autres choix de la phase
+
+- **Repère** : un tap ou un clic le pose, un autre tap le repose ailleurs, on peut aussi le faire glisser ; un glisser de plus de 6 px (`DISTANCE_TOLERANCE_TAP_PX`) ou un pincement ne pose rien. « Valider » (ou `Entrée`) n'est actif qu'avec un repère posé.
+- **Réponse** : losange blanc de la position réelle, trait en tirets, étiquette de distance, recadrage animé (700 ms, `DISTANCE_RECADRAGE_MS`, zoom ×8 au plus ; instantané si `prefers-reduced-motion`, vérifié), bande de réponse sur la photo (distance, points), fiche courte (site, réacteurs, source froide). Statut « juste » (✓) seulement dans le mille (≤ 5 km), sinon neutre. Le joueur passe au round suivant par « Suivant » ou `Entrée` et peut encore manipuler la carte.
+- **Compte rendu** : mesures « Distance moyenne », « Meilleur repère », « Dans le mille » ; colonne « Distance » ; « Votre réponse » nomme la centrale la plus proche du repère (« Près de Cruas », à moins de 40 km) ou indique « Loin des centrales » ; carte récapitulative avec les 5 repères reliés aux 5 positions réelles numérotées.
+- **Chargement différé** : d3 et le fond de carte sont dans un module à part, téléchargé au premier round Distance (ou par la carte récapitulative) ; l'accueil et le mode Rapidité ne le chargent pas.
+- **Distance** : formule de haversine sur une sphère de 6 371,0088 km (rayon moyen IUGG) ; écart à la distance géodésique sur l'ellipsoïde inférieur à 0,5 %, sans effet notable sur le score.
