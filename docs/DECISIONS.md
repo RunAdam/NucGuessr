@@ -513,7 +513,63 @@ Les tests de cette phase ont été faits **hors du dépôt** (dossier temporaire
 
 ## Phase 5 — Mode Rapidité
 
-_À compléter en phase 5._
+**Code :** `src/modes/rapidite/` (`recherche.ts` autocomplétion, `chrono.ts` temps, `mesures.ts` compte rendu, `RoundRapidite.svelte` écran) ; réglages dans la section « Mode Rapidité : saisie, retours et barre de temps » de [`src/config.ts`](../src/config.ts) ; tests dans `tests/rapidite/` (89 tests). Les tests de cette phase ont été faits **hors du dépôt** : analyse de l'autocomplétion sur les vraies données (Node), et partie complète dans Microsoft Edge sans tête (Playwright) sur le build servi en local, à 1280 × 800, 360 × 740 et 360 × 400 (clavier virtuel ouvert simulé). Captures : `docs/captures/phase5-*.png`.
+
+### 5.1 `Tab` complète ou valide
+
+**Question :** `Tab` valide-t-il directement la première suggestion, ou la complète-t-il seulement (un second appui, `Entrée`, valide) ?
+
+**Options testées :** `Tab` valide ; **`Tab` complète seulement** (dans les deux cas, `Entrée` valide la saisie exacte, sinon la suggestion en surbrillance).
+
+**Test :** pour chacun des 18 sites et chaque début de son nom (1 à n lettres, 149 débuts), la première suggestion de l'autocomplétion est-elle le bon site ?
+
+| Lettres tapées | 1 | 2 | 3 | 4 et plus |
+|---|---|---|---|---|
+| Première suggestion fausse | 9/18 (50 %) | 2/18 (11 %) | 1/18 (6 %) | 1/18 (Saint-Alban / Saint-Laurent jusqu'à « Saint-L ») |
+
+**Résultat :** un `Tab` « trop tôt » (1 ou 2 lettres) validerait une mauvaise réponse 1 fois sur 2 ou sur 9, soit −2 s (90 points). Le gain d'un appui en moins est d'environ 0,2 s (9 points) : au-delà de 10 % d'erreur, un `Tab` qui valide coûte plus qu'il ne rapporte. Et le chemin en un seul appui existe déjà : « Tric » + `Entrée` valide la suggestion en surbrillance, affichée dans le champ en texte fantôme.
+
+**Choix retenu : `Tab` complète seulement** (`RAPIDITE_TAB_VALIDE = false`). `Entrée` valide ce qui est affiché : la saisie si elle est un nom exact (nom court, nom complet ou alias), sinon la suggestion en surbrillance. `↑`/`↓` parcourent la liste, `Échap` la ferme puis vide le champ.
+
+**Raison :** `Tab` est la touche de la complétion (terminal, éditeurs) : on l'enfonce par réflexe, sans vérifier. `Entrée` est un geste délibéré, et ce qu'il valide est toujours visible (texte fantôme ou surbrillance). Pas de validation accidentelle, et pas d'appui supplémentaire pour qui tape vite.
+
+### 5.2 Son
+
+**Question :** faut-il du son (tic des dernières secondes, erreur, bonne réponse) ?
+
+**Options :** aucun son ; son désactivé par défaut avec un interrupteur ; son activé.
+
+**Test :** contexte de jeu et coût. On joue en cours, en pause, dans les transports : un son activé par défaut est exclu. Un interrupteur désactivé par défaut demande une commande de plus dans un pupitre déjà plein sur mobile (à 360 × 400 : photo, barre, deux rangées de saisie), une préférence enregistrée, et un `AudioContext` qui ne démarre qu'après un geste du joueur. Côté accessibilité, chaque signal est déjà doublé à l'écran (couleur + forme + texte) et annoncé aux lecteurs d'écran (`aria-live`).
+
+**Résultat :** le son n'apporterait que de la tension, déjà donnée par la barre rouge sous 5 s et le chrono qui marque chaque seconde ; un interrupteur rarement découvert ne vaut pas sa place à l'écran.
+
+**Choix retenu : aucun son en v1.** S'il est demandé par la promo, il s'ajoutera désactivé par défaut, via la préférence `rapidite.son` du profil.
+
+**Raison :** à qualité de jeu égale, le plus simple ; rien ne gêne en cours.
+
+### 5.3 Onglet en arrière-plan pendant un round
+
+**Question :** si le joueur change d'onglet (ou si le téléphone se verrouille) pendant un round : le temps continue, le chronomètre se met en pause, ou le round est perdu ?
+
+**Options testées :** **le temps continue** ; pause ; round perdu tout de suite. Les trois sont implémentées dans `chrono.ts` et testées (`RAPIDITE_ARRIERE_PLAN`).
+
+**Test :** fenêtre d'Edge réduite pendant 6 s en plein round : `requestAnimationFrame` tombe de 60 à moins de 2 images par seconde (10 images en 6 s), mais `performance.now()` avance normalement (6 015 ms) et le chrono affiché au retour est exact (19,1 → 12,8 s). Le chronomètre ne dépend que de l'horloge, jamais du nombre d'images. (Playwright garde l'onglet « visible » au sens de `document.visibilityState` : les cas pause et perdu sont couverts par les tests à horloge injectée.) Scénarios : avec la pause, chercher la photo dans un autre onglet (recherche d'image inversée, ~10 s) devient gratuit ; avec « perdu », un Alt-Tab involontaire ou une notification qui vole le focus coûte le round entier.
+
+**Résultat :** « le temps continue » est le seul choix ni trichable ni punitif : une recherche dans un autre onglet coûte le temps qu'elle prend (45 points par seconde) et ne rapporte presque rien en 20 s ; une interruption involontaire coûte au plus ce round. Au retour, le round se termine aussitôt si le temps est écoulé ; le round suivant ne démarre son chrono qu'à l'affichage de sa photo, onglet visible.
+
+**Choix retenu : le temps continue de s'écouler** (`RAPIDITE_ARRIERE_PLAN = 'continue'`).
+
+**Raison :** équitable pour tous, sans règle à expliquer, et le plus simple.
+
+### 5.4 Autres choix de la phase
+
+- **Proposition qui ne correspond à aucun site** (options : ignorée ; ignorée + suggestion la plus proche). Test : fautes de frappe courantes (lettre oubliée, en trop, inversée) sur les vrais noms : « tricastn », « gravlines », « catenom », « flamanvile », « dampeirre » retrouvent tous le bon site en première suggestion (tolérance : une faute de 4 à 7 lettres, deux au-delà) ; « paris », « xyz » et « Fessenheim » (absente des données) ne proposent rien. **Choix : jamais d'erreur ni de pénalité** ; si rien ne commence par la saisie, la liste propose les sites les plus proches (`RAPIDITE_SUGGERER_APPROCHANTS`) ; si rien n'est proche, `Entrée` affiche « Aucun site ne correspond… : rien n'est compté ». Raison : reconnaître la centrale est la compétence testée, pas l'orthographe. Un nom déjà tenté n'est pas repénalisé (« déjà tenté »).
+- **Champ après une mauvaise réponse** (vidé ou texte sélectionné) : même nombre de touches pour retaper un nom ; la sélection fait apparaître sur mobile les poignées et le menu copier-coller, et le nom faux reste affiché, barré, dans les essais. **Choix : vidé** (`RAPIDITE_APRES_ERREUR`).
+- **Mobile, clavier virtuel ouvert (360 × 400)** : photo 336 × 193 px (45 % de l'écran), chrono, barre de temps, une rangée de 3 suggestions à toucher (40 px) et le champ, tous visibles sans défilement ; essais barrés posés sur la photo. À 360 × 740 : photo 336 × 533 px. Toucher une suggestion valide directement. Pour que la page se réduise réellement à l'ouverture du clavier (Chrome Android), le round ajoute `interactive-widget=resizes-content` à la balise viewport (à déplacer dans `index.html`, voir ci-dessous) ; Safari iOS l'ignore et fait défiler la page jusqu'au champ.
+- **Tension** : sous `RAPIDITE_SEUIL_ALERTE_MS` (5 s), barre et chrono en rouge, et le chrono marque chaque seconde (bref fondu, supprimé si « réduire les animations »). Réglable ou supprimable (0), à valider avec la promo.
+- **Fin de partie** : mesures « Temps moyen » (sur les rounds **trouvés** seulement : un round perdu n'a pas de temps de réponse), « Erreurs » (total) et « Perdus » (x/8) ; colonnes « Temps » (temps réel, pénalités non comprises) et « Err. » ; « Votre réponse » d'un round perdu : les noms tentés, sinon « Temps écoulé ».
+
+**À remonter dans le socle (hors périmètre de la phase 5) :** `interactive-widget=resizes-content` dans la balise viewport d'`index.html` ; le journal des rounds précédents dans le pupitre (maquette « Synoptique ») demanderait que le socle passe les résultats précédents au composant `Round`.
 
 ---
 

@@ -69,6 +69,59 @@ export function scoreRapidite(restantMs: number): number {
 }
 
 // =============================================================================
+// Mode Rapidité : saisie, retours et barre de temps (phase 5)
+// =============================================================================
+
+/** Nombre de suggestions de la liste d'autocomplétion, sur ordinateur. */
+export const RAPIDITE_NB_SUGGESTIONS = 5;
+
+/** Nombre de suggestions sur mobile (< 720 px) : une rangée de boutons au-dessus du champ, à toucher. */
+export const RAPIDITE_NB_SUGGESTIONS_MOBILE = 3;
+
+/**
+ * `Tab` complète seulement (false) ou valide directement (true).
+ * Décidé : complète seulement. Avec 1 ou 2 lettres, la première suggestion est fausse 1 fois sur 2 ou
+ * sur 9 : un `Tab` qui valide coûterait 2 s bien plus souvent qu'il ne fait gagner un appui.
+ * `Entrée` valide déjà directement la suggestion en surbrillance (« Tric » + `Entrée`).
+ */
+export const RAPIDITE_TAB_VALIDE = false;
+
+/**
+ * Saisie qui ne commence aucun nom connu : proposer les sites à une ou deux fautes de frappe près
+ * (« tricastn » → Tricastin) au lieu d'une liste vide. Une saisie qui ne correspond à rien n'est
+ * jamais comptée comme une erreur : elle est ignorée, avec un message.
+ */
+export const RAPIDITE_SUGGERER_APPROCHANTS = true;
+
+/** Après une mauvaise réponse, le champ est vidé (`vider`) ou son texte sélectionné (`selectionner`). */
+export const RAPIDITE_APRES_ERREUR: 'vider' | 'selectionner' = 'vider';
+
+/**
+ * Sous ce temps restant, la barre et le chrono passent au rouge et le chrono marque chaque seconde
+ * (tension des dernières secondes). Même valeur que le token `--seuil-alerte-s` des maquettes.
+ * Mettre 0 pour supprimer l'alerte (à valider avec la promo).
+ */
+export const RAPIDITE_SEUIL_ALERTE_MS = 5_000;
+
+/**
+ * Vibration de l'appareil après une mauvaise réponse (`navigator.vibrate`, mobile Android surtout),
+ * en ms ou motif [vibre, pause, vibre…]. Jamais si « réduire les animations » est demandé. `0` : aucune.
+ */
+export const RAPIDITE_VIBRATION: number | readonly number[] = 80;
+
+/**
+ * Comportement quand l'onglet passe en arrière-plan pendant un round :
+ * `continue` (le temps continue de s'écouler), `pause` (le temps s'arrête) ou `perdu` (round perdu).
+ * Décidé : `continue`. Une pause permettrait de chercher la photo dans un autre onglet sans limite ;
+ * perdre le round sanctionnerait un simple Alt-Tab. Le chronomètre se fie à `performance.now()`, qui
+ * continue en arrière-plan : au retour, le temps affiché est exact.
+ */
+export type ComportementArrierePlan = 'continue' | 'pause' | 'perdu';
+export const RAPIDITE_ARRIERE_PLAN: ComportementArrierePlan = 'continue';
+
+// Son : aucun en v1 (décision de la phase 5 : on joue en cours ou en pause, les repères visuels suffisent).
+
+// =============================================================================
 // Mode Distance
 // =============================================================================
 

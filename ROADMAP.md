@@ -226,38 +226,39 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 **Objectif :** le mode principal, nerveux et satisfaisant à jouer.
 
 ### 5.1 Saisie et autocomplétion
-- [ ] Recherche **insensible aux accents, à la casse, aux tirets et aux apostrophes** : `st laurent`, `saint-laurent` et `Saint Laurent` doivent tous fonctionner.
-- [ ] Recherche sur les noms et les alias, **par préfixe de n'importe quel mot** : `seine` doit trouver Nogent-sur-Seine.
-- [ ] Suggestion affichée dans le champ en texte fantôme, en plus d'une liste déroulante (3-5 suggestions).
-- [ ] Clavier :
+- [x] Recherche **insensible aux accents, à la casse, aux tirets et aux apostrophes** : `st laurent`, `saint-laurent` et `Saint Laurent` doivent tous fonctionner.
+- [x] Recherche sur les noms et les alias, **par préfixe de n'importe quel mot** : `seine` doit trouver Nogent-sur-Seine.
+- [x] Suggestion affichée dans le champ en texte fantôme, en plus d'une liste déroulante (3-5 suggestions).
+- [x] Clavier :
   - `Tab` complète avec la première suggestion ;
   - `↑` / `↓` parcourent la liste ;
   - `Entrée` valide.
-  - ⚠️ **À trancher** : `Tab` valide-t-il directement, ou complète-t-il seulement (deux appuis au total) ? La seconde option évite les validations accidentelles.
-- [ ] **Mobile** (pas de touche `Tab`) : on touche une suggestion pour valider directement. Il faut vérifier que le clavier virtuel ne masque ni la photo ni la barre de temps.
-- [ ] Une proposition qui ne correspond à aucun site connu n'est pas une erreur : elle est simplement ignorée, ou on propose la suggestion la plus proche.
+  - `Échap` ferme la liste, puis vide le champ.
+  - ✅ **Décidé : `Tab` complète seulement.** Avec 1 ou 2 lettres, la première suggestion est fausse 1 fois sur 2 ou sur 9 (test sur les 149 débuts de noms) : un `Tab` qui valide coûterait 2 s bien plus souvent qu'il ne fait gagner un appui. `Entrée` valide directement la suggestion en surbrillance (« Tric » + `Entrée`), donc un seul appui suffit déjà (voir [`docs/DECISIONS.md`](docs/DECISIONS.md#51-tab-complète-ou-valide)).
+- [x] **Mobile** (pas de touche `Tab`) : on touche une suggestion pour valider directement. Il faut vérifier que le clavier virtuel ne masque ni la photo ni la barre de temps. Vérifié à 360 × 400 : photo, chrono, barre, 3 suggestions et champ visibles sans défilement.
+- [x] Une proposition qui ne correspond à aucun site connu n'est pas une erreur : elle est simplement ignorée, ou on propose la suggestion la plus proche. ✅ Les deux : jamais de pénalité ; si rien ne commence par la saisie, la liste propose les sites à une ou deux fautes de frappe près (« tricastn » → Tricastin), sinon un message « rien n'est compté ».
 
 ### 5.2 Retours visuels
-- [ ] **Mauvaise réponse** : le champ **vibre** (animation de secousse courte, ~300 ms), le champ est vidé ou le texte sélectionné, et la pénalité de **−2 s** s'applique. Sur mobile, ajouter une vibration de l'appareil (`navigator.vibrate`) si elle est disponible.
-- [ ] Les noms déjà tentés pendant le round sont affichés barrés, pour éviter de les retenter.
-- [ ] **Bonne réponse** : validation nette et rapide, avec le temps et le score du round.
-- [ ] **Temps écoulé** : la bonne réponse s'affiche.
-- [ ] Respecter `prefers-reduced-motion` : remplacer la secousse par un simple changement de couleur ou de contour.
+- [x] **Mauvaise réponse** : le champ **vibre** (animation de secousse courte, ~300 ms), le champ est vidé (✅ décidé : vidé), et la pénalité de **−2 s** s'applique. Sur mobile, ajouter une vibration de l'appareil (`navigator.vibrate`) si elle est disponible.
+- [x] Les noms déjà tentés pendant le round sont affichés barrés, pour éviter de les retenter.
+- [x] **Bonne réponse** : validation nette et rapide, avec le temps et le score du round.
+- [x] **Temps écoulé** : la bonne réponse s'affiche.
+- [x] Respecter `prefers-reduced-motion` : remplacer la secousse par un simple changement de couleur ou de contour.
 
 ### 5.3 Barre de temps
-- [ ] 20 s, animée de façon fluide (`requestAnimationFrame` ou transition CSS), avec un temps mesuré par `performance.now()` et non par le décompte d'un `setInterval`.
-- [ ] Tension croissante dans les dernières secondes (couleur, rythme, éventuellement son).
-  - ⚠️ **À trancher** : faut-il du son ? Ce serait désactivé par défaut, puisqu'on joue en cours ou en pause.
-- [ ] Visualisation du retrait de 2 s en cas d'erreur (saut de la barre, et « −2 s » affiché brièvement).
-- [ ] Pause automatique si l'onglet passe en arrière-plan ?
-  - ⚠️ **À trancher** : c'est plus juste pour le joueur, mais ça ouvre la porte à la triche (pause, recherche, retour). On peut aussi simplement perdre le round.
+- [x] 20 s, animée de façon fluide (`requestAnimationFrame` ou transition CSS), avec un temps mesuré par `performance.now()` et non par le décompte d'un `setInterval`.
+- [x] Tension croissante dans les dernières secondes (couleur, rythme, éventuellement son).
+  - ✅ **Décidé : aucun son en v1.** On joue en cours ou en pause ; la tension passe par la barre et le chrono en rouge sous 5 s (`RAPIDITE_SEUIL_ALERTE_MS`) et le chrono qui marque chaque seconde. Un interrupteur désactivé par défaut prendrait de la place sur mobile pour un usage rare.
+- [x] Visualisation du retrait de 2 s en cas d'erreur (saut de la barre, et « −2 s » affiché brièvement).
+- [x] Pause automatique si l'onglet passe en arrière-plan ?
+  - ✅ **Décidé : non, le temps continue de s'écouler.** La pause rendrait gratuite une recherche de la photo dans un autre onglet ; perdre le round sanctionnerait un simple Alt-Tab. Le chrono se fie à `performance.now()`, qui continue en arrière-plan (mesuré : chrono exact au retour) ; pause et round perdu restent réglables (`RAPIDITE_ARRIERE_PLAN`).
 
 ### 5.4 Fin de partie
-- [ ] Score total sur 8 rounds, temps moyen, nombre d'erreurs, meilleur score personnel.
-- [ ] Récapitulatif : chaque photo avec son nom et le temps mis.
-- [ ] Bouton « Rejouer » mis en avant (`Entrée` pour relancer).
+- [x] Score total sur 8 rounds, temps moyen, nombre d'erreurs, meilleur score personnel.
+- [x] Récapitulatif : chaque photo avec son nom et le temps mis.
+- [x] Bouton « Rejouer » mis en avant (`Entrée` pour relancer).
 
-**Livrable :** le mode Rapidité jouable en local, sur ordinateur et sur mobile.
+**Livrable :** le mode Rapidité jouable en local, sur ordinateur et sur mobile. ✅ Partie complète vérifiée dans Edge à 1280 × 800, 360 × 740 et 360 × 400 (captures `docs/captures/phase5-*.png`).
 
 ---
 
@@ -370,9 +371,9 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 | 15 | 4 | Framework UI | ✅ **Décidé : Svelte 5** (Vite 8, TypeScript strict) |
 | 16 | 4 | Tailwind ou bibliothèque de composants | ✅ **Décidé : non, CSS natif + tokens** |
 | 17 | 4 | Routage | ✅ **Décidé : par hash** (`#/`, `#/rapidite`, `#/distance`) |
-| 18 | 5 | `Tab` complète ou valide | Complète seulement |
-| 19 | 5 | Son | Non, ou désactivé par défaut |
-| 20 | 5 | Onglet en arrière-plan pendant un round | Le temps continue de s'écouler |
+| 18 | 5 | `Tab` complète ou valide | ✅ **Décidé : complète seulement** (`Entrée` valide la suggestion en surbrillance) |
+| 19 | 5 | Son | ✅ **Décidé : aucun son en v1** |
+| 20 | 5 | Onglet en arrière-plan pendant un round | ✅ **Décidé : le temps continue de s'écouler** |
 | 21 | 6 | Carte sur mesure ou tuiles (zoom obligatoire ✅) | Sur mesure (d3-geo), si le zoom est fluide |
 | 22 | 6 | Affichage des fleuves | Oui, à tester |
 | 23 | 6 | Repères (régions, villes) | Quelques villes, à tester |
