@@ -1,0 +1,20 @@
+# Dépendances et build
+node_modules/
+dist/
+
+# Photos originales non traitées (leurs noms et EXIF révèlent la réponse)
+photos_sources/
+
+# Python
+__pycache__/
+.venv/
+
+# Environnement / secrets
+.env
+.env.*
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
