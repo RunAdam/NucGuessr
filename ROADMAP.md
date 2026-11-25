@@ -51,28 +51,30 @@
 **Objectif :** figer les règles des deux modes avant de coder.
 
 ### Commun aux deux modes
-- [ ] Périmètre v1 : **les 18 centrales en exploitation** (Flamanville 3 est rattachée au site de Flamanville).
-- [ ] Tirage des photos : aléatoire, **sans répéter un site dans une même partie** (8 rounds sur 18 sites, c'est possible).
-- [ ] Éviter de revoir trop souvent les mêmes photos d'une partie à l'autre : mémoriser en local les dernières photos vues et les tirer moins souvent.
-  - ⚠️ **À trancher** : simple exclusion des N dernières photos, ou tirage pondéré.
-- [ ] Écran de fin de partie : score total, récapitulatif round par round (photo, réponse, temps ou distance), fiche courte de chaque site.
+- [x] Périmètre v1 : **les 18 centrales en exploitation** (Flamanville 3 est rattachée au site de Flamanville).
+- [x] Tirage des photos : aléatoire, **sans répéter un site dans une même partie** (8 rounds sur 18 sites, c'est possible).
+- [x] Éviter de revoir trop souvent les mêmes photos d'une partie à l'autre : mémoriser en local les dernières photos vues et les tirer moins souvent.
+  - ✅ **Décidé : rotation par site.** Sites tirés uniformément, puis, pour chaque site, la photo vue il y a le plus longtemps (jamais vue en priorité). Aucun paramètre, aucun blocage possible, tous les sites sortent aussi souvent ; 0 % de photo revue d'une partie à la suivante (voir [`docs/DECISIONS.md`](docs/DECISIONS.md#01-anti-répétition-des-photos-dune-partie-à-lautre)).
+- [x] Écran de fin de partie : score total, récapitulatif round par round (photo, réponse, temps ou distance), fiche courte de chaque site.
 
 ### Mode Rapidité
-- [ ] 8 rounds, 20 s par round. Au-delà, le round est perdu et la réponse s'affiche.
-- [ ] Réponses fausses illimitées, mais **chaque mauvaise réponse retire 2 s** du temps restant, et la barre fait un saut visible. ✅ *Décidé.* Sans cette pénalité, l'autocomplétion permettrait d'essayer les 18 noms à la suite en moins de 20 s.
-- [ ] Barème de score.
-  - ⚠️ **À trancher** : par exemple `score = 1000 × temps_restant / 20`, avec un plancher pour une bonne réponse tardive. À ajuster en jouant.
-- [ ] Faut-il un délai entre deux rounds (afficher la réponse 1,5 s), ou enchaîner directement ?
-  - ⚠️ **À trancher**. Un court délai, avec possibilité de passer en appuyant sur `Entrée`, semble un bon compromis.
+- [x] 8 rounds, 20 s par round. Au-delà, le round est perdu et la réponse s'affiche.
+- [x] Réponses fausses illimitées, mais **chaque mauvaise réponse retire 2 s** du temps restant, et la barre fait un saut visible. ✅ *Décidé.* Sans cette pénalité, l'autocomplétion permettrait d'essayer les 18 noms à la suite en moins de 20 s.
+- [x] Barème de score.
+  - ✅ **Décidé : `score = 100 + 900 × temps_restant / 20`** (100 points pour la bonne réponse + 45 points par seconde restante, 0 si le temps est écoulé), sans malus supplémentaire par erreur. Essayer les noms au hasard rapporte moins qu'une bonne réponse trouvée à 19 s.
+- [x] Faut-il un délai entre deux rounds (afficher la réponse 1,5 s), ou enchaîner directement ?
+  - ✅ **Décidé : 1,5 s après une bonne réponse, 3 s après un round perdu**, que l'on peut passer avec `Entrée` ou un tap (après 400 ms d'anti-rebond).
 
 ### Mode Distance
-- [ ] 5 rounds, un seul clic validé par round.
-- [ ] Limite de temps.
-  - ⚠️ **À trancher** : aucune, ou 2-3 min par round, uniquement pour éviter les parties qui traînent.
-- [ ] Barème de score.
-  - ⚠️ **À trancher** : décroissance exponentielle façon GeoGuessr, `score = 5000 × exp(−d / k)`, maximum 25 000 par partie. Il faut un `k` adapté à l'échelle de la France (environ 50 à 150 km), à calibrer pour qu'une erreur de « bon fleuve, mauvais site » coûte cher sans être nulle.
-- [ ] Faut-il donner un bonus pour une précision parfaite (< 5 km) ?
-  - ⚠️ **À trancher**.
+- [x] 5 rounds, un seul clic validé par round.
+- [x] Limite de temps.
+  - ✅ **Décidé : aucune.** Une limite de 2-3 min ne raccourcit presque pas les parties et ne pénalise que les joueurs lents, surtout sur mobile.
+- [x] Barème de score.
+  - ✅ **Décidé : k = 75 km**, avec le rayon de tolérance ci-dessous : `score = 5000 × exp(−max(0, d − 5) / 75)`, maximum 25 000 par partie. « Bon fleuve, mauvais site » (34 à 86 km) garde un tiers à deux tiers des points ; cliquer au centre de la France sans regarder n'en rapporte que 7 %.
+- [x] Faut-il donner un bonus pour une précision parfaite (< 5 km) ?
+  - ✅ **Décidé : pas de bonus, mais un rayon de tolérance de 5 km** : tout clic à moins de 5 km vaut 5000 points, et le score reste continu au-delà. Le maximum de 25 000 devient atteignable, y compris sur mobile.
+
+Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et justifications dans [`docs/DECISIONS.md`](docs/DECISIONS.md).
 
 **Livrable :** une section « Règles du jeu » dans le `README.md`.
 
@@ -341,13 +343,13 @@
 
 | # | Phase | Décision | Piste par défaut |
 |---|---|---|---|
-| 1 | 0 | Anti-répétition des photos entre parties | Exclure les N dernières vues |
+| 1 | 0 | Anti-répétition des photos entre parties | ✅ **Décidé : rotation par site** (photo du site vue il y a le plus longtemps) |
 | 2 | 0 | Pénalité d'erreur en mode Rapidité | ✅ **Décidé : −2 s** |
-| 3 | 0 | Barème du mode Rapidité | Proportionnel au temps restant |
-| 4 | 0 | Délai entre deux rounds en mode Rapidité | ~1,5 s, qu'on peut passer |
-| 5 | 0 | Limite de temps du mode Distance | Aucune, ou 3 min |
-| 6 | 0 | Barème du mode Distance | `5000 × exp(−d/k)`, k ≈ 50-150 km |
-| 7 | 0 | Bonus de précision du mode Distance | Non |
+| 3 | 0 | Barème du mode Rapidité | ✅ **Décidé : `100 + 900 × t/20`** |
+| 4 | 0 | Délai entre deux rounds en mode Rapidité | ✅ **Décidé : 1,5 s (3 s si perdu), qu'on peut passer** |
+| 5 | 0 | Limite de temps du mode Distance | ✅ **Décidé : aucune** |
+| 6 | 0 | Barème du mode Distance | ✅ **Décidé : `5000 × exp(−(d−5)/k)`, k = 75 km** |
+| 7 | 0 | Bonus de précision du mode Distance | ✅ **Décidé : non, mais 5000 points à moins de 5 km** |
 | 8 | 1 | Convention de date de mise en service | Couplage au réseau |
 | 9 | 1 | JSON ou YAML | JSON |
 | 10 | 2 | Difficulté par photo | Oui, manuelle |
