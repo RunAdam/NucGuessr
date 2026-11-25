@@ -1,0 +1,19 @@
+# Fichiers générés
+dist/
+node_modules/
+package-lock.json
+
+# Dossiers qui ont leurs propres outils ou une mise en forme voulue
+design/
+data/
+public/
+docs/
+scripts/
+*.md
+
+# Fichiers partagés entre plusieurs phases : mise en forme manuelle, pour éviter qu'un
+# `npm run format` lancé dans une branche ne réécrive tout le fichier (conflits de fusion).
+src/config.ts
+src/styles/tokens.css
+src/styles/fonts.css
+tests/data/

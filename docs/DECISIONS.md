@@ -426,3 +426,97 @@ Les valeurs retenues sont réglables dans [`src/styles/tokens.css`](../src/style
 **Raison :** une métaphore n'est gardée que si elle ne coûte rien à la lecture. Le temps s'écoule linéairement, la barre doit donc l'être ; les graduations à la seconde reprennent l'idée des barres de contrôle (on compte les crans) sans en payer le prix. Le relevé d'instrument et le compte rendu d'essai ne changent que la forme (libellés, tableau), pas la lisibilité.
 
 > Scripts des simulations de la phase 2 : `python scripts/sim/photos-difficulte.py`, `python scripts/sim/photos-chargement.py`, `python scripts/sim/photos-mesure-lqip.py`.
+
+---
+
+## Phase 4 — Socle technique
+
+**Architecture et commandes :** [`docs/ARCHITECTURE.md`](ARCHITECTURE.md). Vérifications : `npm run lint` (ESLint + svelte-check), `npm test` (Vitest, 62 tests au total), `npm run build`.
+
+Les tests de cette phase ont été faits **hors du dépôt** (dossier temporaire) : le même mini-écran monté dans chaque option, construit avec Vite 8 en production, puis mesuré dans Microsoft Edge sans tête (Playwright) avec un réseau « 4G lente » (1,6 Mbit/s, 150 ms) et un processeur ralenti 4 fois (téléphone d'entrée de gamme). Le routage a été testé derrière un petit serveur qui imite GitHub Pages (site servi sous `/NucGuessr/`, 404 pour toute autre adresse).
+
+### 4.1 Framework d'interface
+
+**Question :** TypeScript sans framework, ou un framework léger (Svelte, Preact) ?
+
+**Options testées :** TypeScript seul (DOM manipulé à la main) ; **Svelte 5** ; Preact 11 (JSX + hooks).
+
+**Test :** un mini-écran identique dans les trois : chrono de 20 s animé (`requestAnimationFrame` + `performance.now()`), champ de saisie (`Entrée` valide, mauvaise réponse = −2 s), bouton « Rejouer » qui prend le focus.
+
+| | TypeScript seul | **Svelte 5** | Preact 11 |
+|---|---|---|---|
+| JS de production, gzip | 0,9 Ko | **16,9 Ko** | 6,4 Ko |
+| Lignes de code (hors lignes vides) | 34 | **36** | 41 |
+| Écran prêt (4G lente, CPU ×4) | 445 ms | **678 ms** | 528 ms |
+| Script par image du chrono (CPU ×4) | 0,18 ms | **0,61 ms** | 0,68 ms |
+| Images de plus de 25 ms sur 180 | 0 | **0** | 0 |
+
+**Résultat :** les trois sont parfaitement fluides (moins d'1 ms de script par image, aucune image sautée, même sur un téléphone lent) et très loin du budget de 200 Ko : l'écart de chargement (≤ 0,25 s, une seule fois, puis en cache) est petit devant une seule photo (0,9 à 1,7 s en 4G lente). La différence est dans la maintenance : sans framework, chaque écran (accueil, deux modes, réponse, compte rendu) doit mettre à jour le DOM à la main, ce qui grossit vite et casse facilement ; Preact demande de maîtriser les hooks (le chrono du test a dû passer ses dépendances à `useEffect` pour ne pas lire un état périmé). Svelte s'écrit comme du HTML, ses styles sont **isolés par composant**, ce qui permet aux phases 5 et 6 de styler chacune leur mode dans leur dossier sans toucher une feuille commune. Socle complet mesuré : **36,8 Ko de JS + 4,4 Ko de CSS gzip** (dont 6 Ko de données des sites et des photos), soit 21 % du budget.
+
+**Choix retenu : Svelte 5** (runes), avec Vite 8 et TypeScript strict.
+
+**Raison :** à fluidité égale pour le joueur, c'est l'option la plus simple à lire et à modifier pour des étudiants (gabarit HTML, CSS à côté, état réactif sans piège), et la seule qui isole les styles de chaque mode, ce qui compte pour deux modes développés en parallèle. Preact reste une bonne option de repli si le poids devenait critique (−10 Ko).
+
+### 4.2 CSS : natif ou Tailwind / bibliothèque de composants
+
+**Question :** écrire le CSS à la main avec les tokens de la phase 3, ou utiliser Tailwind ou une bibliothèque de composants ?
+
+**Options testées :** **CSS natif + variables de `tokens.css`** (styles isolés des composants Svelte) ; Tailwind 4 branché sur les tokens (`@theme`) ; bibliothèque de composants (écartée sans montage : ses rayons, ombres et palettes contredisent les règles 2 et 7 de `design/TOKENS.md`).
+
+**Test :** le même fragment (bandeau avec libellé d'instrument, chrono, bouton principal avec `kbd`) en CSS natif et en Tailwind 4.
+
+| | **CSS natif + tokens** | Tailwind 4 + tokens |
+|---|---|---|
+| CSS de production, gzip | **1,2 Ko** | 3,0 Ko |
+| Longueur des attributs `class` | **78 caractères** | 539 caractères |
+| Tokens utilisés tels quels | **tous** | via des valeurs arbitraires (`text-[length:var(--taille-micro)]`) ou des équivalents Tailwind qui contournent les tokens (`h-13`, `px-6`) |
+
+**Résultat :** le poids ne départage pas (quelques Ko). Tailwind rend le balisage 7 fois plus long et, surtout, met à portée de main ses propres valeurs par défaut (gris, `rounded-lg`, `shadow`), exactement le look générique à éviter ; pour rester dans les tokens, il faut des valeurs arbitraires partout.
+
+**Choix retenu : CSS natif + tokens**, sans Tailwind ni bibliothèque de composants. Styles communs dans `src/styles/base.css`, styles propres à un composant dans son bloc `<style>`. Les quelques valeurs ajoutées par le socle sont des tokens à part, dans `src/styles/tokens-socle.css` (`--trait-fort`, `--halo-focus`, `--largeur-pupitre`, `--hauteur-bandeau`…), pour ne pas toucher `tokens.css`.
+
+**Raison :** les tokens de la phase 3 sont déjà le système de design ; les utiliser directement est le plus simple et le plus lisible, et rien n'incite à sortir de la direction « Synoptique ».
+
+### 4.3 Routage
+
+**Question :** routage par hash (`#/rapidite`), état interne sans URL, ou adresses « propres » (`/NucGuessr/rapidite`, History API) ?
+
+**Options testées :** hash ; état interne ; History API.
+
+**Test :** sur un site servi comme GitHub Pages sous `/NucGuessr/` : lancer une partie, puis bouton Précédent du navigateur, rechargement de la page, et ouverture d'un lien partagé dans un nouvel onglet.
+
+| | URL en partie | Précédent | Rechargement | Lien partagé |
+|---|---|---|---|---|
+| **Hash** | `…/#/rapidite` | **retour à l'accueil** | **page servie** | **HTTP 200** |
+| État interne | `…/` | **quitte le jeu** | retour à l'accueil | ne mène qu'à l'accueil |
+| History API | `…/rapidite` | retour à l'accueil | **page 404** | **HTTP 404** |
+
+**Résultat :** sans URL, le geste le plus naturel sur mobile (retour arrière) fait quitter le site en pleine partie. Les adresses « propres » tombent sur la page 404 de GitHub Pages au rechargement et sur un lien partagé (il faudrait l'astuce d'un `404.html` qui redirige). Le hash n'a aucun de ces défauts et ne demande rien au serveur.
+
+**Choix retenu : routage par hash** : `#/` accueil, `#/<mode>` partie (le compte rendu reste à la même adresse ; « Rejouer » ne change pas l'adresse). Précisions :
+- **arrivée directe sur `#/<mode>`** (lien partagé, rechargement) : on affiche l'accueil avec ce mode présélectionné, plutôt que de lancer un chronomètre de 20 s sur un joueur qui n'est pas prêt ; une partie interrompue par un rechargement n'est pas reprise ;
+- **Précédent** pendant une partie : retour à l'accueil, partie abandonnée (non comptée dans les meilleurs scores) ;
+- **Rapidité est présélectionné à chaque visite** ; pendant la visite, l'accueil retient le dernier mode choisi.
+
+**Raison :** c'est la seule option où les gestes habituels du navigateur (retour, rechargement, lien envoyé à un camarade) ne font jamais perdre le joueur ni tomber sur une erreur, sur un hébergement 100 % statique.
+
+### Autres choix du socle
+
+- **`base: './'`** (chemins relatifs) : le même build fonctionne sur GitHub Pages quel que soit le nom du dépôt, en `npm run preview` et sur un autre hébergeur ; `NUCGUESSR_BASE=/NucGuessr/` force un chemin absolu si besoin (phase 7).
+- **Préchargement** : la partie est tirée et ses 3 premières photos demandées dès l'accueil (et dès le compte rendu pour « Rejouer ») ; en jeu, 2 rounds d'avance. La photo n'apparaît qu'entièrement décodée (`img.decode()`), puis le socle attend qu'elle soit peinte (deux `requestAnimationFrame`) avant de signaler `onvisible`, qui démarre le chrono. Vérifié avec une photo retardée de 4 s : indicateur de chargement affiché, choix bloqués jusqu'à l'affichage.
+- **Historique des photos vues** : une photo est marquée vue au début de son round (numéro de partie incrémenté au lancement de chaque partie, tous modes confondus).
+- **Persistance** (`localStorage`, clé `nucguessr`, `STOCKAGE_VERSION = 1`) : lecture tolérante (un champ invalide reprend sa valeur par défaut sans perdre le reste) ; JSON illisible, version inconnue ou migration impossible : on repart de zéro en gardant l'ancien contenu sous `nucguessr.ancien` ; sans `localStorage` (navigation privée stricte), le jeu fonctionne et l'accueil le signale. Les migrations s'ajoutent dans `MIGRATIONS` (`src/lib/stockage.ts`).
+- **Mode factice** (« Démonstration », `#/factice`) : listé sur l'accueil en développement seulement (`FACTICE_VISIBLE_EN_PRODUCTION = false`) ; en production, le lien `#/factice` le présélectionne. Il sert d'exemple de mode et de test de bout en bout.
+- **Outillage** : ESLint 10 (configuration « flat », TypeScript et Svelte), Prettier 3 (`src/config.ts`, `tokens.css`, `fonts.css`, `tests/data/`, `design/`, `data/`, `docs/`, `scripts/` exclus), `svelte-check` dans `npm run lint`, fins de ligne LF imposées (`.gitattributes`, `.editorconfig`, Prettier). TypeScript 6.0 (et non 7.0 : `typescript-eslint` et `svelte-check` ne le prennent pas encore en charge).
+
+---
+
+## Phase 5 — Mode Rapidité
+
+_À compléter en phase 5._
+
+---
+
+## Phase 6 — Mode Distance
+
+_À compléter en phase 6._

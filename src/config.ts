@@ -149,3 +149,36 @@ export function photosTirables<P extends { difficulte: number }>(photosDuSite: r
  * la vraie photo affichée, et un aperçu donnerait du temps de réflexion gratuit avant le chrono.
  */
 export const PHOTOS_PRECHARGEMENT_AVANCE = 2;
+
+// =============================================================================
+// Socle (phase 4) : persistance locale, navigation, mode factice
+// =============================================================================
+
+/**
+ * Clé unique sous laquelle le jeu range ses données dans le `localStorage` du navigateur
+ * (meilleurs scores, nombre de parties, photos vues, préférences). Format : src/lib/stockage.ts.
+ */
+export const STOCKAGE_CLE = 'nucguessr';
+
+/**
+ * Version du format des données locales. À incrémenter à chaque changement de format, en ajoutant
+ * la migration correspondante dans src/lib/stockage.ts (sinon les données d'une version inconnue
+ * sont remises à zéro proprement, sans planter).
+ */
+export const STOCKAGE_VERSION = 1;
+
+/** Mode présélectionné sur l'écran d'accueil (décision de la phase 0 : Rapidité). */
+export const MODE_PAR_DEFAUT = 'rapidite';
+
+/**
+ * Mode factice (démonstration du socle : choisir le bon site parmi quelques boutons).
+ * Toujours listé en développement (`npm run dev`) ; en production il reste joignable par le lien
+ * `#/factice` mais n'est pas proposé sur l'accueil, sauf si cette constante vaut `true`.
+ */
+export const FACTICE_VISIBLE_EN_PRODUCTION = false;
+
+/** Nombre de rounds d'une partie du mode factice. */
+export const FACTICE_ROUNDS = 5;
+
+/** Nombre de sites proposés à chaque round du mode factice (dont le bon). */
+export const FACTICE_NB_CHOIX = 4;

@@ -60,3 +60,19 @@ score = 5000 × exp(−(d − 5 km) / 75 km)     au-delà
 ## État du projet
 
 🚧 En conception : voir la [feuille de route](ROADMAP.md).
+
+## Développement
+
+Site statique : Vite + TypeScript + Svelte 5, CSS natif (tokens de la direction artistique). Il faut Node 22.18 ou plus récent.
+
+```sh
+npm install
+npm run dev       # serveur local avec rechargement à chaud (mode « Démonstration » listé)
+npm test          # tests Vitest (logique du jeu, données)
+npm run lint      # ESLint + vérification des types (svelte-check)
+npm run format    # mise en forme (Prettier)
+npm run build     # site de production dans dist/
+npm run preview   # servir dist/ en local
+```
+
+Organisation du code, flux d'une partie et interface d'un mode : [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). Toutes les valeurs réglables sont dans [`src/config.ts`](src/config.ts) ; les choix et les tests qui les justifient, dans [`docs/DECISIONS.md`](docs/DECISIONS.md).

@@ -203,21 +203,21 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 **Objectif :** la structure commune aux deux modes.
 
 ### 4.1 Stack
-- [ ] **Vite + TypeScript**.
-  - ⚠️ **À trancher** : TypeScript sans framework, ou un framework léger (**Svelte** ou **Preact**). Avec deux modes, plusieurs écrans (accueil, jeu, résultats) et une interface animée, un framework léger devient intéressant. Svelte est un bon compromis (peu de code, animations intégrées).
-- [ ] CSS : du CSS natif avec les tokens de la phase 3.
-  - ⚠️ **À trancher** : éviter Tailwind et les bibliothèques de composants toutes faites, qui poussent vers le look générique ?
-- [ ] ESLint + Prettier, et **Vitest** pour la logique pure (tirage, scores, normalisation des noms, distance).
+- [x] **Vite + TypeScript**.
+  - ✅ **Décidé : Svelte 5** (Vite 8, TypeScript strict). Les trois options testées sont fluides même sur un téléphone lent (< 1 ms de script par image du chrono) ; Svelte coûte 10 Ko de plus que Preact mais s'écrit comme du HTML et isole les styles de chaque mode (phases 5 et 6 en parallèle). Socle complet : 41 Ko de JS + CSS gzip, 21 % du budget (voir [`docs/DECISIONS.md`](docs/DECISIONS.md#41-framework-dinterface)).
+- [x] CSS : du CSS natif avec les tokens de la phase 3.
+  - ✅ **Décidé : CSS natif + tokens, sans Tailwind ni bibliothèque de composants.** Avec Tailwind, le balisage est 7 fois plus long et ses valeurs par défaut (gris, arrondis, ombres) contournent les tokens ; les styles d'un composant vivent dans son bloc `<style>` Svelte.
+- [x] ESLint + Prettier, et **Vitest** pour la logique pure (tirage, scores, normalisation des noms, distance). `npm run lint` (ESLint + svelte-check), `npm run format`, `npm test` ; la normalisation des noms et la distance seront testées en phases 5 et 6.
 
 ### 4.2 Architecture
-- [ ] Moteur de partie générique : liste de rounds, round courant, score, état (en cours / terminé), utilisé par les deux modes.
-- [ ] Module de tirage : choix aléatoire sans répéter un site dans la partie, avec historique local (voir phase 0).
-- [ ] **Préchargement des photos** : charger la photo du round suivant pendant le round en cours. Le chronomètre ne démarre **qu'une fois l'image affichée** (indispensable en mode Rapidité, sinon le joueur est pénalisé par sa connexion).
-- [ ] Navigation : accueil → choix du mode (**Rapidité présélectionné**) → partie → résultats → rejouer en un clic.
-  - ⚠️ **À trancher** : routage par hash (`#/rapidite`, `#/distance`, compatible GitHub Pages) ou état interne sans URL.
-- [ ] Persistance locale (`localStorage`, avec numéro de version du format) : meilleurs scores par mode, nombre de parties, historique des photos vues.
+- [x] Moteur de partie générique : liste de rounds, round courant, score, état (en cours / réponse affichée / terminé), utilisé par les deux modes (`src/lib/moteur.ts`). Chaque mode fournit son écran de round, ses points et son compte rendu via une interface commune (`src/modes/types.ts`, voir [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)).
+- [x] Module de tirage : choix aléatoire sans répéter un site dans la partie, avec historique local (voir phase 0) : rotation par site et `photosTirables` (`src/lib/tirage.ts`).
+- [x] **Préchargement des photos** : charger la photo du round suivant pendant le round en cours. Le chronomètre ne démarre **qu'une fois l'image affichée** (indispensable en mode Rapidité, sinon le joueur est pénalisé par sa connexion). 2 rounds d'avance, dès l'accueil ; signal `onvisible` après décodage et peinture de la photo.
+- [x] Navigation : accueil → choix du mode (**Rapidité présélectionné**) → partie → résultats → rejouer en un clic.
+  - ✅ **Décidé : routage par hash** (`#/rapidite`, `#/distance`). Testé derrière un serveur qui imite GitHub Pages : Précédent ramène à l'accueil (sans URL, il fait quitter le jeu), rechargement et lien partagé fonctionnent (avec la History API : page 404). Un lien direct vers un mode ouvre l'accueil avec ce mode présélectionné.
+- [x] Persistance locale (`localStorage`, avec numéro de version du format) : meilleurs scores par mode, nombre de parties, historique des photos vues. Lecture tolérante, migrations, aucun plantage sans `localStorage`.
 
-**Livrable :** squelette navigable, avec un mode factice jouable de bout en bout.
+**Livrable :** squelette navigable, avec un mode factice jouable de bout en bout. ✅ Mode « Démonstration » (`#/factice`, choisir le bon site parmi 4) ; Rapidité et Distance branchés avec un écran provisoire « en construction ».
 
 ---
 
@@ -367,9 +367,9 @@ Les valeurs sont réglables dans [`src/config.ts`](src/config.ts) ; tests et jus
 | 12 | 3 | Métaphores visuelles (barres de contrôle, décroissance…) | ✅ **Décidé : légères** (barre linéaire graduée à la seconde, pas d'exponentielle ; score en relevé ; fin en compte rendu d'essai) |
 | 13 | 3 | Maquettes Figma ou HTML | ✅ **Décidé : prototypes HTML autonomes** |
 | 14 | 3 | Typographies | ✅ **Décidé : IBM Plex Sans + IBM Plex Mono** (77 Ko) |
-| 15 | 4 | Framework UI | Svelte |
-| 16 | 4 | Tailwind ou bibliothèque de composants | Non, CSS natif + tokens |
-| 17 | 4 | Routage | Par hash |
+| 15 | 4 | Framework UI | ✅ **Décidé : Svelte 5** (Vite 8, TypeScript strict) |
+| 16 | 4 | Tailwind ou bibliothèque de composants | ✅ **Décidé : non, CSS natif + tokens** |
+| 17 | 4 | Routage | ✅ **Décidé : par hash** (`#/`, `#/rapidite`, `#/distance`) |
 | 18 | 5 | `Tab` complète ou valide | Complète seulement |
 | 19 | 5 | Son | Non, ou désactivé par défaut |
 | 20 | 5 | Onglet en arrière-plan pendant un round | Le temps continue de s'écouler |

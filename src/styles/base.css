@@ -1,0 +1,136 @@
+/*
+ * NucGuessr — styles de base communs à tous les écrans (direction « Synoptique »).
+ * Uniquement des variables de tokens.css et tokens-socle.css. Les styles propres à un composant
+ * sont dans le composant (bloc <style>, isolé par Svelte).
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--c-fond);
+  color: var(--c-texte);
+  font: var(--graisse-normale) var(--taille-base) / var(--interligne) var(--police-texte);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--c-texte);
+}
+
+/* Focus visible au clavier, jamais à la souris. */
+:focus-visible {
+  outline: var(--trait-fort) solid var(--c-accent);
+  outline-offset: var(--trait-fort);
+}
+
+/* Page : largeur maximale du jeu, marges latérales. */
+.page {
+  max-width: var(--largeur-max-jeu);
+  margin: 0 auto;
+  padding: 0 var(--esp-5);
+}
+
+/* Tous les nombres : chasse fixe, chiffres tabulaires. */
+.num {
+  font-family: var(--police-chiffres);
+  font-variant-numeric: var(--chiffres-variante);
+}
+
+/* Libellés d'instrument : petites capitales à chasse fixe. */
+.libelle {
+  font-family: var(--police-chiffres);
+  font-size: var(--taille-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--interlettre-libelle);
+  color: var(--c-texte-2);
+}
+
+/* Bouton principal (un seul par écran) : aplat d'accent. */
+.bouton {
+  font: var(--graisse-forte) var(--taille-base) var(--police-texte);
+  min-height: var(--hauteur-saisie);
+  padding: 0 var(--esp-5);
+  border-radius: var(--rayon-1);
+  border: 0;
+  background: var(--c-accent);
+  color: var(--c-sur-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-3);
+  cursor: pointer;
+}
+.bouton:disabled {
+  background: var(--c-surface-2);
+  color: var(--c-texte-3);
+  cursor: default;
+}
+.bouton:focus-visible {
+  box-shadow: var(--halo-focus);
+}
+
+/* Bouton secondaire : contour seul. */
+.bouton-discret {
+  font: var(--graisse-normale) var(--taille-base) var(--police-texte);
+  min-height: var(--hauteur-suggestion);
+  padding: 0 var(--esp-4);
+  border-radius: var(--rayon-1);
+  border: var(--trait-fin) solid var(--c-trait-fort);
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Touche de clavier affichée (« Entrée », « Tab », « 1 »). */
+kbd {
+  font: var(--taille-micro) var(--police-chiffres);
+  border: var(--trait-fin) solid currentColor;
+  padding: 0 var(--esp-1);
+  border-radius: var(--rayon-1);
+}
+kbd.touche {
+  color: var(--c-texte-3);
+  border-color: var(--c-trait-fort);
+}
+
+/* Texte lu par les lecteurs d'écran, invisible à l'écran. */
+.visuellement-masque {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 719px) {
+  .page {
+    padding: 0 var(--esp-3);
+  }
+}

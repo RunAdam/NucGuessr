@@ -1,0 +1,19 @@
+/*
+ * NucGuessr — tokens ajoutés par le socle (phase 4), en complément de tokens.css (phase 3, non modifié).
+ * Même règle : toute valeur visuelle des composants vient d'une variable.
+ */
+
+:root {
+  /* Filet épais : bord de l'élément actif (mode choisi, option survolée), contour de focus, voyant en cours. */
+  --trait-fort: 2px;
+
+  /* Halo de focus (seule ombre admise, avec le halo d'erreur : design/TOKENS.md, règle 7). */
+  --halo-focus: 0 0 0 3px var(--c-accent-doux);
+
+  /* Gabarit : largeur du pupitre (colonne de droite en jeu, colonne de synthèse du compte rendu). */
+  --largeur-pupitre: 20rem;
+
+  /* Hauteur du bandeau d'instrumentation, sur bureau et sur mobile. */
+  --hauteur-bandeau: 3.25rem;
+  --hauteur-bandeau-mobile: 2.25rem;
+}
