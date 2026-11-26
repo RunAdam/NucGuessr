@@ -54,14 +54,14 @@
           "minLength": 1
         },
         "licence": {
-          "description": "Licence normalisée. CC0, CC BY et CC BY-SA (versions portées comprises, ex. CC-BY-SA-3.0-FR), Etalab 2.0, domaine public, accord écrit de l'auteur (photo de la promo) ; image-generee pour les substituts. Jamais NC ni ND.",
+          "description": "Licence normalisée (usage interne : toute licence acceptée). Ex. CC-BY-SA-4.0, CC-BY-NC-2.0, CC0-1.0, Etalab-2.0, domaine-public, droits-reserves, accord-auteur ; image-generee pour les substituts.",
           "type": "string",
-          "pattern": "^(CC0-1\\.0|CC-BY(-SA)?-(1\\.0|2\\.0|2\\.5|3\\.0|4\\.0)(-[A-Z]{2})?|Etalab-2\\.0|domaine-public|accord-auteur|image-generee)$"
+          "minLength": 1
         },
         "url_source": {
-          "description": "Lien vers la page de l'original (page « File: » de Wikimedia Commons, page Géoplateforme…). null seulement pour une photo de la promo ou un substitut. Peut contenir le nom du site : ne l'afficher qu'après le round.",
+          "description": "Lien vers la page de l'original (page « File: » de Wikimedia Commons, page EDF, Flickr…). null possible si la licence n'est ni CC ni Etalab. Peut contenir le nom du site : ne l'afficher qu'après le round.",
           "type": ["string", "null"],
-          "pattern": "^https://"
+          "pattern": "^https?://"
         },
         "alt": {
           "description": "Texte alternatif NEUTRE, sans aucun nom de site (affiché pendant le round).",

@@ -225,14 +225,27 @@ class TestTraitement(BaseTemporaire):
         for nom in ("a.jpg", "b.jpg", "c.jpg", "d.jpg", "e.jpg"):
             Image.new("RGB", (1600, 1000), (len(nom) * 20, 50, 50)).save(self.sources / nom)
         self.ecrire_csv(
-            "a.jpg;bugey;sol;1;X;CC BY-NC 4.0;https://commons.wikimedia.org/wiki/File:A.jpg",  # NC interdite
-            "b.jpg;bugey;sol;1;X;CC BY 4.0;https://www.google.com/imgres?x",  # source interdite
+            "a.jpg;bugey;sol;1;X;image-generee;",  # réservée aux substituts
+            "b.jpg;bugey;sol;1;X;CC BY 4.0;ftp://exemple.org/b.jpg",  # lien invalide
             "c.jpg;fessenheim;sol;1;X;CC0;https://commons.wikimedia.org/wiki/File:C.jpg",  # site hors v1
-            "d.jpg;bugey;sol;1;X;CC BY 4.0;",  # lien vers l'original manquant
+            "d.jpg;bugey;sol;1;X;CC BY 4.0;",  # lien vers l'original manquant (CC)
             "e.jpg;bugey;sol;;;;",  # crédits pas encore remplis
         )
         self.assertEqual(self.traiter(), 1)
         self.assertEqual(self.banque()["photos"], [])
+
+    def test_credits_usage_interne(self):
+        """Usage interne : NC, ND, droits réservés et toute source sont acceptés."""
+        for i, nom in enumerate(("a.jpg", "b.jpg", "c.jpg")):
+            Image.new("RGB", (1600, 1000), (40 + 80 * i, 200 - 60 * i, 90)).save(self.sources / nom)
+        self.ecrire_csv(
+            "a.jpg;bugey;sol;1;X;CC BY-NC-ND 4.0;https://www.flickr.com/photos/x/1",
+            "b.jpg;bugey;aérienne;2;EDF;Tous droits réservés;https://www.edf.fr/centrale",
+            "c.jpg;bugey;sol;3;Y;© droits réservés;",
+        )
+        self.assertEqual(self.traiter(), 0)
+        licences = sorted(p["licence"] for p in self.banque()["photos"])
+        self.assertEqual(licences, ["CC-BY-NC-ND-4.0", "droits-reserves", "droits-reserves"])
 
     def test_csv_virgules_et_variantes(self):
         Image.new("RGB", (1600, 1000), (1, 2, 3)).save(self.sources / "x.jpg")

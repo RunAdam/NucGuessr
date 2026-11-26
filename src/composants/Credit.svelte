@@ -11,6 +11,7 @@
     'image-generee': 'image de test générée',
     'domaine-public': 'domaine public',
     'accord-auteur': 'avec l’accord de l’auteur',
+    'droits-reserves': 'droits réservés',
     'Etalab-2.0': 'Licence Ouverte Etalab 2.0',
   };
   const licence = $derived(

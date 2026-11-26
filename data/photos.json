@@ -63,6 +63,36 @@
       "substitut": false
     },
     {
+      "id": "39436131ee76772c",
+      "fichier": "39436131ee76772c.webp",
+      "site_id": "belleville",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "olive.titus",
+      "licence": "domaine-public",
+      "url_source": "https://www.flickr.com/photos/96064256@N04/50047391523",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 768,
+      "poids_octets": 108040,
+      "substitut": false
+    },
+    {
+      "id": "890831029c54a609",
+      "fichier": "890831029c54a609.webp",
+      "site_id": "belleville",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "SirCrumpet",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/29728582@N08/9119022079",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1023,
+      "hauteur": 680,
+      "poids_octets": 88980,
+      "substitut": false
+    },
+    {
       "id": "e12878a63d43f846",
       "fichier": "e12878a63d43f846.webp",
       "site_id": "belleville",
@@ -123,6 +153,36 @@
       "substitut": false
     },
     {
+      "id": "ba190e1056d60477",
+      "fichier": "ba190e1056d60477.webp",
+      "site_id": "belleville",
+      "type": "detail",
+      "difficulte": 3,
+      "auteur": "olive.titus",
+      "licence": "domaine-public",
+      "url_source": "https://www.flickr.com/photos/96064256@N04/50048211932",
+      "alt": "Détail d'une centrale nucléaire à identifier",
+      "largeur": 1024,
+      "hauteur": 768,
+      "poids_octets": 54478,
+      "substitut": false
+    },
+    {
+      "id": "0fedd4eb6c929b49",
+      "fichier": "0fedd4eb6c929b49.webp",
+      "site_id": "blayais",
+      "type": "sol",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/sites/groupe/files/2026-02/dp-2026-cnpe-blayais.pdf",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1499,
+      "hauteur": 540,
+      "poids_octets": 104322,
+      "substitut": false
+    },
+    {
       "id": "9accf2a027f22622",
       "fichier": "9accf2a027f22622.webp",
       "site_id": "blayais",
@@ -135,6 +195,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 62276,
+      "substitut": false
+    },
+    {
+      "id": "5fa11497d7044d09",
+      "fichier": "5fa11497d7044d09.webp",
+      "site_id": "blayais",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/sites/groupe/files/2026-02/dp-2026-cnpe-blayais.pdf",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1497,
+      "hauteur": 479,
+      "poids_octets": 69658,
       "substitut": false
     },
     {
@@ -153,18 +228,48 @@
       "substitut": false
     },
     {
-      "id": "70a31c331cb56154",
-      "fichier": "70a31c331cb56154.webp",
+      "id": "e4a79ab1b3b3df47",
+      "fichier": "e4a79ab1b3b3df47.webp",
+      "site_id": "blayais",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "Jack ma",
+      "licence": "CC-BY-SA-3.0",
+      "url_source": "https://commons.wikimedia.org/wiki/File:Pauillac_blayais.JPG",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1200,
+      "hauteur": 900,
+      "poids_octets": 27492,
+      "substitut": false
+    },
+    {
+      "id": "3262cdda03eb67bd",
+      "fichier": "3262cdda03eb67bd.webp",
+      "site_id": "blayais",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "Sam Nimitz",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/40263625@N08/3701366273",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 768,
+      "poids_octets": 131044,
+      "substitut": false
+    },
+    {
+      "id": "57bb6fa6e5cb002d",
+      "fichier": "57bb6fa6e5cb002d.webp",
       "site_id": "blayais",
       "type": "satellite",
       "difficulte": 3,
-      "auteur": "IGN – BD ORTHO Historique",
-      "licence": "Etalab-2.0",
-      "url_source": "https://geoservices.ign.fr/bdorthohisto",
+      "auteur": "Earth Science and Remote Sensing Unit, Lyndon B. Johnson Space Center",
+      "licence": "domaine-public",
+      "url_source": "https://commons.wikimedia.org/wiki/File:ISS016-E-9631_-_View_of_France.jpg",
       "alt": "Vue satellite d'une centrale nucléaire à identifier",
-      "largeur": 1600,
-      "hauteur": 1067,
-      "poids_octets": 104890,
+      "largeur": 1536,
+      "hauteur": 1016,
+      "poids_octets": 74506,
       "substitut": false
     },
     {
@@ -243,18 +348,48 @@
       "substitut": false
     },
     {
-      "id": "0b928796026cfb14",
-      "fichier": "0b928796026cfb14.webp",
+      "id": "d1b586e321e97689",
+      "fichier": "d1b586e321e97689.webp",
+      "site_id": "bugey",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-bugey",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1045,
+      "poids_octets": 245854,
+      "substitut": false
+    },
+    {
+      "id": "0899eaad5b853dbb",
+      "fichier": "0899eaad5b853dbb.webp",
       "site_id": "bugey",
       "type": "sol",
       "difficulte": 2,
-      "auteur": "Jess & Peter",
-      "licence": "CC-BY-2.0",
-      "url_source": "https://commons.wikimedia.org/wiki/File:Centrale_nucl%C3%A9aire_du_Bugey_et_champ_de_tournesol.jpg",
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/la-centrale-nucleaire-du-bugey/les-actualites-de-la-centrale-nucleaire-du-bugey",
       "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
-      "largeur": 1280,
-      "hauteur": 960,
-      "poids_octets": 110282,
+      "largeur": 1600,
+      "hauteur": 1065,
+      "poids_octets": 199648,
+      "substitut": false
+    },
+    {
+      "id": "0d7a84a5edc3477d",
+      "fichier": "0d7a84a5edc3477d.webp",
+      "site_id": "bugey",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/la-centrale-nucleaire-du-bugey/les-actualites-de-la-centrale-nucleaire-du-bugey?page=2",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1198,
+      "hauteur": 646,
+      "poids_octets": 51376,
       "substitut": false
     },
     {
@@ -300,6 +435,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 323532,
+      "substitut": false
+    },
+    {
+      "id": "eb0a56d80bd54d88",
+      "fichier": "eb0a56d80bd54d88.webp",
+      "site_id": "bugey",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "gold_auraque",
+      "licence": "CC-BY-NC-2.0",
+      "url_source": "https://www.flickr.com/photos/55405415@N00/6308937876",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 682,
+      "poids_octets": 25916,
       "substitut": false
     },
     {
@@ -363,6 +513,21 @@
       "substitut": false
     },
     {
+      "id": "f553ed9f4cc955ff",
+      "fichier": "f553ed9f4cc955ff.webp",
+      "site_id": "cattenom",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-cattenom",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1067,
+      "poids_octets": 163758,
+      "substitut": false
+    },
+    {
       "id": "1516f3fa7d768b30",
       "fichier": "1516f3fa7d768b30.webp",
       "site_id": "cattenom",
@@ -375,6 +540,21 @@
       "largeur": 1600,
       "hauteur": 930,
       "poids_octets": 63144,
+      "substitut": false
+    },
+    {
+      "id": "58ad6e0ea9f48ee2",
+      "fichier": "58ad6e0ea9f48ee2.webp",
+      "site_id": "cattenom",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-cattenom",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1600,
+      "hauteur": 1067,
+      "poids_octets": 146396,
       "substitut": false
     },
     {
@@ -423,6 +603,21 @@
       "substitut": false
     },
     {
+      "id": "f37b3253340ae75f",
+      "fichier": "f37b3253340ae75f.webp",
+      "site_id": "cattenom",
+      "type": "aerienne",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/la-centrale-nucleaire-de-cattenom/l-exploitation-de-la-centrale-nucleaire-de-cattenom",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1198,
+      "poids_octets": 208610,
+      "substitut": false
+    },
+    {
       "id": "0ff8622246220842",
       "fichier": "0ff8622246220842.webp",
       "site_id": "cattenom",
@@ -453,6 +648,21 @@
       "substitut": false
     },
     {
+      "id": "f453abac58faebf8",
+      "fichier": "f453abac58faebf8.webp",
+      "site_id": "cattenom",
+      "type": "detail",
+      "difficulte": 3,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/la-centrale-nucleaire-de-cattenom/les-actualites-de-la-centrale-nucleaire-de-cattenom?page=1",
+      "alt": "Détail d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1200,
+      "poids_octets": 194534,
+      "substitut": false
+    },
+    {
       "id": "e2b3e088e8b38b3c",
       "fichier": "e2b3e088e8b38b3c.webp",
       "site_id": "chinon",
@@ -468,6 +678,36 @@
       "substitut": false
     },
     {
+      "id": "3db3e026f1ed4a45",
+      "fichier": "3db3e026f1ed4a45.webp",
+      "site_id": "chinon",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "sybarite48",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/26082117@N07/6782752921",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 768,
+      "poids_octets": 119036,
+      "substitut": false
+    },
+    {
+      "id": "5fdb19738b6611c3",
+      "fichier": "5fdb19738b6611c3.webp",
+      "site_id": "chinon",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "etienne.baudon",
+      "licence": "domaine-public",
+      "url_source": "https://www.flickr.com/photos/186165403@N05/50257017163",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 768,
+      "poids_octets": 25050,
+      "substitut": false
+    },
+    {
       "id": "7ef1e8658640e4c2",
       "fichier": "7ef1e8658640e4c2.webp",
       "site_id": "chinon",
@@ -480,6 +720,21 @@
       "largeur": 1600,
       "hauteur": 1067,
       "poids_octets": 67806,
+      "substitut": false
+    },
+    {
+      "id": "8f8c7b417e2832a6",
+      "fichier": "8f8c7b417e2832a6.webp",
+      "site_id": "chinon",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "sybarite48",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/26082117@N07/6782741739",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 768,
+      "poids_octets": 106770,
       "substitut": false
     },
     {
@@ -525,6 +780,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 95250,
+      "substitut": false
+    },
+    {
+      "id": "9b1f50b582cd4cc7",
+      "fichier": "9b1f50b582cd4cc7.webp",
+      "site_id": "chinon",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "sybarite48",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/26082117@N07/6782738485",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 767,
+      "poids_octets": 48050,
       "substitut": false
     },
     {
@@ -588,6 +858,21 @@
       "substitut": false
     },
     {
+      "id": "f0228f75c8177864",
+      "fichier": "f0228f75c8177864.webp",
+      "site_id": "chooz",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "kewl",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/58411470@N00/52595026560",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 683,
+      "poids_octets": 248218,
+      "substitut": false
+    },
+    {
       "id": "c63855afa00e03ea",
       "fichier": "c63855afa00e03ea.webp",
       "site_id": "chooz",
@@ -600,6 +885,21 @@
       "largeur": 1600,
       "hauteur": 610,
       "poids_octets": 228340,
+      "substitut": false
+    },
+    {
+      "id": "d4943b6fe065a3d0",
+      "fichier": "d4943b6fe065a3d0.webp",
+      "site_id": "chooz",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "Jodaur",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/71400202@N08/6472069617",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 683,
+      "poids_octets": 76856,
       "substitut": false
     },
     {
@@ -633,6 +933,21 @@
       "substitut": false
     },
     {
+      "id": "2d728b89907e76fb",
+      "fichier": "2d728b89907e76fb.webp",
+      "site_id": "civaux",
+      "type": "sol",
+      "difficulte": 1,
+      "auteur": "sybarite48",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/26082117@N07/30028302397",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 678,
+      "poids_octets": 74736,
+      "substitut": false
+    },
+    {
       "id": "c8a1324f0f388283",
       "fichier": "c8a1324f0f388283.webp",
       "site_id": "civaux",
@@ -645,6 +960,36 @@
       "largeur": 1600,
       "hauteur": 1065,
       "poids_octets": 59472,
+      "substitut": false
+    },
+    {
+      "id": "e2e7698964037882",
+      "fichier": "e2e7698964037882.webp",
+      "site_id": "civaux",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-civaux",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1350,
+      "hauteur": 631,
+      "poids_octets": 109864,
+      "substitut": false
+    },
+    {
+      "id": "5462043bd642b9c6",
+      "fichier": "5462043bd642b9c6.webp",
+      "site_id": "civaux",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "Tim Jokl",
+      "licence": "CC-BY-NC-2.0",
+      "url_source": "https://www.flickr.com/photos/54764786@N00/54002198785",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 677,
+      "poids_octets": 67412,
       "substitut": false
     },
     {
@@ -708,6 +1053,51 @@
       "substitut": false
     },
     {
+      "id": "ba3203e081cb1ecc",
+      "fichier": "ba3203e081cb1ecc.webp",
+      "site_id": "civaux",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "RedCraig",
+      "licence": "CC-BY-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/54857032@N00/6631383007",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 683,
+      "poids_octets": 79174,
+      "substitut": false
+    },
+    {
+      "id": "decb36740320a127",
+      "fichier": "decb36740320a127.webp",
+      "site_id": "civaux",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "j.a.holland",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/16451658@N06/2481099282",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 766,
+      "poids_octets": 206914,
+      "substitut": false
+    },
+    {
+      "id": "05a43351308697c5",
+      "fichier": "05a43351308697c5.webp",
+      "site_id": "cruas",
+      "type": "sol",
+      "difficulte": 1,
+      "auteur": "emmettanderson",
+      "licence": "CC-BY-NC-2.0",
+      "url_source": "https://www.flickr.com/photos/59778596@N00/10451641493",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1023,
+      "hauteur": 612,
+      "poids_octets": 126218,
+      "substitut": false
+    },
+    {
       "id": "51e34018fa8c939a",
       "fichier": "51e34018fa8c939a.webp",
       "site_id": "cruas",
@@ -720,6 +1110,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 284650,
+      "substitut": false
+    },
+    {
+      "id": "6656baab9b83ad7d",
+      "fichier": "6656baab9b83ad7d.webp",
+      "site_id": "cruas",
+      "type": "sol",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/la-centrale-nucleaire-de-cruas-meysse/les-actualites-de-la-centrale-nucleaire-de-cruas-meysse?page=4",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1600,
+      "hauteur": 1070,
+      "poids_octets": 130242,
       "substitut": false
     },
     {
@@ -738,6 +1143,21 @@
       "substitut": false
     },
     {
+      "id": "22f14ffefa86ae88",
+      "fichier": "22f14ffefa86ae88.webp",
+      "site_id": "cruas",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "Jeanne Menjoulet",
+      "licence": "CC-BY-ND-2.0",
+      "url_source": "https://www.flickr.com/photos/96925387@N00/10294181263",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 683,
+      "poids_octets": 42416,
+      "substitut": false
+    },
+    {
       "id": "33d6bb980fe369b2",
       "fichier": "33d6bb980fe369b2.webp",
       "site_id": "cruas",
@@ -750,6 +1170,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 306730,
+      "substitut": false
+    },
+    {
+      "id": "4e7bb9273a0957b5",
+      "fichier": "4e7bb9273a0957b5.webp",
+      "site_id": "cruas",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/la-centrale-nucleaire-de-cruas-meysse/les-actualites-de-la-centrale-nucleaire-de-cruas-meysse?page=2",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1600,
+      "hauteur": 1066,
+      "poids_octets": 221412,
       "substitut": false
     },
     {
@@ -798,33 +1233,33 @@
       "substitut": false
     },
     {
-      "id": "0484f6669b6d88e0",
-      "fichier": "0484f6669b6d88e0.webp",
+      "id": "baf746737f205500",
+      "fichier": "baf746737f205500.webp",
       "site_id": "cruas",
       "type": "sol",
       "difficulte": 3,
-      "auteur": "de:Benutzer:Pumuckel42 (Reinhard Wolf)",
-      "licence": "CC-BY-SA-3.0",
-      "url_source": "https://commons.wikimedia.org/wiki/File:Cruas-1.JPG",
+      "auteur": "ioshimuro",
+      "licence": "CC-BY-NC-2.0",
+      "url_source": "https://www.flickr.com/photos/9274968@N06/10023175296",
       "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
-      "largeur": 1528,
-      "hauteur": 1020,
-      "poids_octets": 27278,
+      "largeur": 1024,
+      "hauteur": 683,
+      "poids_octets": 75656,
       "substitut": false
     },
     {
-      "id": "c9c4c3161e4ab29a",
-      "fichier": "c9c4c3161e4ab29a.webp",
+      "id": "e927385b8c41982e",
+      "fichier": "e927385b8c41982e.webp",
       "site_id": "cruas",
-      "type": "satellite",
+      "type": "sol",
       "difficulte": 3,
-      "auteur": "IGN – BD ORTHO Historique",
-      "licence": "Etalab-2.0",
-      "url_source": "https://geoservices.ign.fr/bdorthohisto",
-      "alt": "Vue satellite d'une centrale nucléaire à identifier",
-      "largeur": 1600,
-      "hauteur": 1067,
-      "poids_octets": 215946,
+      "auteur": "Gential LAMBERT",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/25204075@N08/8447819395",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 683,
+      "poids_octets": 95604,
       "substitut": false
     },
     {
@@ -840,6 +1275,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 109640,
+      "substitut": false
+    },
+    {
+      "id": "912d6fed683c5b54",
+      "fichier": "912d6fed683c5b54.webp",
+      "site_id": "dampierre",
+      "type": "sol",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-dampierre",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1600,
+      "hauteur": 1068,
+      "poids_octets": 138852,
       "substitut": false
     },
     {
@@ -918,6 +1368,21 @@
       "substitut": false
     },
     {
+      "id": "3d0f422182bab520",
+      "fichier": "3d0f422182bab520.webp",
+      "site_id": "dampierre",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "WireLizard",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/8715708@N03/15809837347",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 768,
+      "poids_octets": 87920,
+      "substitut": false
+    },
+    {
       "id": "40d1f9b13a36007d",
       "fichier": "40d1f9b13a36007d.webp",
       "site_id": "dampierre",
@@ -948,6 +1413,21 @@
       "substitut": false
     },
     {
+      "id": "447d0041e1a2c373",
+      "fichier": "447d0041e1a2c373.webp",
+      "site_id": "flamanville",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-flamanville",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 900,
+      "poids_octets": 252304,
+      "substitut": false
+    },
+    {
       "id": "9cb6e1369bb5c635",
       "fichier": "9cb6e1369bb5c635.webp",
       "site_id": "flamanville",
@@ -960,6 +1440,36 @@
       "largeur": 1600,
       "hauteur": 881,
       "poids_octets": 181158,
+      "substitut": false
+    },
+    {
+      "id": "d8a51611a29870cd",
+      "fichier": "d8a51611a29870cd.webp",
+      "site_id": "flamanville",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "Bouygues Construction / EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://bouygues-construction.com/en/activities/energy/nuclear-energy/flamanville-epr",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1064,
+      "poids_octets": 287020,
+      "substitut": false
+    },
+    {
+      "id": "7e8f4929599cc145",
+      "fichier": "7e8f4929599cc145.webp",
+      "site_id": "flamanville",
+      "type": "aerienne",
+      "difficulte": 2,
+      "auteur": "Bouygues Construction / EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://bouygues-construction.com/en/activities/energy/nuclear-energy/flamanville-epr",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1067,
+      "poids_octets": 273250,
       "substitut": false
     },
     {
@@ -993,6 +1503,36 @@
       "substitut": false
     },
     {
+      "id": "1419ff4bd02ea69f",
+      "fichier": "1419ff4bd02ea69f.webp",
+      "site_id": "flamanville",
+      "type": "detail",
+      "difficulte": 3,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/sites/groupe/files/2025-09/Fiche%20presse_Flamanville123-2025_VD.pdf",
+      "alt": "Détail d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1067,
+      "poids_octets": 46046,
+      "substitut": false
+    },
+    {
+      "id": "59322c42dbe344be",
+      "fichier": "59322c42dbe344be.webp",
+      "site_id": "flamanville",
+      "type": "detail",
+      "difficulte": 3,
+      "auteur": "Bouygues Construction / EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://bouygues-construction.com/en/activities/energy/nuclear-energy/flamanville-epr",
+      "alt": "Détail d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 900,
+      "poids_octets": 203758,
+      "substitut": false
+    },
+    {
       "id": "5e6ccf2113802b6b",
       "fichier": "5e6ccf2113802b6b.webp",
       "site_id": "flamanville",
@@ -1008,18 +1548,18 @@
       "substitut": false
     },
     {
-      "id": "73136cfd8e9d7fa0",
-      "fichier": "73136cfd8e9d7fa0.webp",
+      "id": "9e5cc4a70f013a87",
+      "fichier": "9e5cc4a70f013a87.webp",
       "site_id": "flamanville",
-      "type": "satellite",
+      "type": "sol",
       "difficulte": 3,
-      "auteur": "Earth Science and Remote Sensing Unit, Lyndon B. Johnson Space Center",
-      "licence": "domaine-public",
-      "url_source": "https://commons.wikimedia.org/wiki/File:ISS017-E-9196_-_View_of_France.jpg",
-      "alt": "Vue satellite d'une centrale nucléaire à identifier",
-      "largeur": 1600,
-      "hauteur": 1055,
-      "poids_octets": 179886,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-flamanville",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1280,
+      "hauteur": 720,
+      "poids_octets": 61432,
       "substitut": false
     },
     {
@@ -1050,6 +1590,36 @@
       "largeur": 1600,
       "hauteur": 1198,
       "poids_octets": 76406,
+      "substitut": false
+    },
+    {
+      "id": "c4ef4c9e107bc802",
+      "fichier": "c4ef4c9e107bc802.webp",
+      "site_id": "golfech",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/sites/groupe/files/2026-06/EDF_RAPPORT_Golfech_2025_HD.pdf",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1423,
+      "hauteur": 1200,
+      "poids_octets": 204194,
+      "substitut": false
+    },
+    {
+      "id": "fafe15bf998e0eae",
+      "fichier": "fafe15bf998e0eae.webp",
+      "site_id": "golfech",
+      "type": "sol",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-golfech",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1600,
+      "hauteur": 1067,
+      "poids_octets": 154738,
       "substitut": false
     },
     {
@@ -1098,6 +1668,21 @@
       "substitut": false
     },
     {
+      "id": "67076262a90722d1",
+      "fichier": "67076262a90722d1.webp",
+      "site_id": "golfech",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "JohnSeb",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/69875617@N00/570413815",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 680,
+      "poids_octets": 110804,
+      "substitut": false
+    },
+    {
       "id": "a155dc739fd91b4b",
       "fichier": "a155dc739fd91b4b.webp",
       "site_id": "golfech",
@@ -1113,6 +1698,21 @@
       "substitut": false
     },
     {
+      "id": "c9b620f3d52824fb",
+      "fichier": "c9b620f3d52824fb.webp",
+      "site_id": "golfech",
+      "type": "detail",
+      "difficulte": 3,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/la-centrale-nucleaire-de-golfech/les-actualites-de-la-centrale-nucleaire-de-golfech?page=4",
+      "alt": "Détail d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1071,
+      "poids_octets": 113686,
+      "substitut": false
+    },
+    {
       "id": "e300b1d64ca0fb84",
       "fichier": "e300b1d64ca0fb84.webp",
       "site_id": "golfech",
@@ -1125,6 +1725,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 300320,
+      "substitut": false
+    },
+    {
+      "id": "3d7b36675ca7a2b0",
+      "fichier": "3d7b36675ca7a2b0.webp",
+      "site_id": "gravelines",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-gravelines",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1045,
+      "poids_octets": 204320,
       "substitut": false
     },
     {
@@ -1173,6 +1788,21 @@
       "substitut": false
     },
     {
+      "id": "7157572910da7f3a",
+      "fichier": "7157572910da7f3a.webp",
+      "site_id": "gravelines",
+      "type": "aerienne",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-gravelines",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1136,
+      "poids_octets": 250246,
+      "substitut": false
+    },
+    {
       "id": "775dc99c9ccb1fa5",
       "fichier": "775dc99c9ccb1fa5.webp",
       "site_id": "gravelines",
@@ -1188,18 +1818,33 @@
       "substitut": false
     },
     {
-      "id": "fd09524646f74805",
-      "fichier": "fd09524646f74805.webp",
+      "id": "ed4f787124d92cde",
+      "fichier": "ed4f787124d92cde.webp",
       "site_id": "gravelines",
       "type": "sol",
       "difficulte": 2,
-      "auteur": "Jean Marc Gfp",
-      "licence": "CC-BY-3.0",
-      "url_source": "https://commons.wikimedia.org/wiki/File:Pond_Hunting_and_Nuclear_power_plant_-_panoramio.jpg",
+      "auteur": "zède",
+      "licence": "CC-BY-NC-ND-2.0",
+      "url_source": "https://www.flickr.com/photos/44075985@N04/13869513804",
       "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
-      "largeur": 1600,
-      "hauteur": 1200,
-      "poids_octets": 144230,
+      "largeur": 1023,
+      "hauteur": 482,
+      "poids_octets": 74394,
+      "substitut": false
+    },
+    {
+      "id": "fac1243180a5f142",
+      "fichier": "fac1243180a5f142.webp",
+      "site_id": "gravelines",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "bpmm",
+      "licence": "CC-BY-NC-ND-2.0",
+      "url_source": "https://www.flickr.com/photos/20261861@N00/7711187188",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 678,
+      "poids_octets": 40642,
       "substitut": false
     },
     {
@@ -1233,6 +1878,21 @@
       "substitut": false
     },
     {
+      "id": "aa43358878ddd8c8",
+      "fichier": "aa43358878ddd8c8.webp",
+      "site_id": "gravelines",
+      "type": "aerienne",
+      "difficulte": 3,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-gravelines",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1199,
+      "poids_octets": 299088,
+      "substitut": false
+    },
+    {
       "id": "36bf7ff71a991447",
       "fichier": "36bf7ff71a991447.webp",
       "site_id": "nogent",
@@ -1260,6 +1920,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 215592,
+      "substitut": false
+    },
+    {
+      "id": "4a36916ff1185737",
+      "fichier": "4a36916ff1185737.webp",
+      "site_id": "nogent",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-nogent-sur-seine",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1017,
+      "poids_octets": 264666,
       "substitut": false
     },
     {
@@ -1293,21 +1968,6 @@
       "substitut": false
     },
     {
-      "id": "601b911eaa09a5ca",
-      "fichier": "601b911eaa09a5ca.webp",
-      "site_id": "nogent",
-      "type": "sol",
-      "difficulte": 2,
-      "auteur": "AntonyB",
-      "licence": "CC-BY-SA-4.0",
-      "url_source": "https://commons.wikimedia.org/wiki/File:Nogent_-_La_centrale_vue_de_la_D_951_(1).jpg",
-      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
-      "largeur": 1600,
-      "hauteur": 900,
-      "poids_octets": 77346,
-      "substitut": false
-    },
-    {
       "id": "605c28e0b8375ced",
       "fichier": "605c28e0b8375ced.webp",
       "site_id": "nogent",
@@ -1320,6 +1980,36 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 174148,
+      "substitut": false
+    },
+    {
+      "id": "80d96665d8489f16",
+      "fichier": "80d96665d8489f16.webp",
+      "site_id": "nogent",
+      "type": "aerienne",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-nogent-sur-seine",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 911,
+      "poids_octets": 207346,
+      "substitut": false
+    },
+    {
+      "id": "e4b70f8d4057928c",
+      "fichier": "e4b70f8d4057928c.webp",
+      "site_id": "nogent",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "2.",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/7588465@N03/5937105427",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 813,
+      "poids_octets": 140684,
       "substitut": false
     },
     {
@@ -1338,6 +2028,21 @@
       "substitut": false
     },
     {
+      "id": "34fc0d5c2addcb2b",
+      "fichier": "34fc0d5c2addcb2b.webp",
+      "site_id": "nogent",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "paul_appleyard",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/20342758@N00/54491263979",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1023,
+      "hauteur": 684,
+      "poids_octets": 148284,
+      "substitut": false
+    },
+    {
       "id": "cdb09cb55a0f54bc",
       "fichier": "cdb09cb55a0f54bc.webp",
       "site_id": "nogent",
@@ -1350,6 +2055,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 289836,
+      "substitut": false
+    },
+    {
+      "id": "f586d18d314daea0",
+      "fichier": "f586d18d314daea0.webp",
+      "site_id": "nogent",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "2.",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/7588465@N03/5937105073",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 814,
+      "poids_octets": 188842,
       "substitut": false
     },
     {
@@ -1368,18 +2088,48 @@
       "substitut": false
     },
     {
-      "id": "a9e35135fdd6b5a4",
-      "fichier": "a9e35135fdd6b5a4.webp",
+      "id": "37b84c84ccdd0b29",
+      "fichier": "37b84c84ccdd0b29.webp",
       "site_id": "paluel",
-      "type": "satellite",
+      "type": "aerienne",
       "difficulte": 2,
-      "auteur": "IGN – BD ORTHO",
-      "licence": "Etalab-2.0",
-      "url_source": "https://geoservices.ign.fr/bdortho",
-      "alt": "Vue satellite d'une centrale nucléaire à identifier",
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/sites/groupe/files/2026-02/fiche%20presse%20PAL%2026.pdf",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1508,
+      "hauteur": 476,
+      "poids_octets": 98288,
+      "substitut": false
+    },
+    {
+      "id": "3c4f4e731857bf98",
+      "fichier": "3c4f4e731857bf98.webp",
+      "site_id": "paluel",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "Energi-vore Photographe : Francis Chanteloup (EDF)",
+      "licence": "CC-BY-SA-4.0",
+      "url_source": "https://commons.wikimedia.org/wiki/File:FC-0019.jpg",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
       "largeur": 1600,
-      "hauteur": 1067,
-      "poids_octets": 220764,
+      "hauteur": 1064,
+      "poids_octets": 291722,
+      "substitut": false
+    },
+    {
+      "id": "462173c4336bcb54",
+      "fichier": "462173c4336bcb54.webp",
+      "site_id": "paluel",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/sites/groupe/files/2025-06/RAPPORTPALUEL24.pdf",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 711,
+      "hauteur": 485,
+      "poids_octets": 53146,
       "substitut": false
     },
     {
@@ -1413,6 +2163,21 @@
       "substitut": false
     },
     {
+      "id": "e9eee926bced52c5",
+      "fichier": "e9eee926bced52c5.webp",
+      "site_id": "paluel",
+      "type": "detail",
+      "difficulte": 3,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/sites/groupe/files/2022-03/Fiche%20presse_paluel_2022.pdf",
+      "alt": "Détail d'une centrale nucléaire à identifier",
+      "largeur": 1014,
+      "hauteur": 876,
+      "poids_octets": 129286,
+      "substitut": false
+    },
+    {
       "id": "06d76c4fe5ca74cb",
       "fichier": "06d76c4fe5ca74cb.webp",
       "site_id": "penly",
@@ -1425,6 +2190,36 @@
       "largeur": 1600,
       "hauteur": 1068,
       "poids_octets": 133268,
+      "substitut": false
+    },
+    {
+      "id": "baa362643fbeaee8",
+      "fichier": "baa362643fbeaee8.webp",
+      "site_id": "penly",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "JKremona",
+      "licence": "CC-BY-SA-4.0",
+      "url_source": "https://commons.wikimedia.org/wiki/File:Centrale_nucl%C3%A9aire_de_Penly_en_2022.png",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 912,
+      "poids_octets": 237660,
+      "substitut": false
+    },
+    {
+      "id": "0920621c302407be",
+      "fichier": "0920621c302407be.webp",
+      "site_id": "penly",
+      "type": "aerienne",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-penly",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 901,
+      "poids_octets": 231600,
       "substitut": false
     },
     {
@@ -1443,21 +2238,6 @@
       "substitut": false
     },
     {
-      "id": "1e63d193cbbdee01",
-      "fichier": "1e63d193cbbdee01.webp",
-      "site_id": "penly",
-      "type": "satellite",
-      "difficulte": 2,
-      "auteur": "IGN – BD ORTHO",
-      "licence": "Etalab-2.0",
-      "url_source": "https://geoservices.ign.fr/bdortho",
-      "alt": "Vue satellite d'une centrale nucléaire à identifier",
-      "largeur": 1600,
-      "hauteur": 1067,
-      "poids_octets": 253718,
-      "substitut": false
-    },
-    {
       "id": "314154fd8d0156aa",
       "fichier": "314154fd8d0156aa.webp",
       "site_id": "penly",
@@ -1470,6 +2250,21 @@
       "largeur": 1600,
       "hauteur": 1200,
       "poids_octets": 207206,
+      "substitut": false
+    },
+    {
+      "id": "8bceb006c3e9e368",
+      "fichier": "8bceb006c3e9e368.webp",
+      "site_id": "penly",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "isamiga76",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/33852840@N06/5911539374",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 681,
+      "poids_octets": 105660,
       "substitut": false
     },
     {
@@ -1500,6 +2295,21 @@
       "largeur": 1600,
       "hauteur": 1194,
       "poids_octets": 158318,
+      "substitut": false
+    },
+    {
+      "id": "9830b710eb6bc7e4",
+      "fichier": "9830b710eb6bc7e4.webp",
+      "site_id": "penly",
+      "type": "aerienne",
+      "difficulte": 3,
+      "auteur": "Remi Mathis",
+      "licence": "CC-BY-SA-3.0",
+      "url_source": "https://commons.wikimedia.org/wiki/File:Penly_nuclear_power_plant_-_aerial_view.jpg",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1400,
+      "hauteur": 1200,
+      "poids_octets": 74536,
       "substitut": false
     },
     {
@@ -1563,6 +2373,21 @@
       "substitut": false
     },
     {
+      "id": "6a5f11f27e853ada",
+      "fichier": "6a5f11f27e853ada.webp",
+      "site_id": "saint-alban",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "European Roads",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/34548585@N02/51317598608",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 674,
+      "poids_octets": 70134,
+      "substitut": false
+    },
+    {
       "id": "6b76552eeaed6139",
       "fichier": "6b76552eeaed6139.webp",
       "site_id": "saint-alban",
@@ -1593,6 +2418,36 @@
       "substitut": false
     },
     {
+      "id": "cfde4d5d18f070ed",
+      "fichier": "cfde4d5d18f070ed.webp",
+      "site_id": "saint-alban",
+      "type": "aerienne",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-saint-alban",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
+      "largeur": 1600,
+      "hauteur": 1200,
+      "poids_octets": 177744,
+      "substitut": false
+    },
+    {
+      "id": "95c6d9cb3ef47ab6",
+      "fichier": "95c6d9cb3ef47ab6.webp",
+      "site_id": "saint-alban",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "Pascal Rey Photographies",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/44856392@N03/26691887897",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 599,
+      "poids_octets": 167672,
+      "substitut": false
+    },
+    {
       "id": "bf39f76e6029b688",
       "fichier": "bf39f76e6029b688.webp",
       "site_id": "saint-alban",
@@ -1608,18 +2463,33 @@
       "substitut": false
     },
     {
-      "id": "c56d58cf9d5eb5a1",
-      "fichier": "c56d58cf9d5eb5a1.webp",
-      "site_id": "saint-alban",
-      "type": "satellite",
-      "difficulte": 3,
-      "auteur": "IGN – BD ORTHO Historique",
-      "licence": "Etalab-2.0",
-      "url_source": "https://geoservices.ign.fr/bdorthohisto",
-      "alt": "Vue satellite d'une centrale nucléaire à identifier",
+      "id": "75a5dec74a3879f2",
+      "fichier": "75a5dec74a3879f2.webp",
+      "site_id": "saint-laurent",
+      "type": "sol",
+      "difficulte": 1,
+      "auteur": "sybarite48",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/26082117@N07/20543391268",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 678,
+      "poids_octets": 50634,
+      "substitut": false
+    },
+    {
+      "id": "8407a88d3dfe91be",
+      "fichier": "8407a88d3dfe91be.webp",
+      "site_id": "saint-laurent",
+      "type": "aerienne",
+      "difficulte": 1,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-saint-laurent-des-eaux",
+      "alt": "Vue aérienne d'une centrale nucléaire à identifier",
       "largeur": 1600,
-      "hauteur": 1067,
-      "poids_octets": 269012,
+      "hauteur": 1198,
+      "poids_octets": 171002,
       "substitut": false
     },
     {
@@ -1653,6 +2523,36 @@
       "substitut": false
     },
     {
+      "id": "3d55524f2229f8e4",
+      "fichier": "3d55524f2229f8e4.webp",
+      "site_id": "saint-laurent",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "Andrea Kirkby",
+      "licence": "CC-BY-NC-2.0",
+      "url_source": "https://www.flickr.com/photos/12071889@N00/3749062304",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 681,
+      "poids_octets": 32894,
+      "substitut": false
+    },
+    {
+      "id": "4cd47785108c49a1",
+      "fichier": "4cd47785108c49a1.webp",
+      "site_id": "saint-laurent",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/la-centrale-nucleaire-de-saint-laurent/l-exploitation-de-la-centrale-nucleaire-de-saint-laurent",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1600,
+      "hauteur": 1067,
+      "poids_octets": 73892,
+      "substitut": false
+    },
+    {
       "id": "78a37dfac743c646",
       "fichier": "78a37dfac743c646.webp",
       "site_id": "saint-laurent",
@@ -1683,6 +2583,21 @@
       "substitut": false
     },
     {
+      "id": "a711f1f82db881cc",
+      "fichier": "a711f1f82db881cc.webp",
+      "site_id": "saint-laurent",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "sybarite48",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/26082117@N07/20722054342",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 678,
+      "poids_octets": 32846,
+      "substitut": false
+    },
+    {
       "id": "dd0c51153924f157",
       "fichier": "dd0c51153924f157.webp",
       "site_id": "saint-laurent",
@@ -1695,6 +2610,21 @@
       "largeur": 1600,
       "hauteur": 981,
       "poids_octets": 162968,
+      "substitut": false
+    },
+    {
+      "id": "24c38b08479f009a",
+      "fichier": "24c38b08479f009a.webp",
+      "site_id": "saint-laurent",
+      "type": "sol",
+      "difficulte": 3,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/centrale-nucleaire-saint-laurent-des-eaux",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1600,
+      "hauteur": 1063,
+      "poids_octets": 37736,
       "substitut": false
     },
     {
@@ -1788,6 +2718,21 @@
       "substitut": false
     },
     {
+      "id": "6b95a253f9188e6a",
+      "fichier": "6b95a253f9188e6a.webp",
+      "site_id": "tricastin",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "cap21photo",
+      "licence": "CC-BY-NC-SA-2.0",
+      "url_source": "https://www.flickr.com/photos/10357688@N08/875939068",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 776,
+      "poids_octets": 35446,
+      "substitut": false
+    },
+    {
       "id": "7c753df22665e4ee",
       "fichier": "7c753df22665e4ee.webp",
       "site_id": "tricastin",
@@ -1800,6 +2745,36 @@
       "largeur": 1600,
       "hauteur": 900,
       "poids_octets": 89674,
+      "substitut": false
+    },
+    {
+      "id": "9274f7f283865472",
+      "fichier": "9274f7f283865472.webp",
+      "site_id": "tricastin",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "x1klima",
+      "licence": "CC-BY-ND-2.0",
+      "url_source": "https://www.flickr.com/photos/69743899@N07/31703980014",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1024,
+      "hauteur": 684,
+      "poids_octets": 28376,
+      "substitut": false
+    },
+    {
+      "id": "eec87f726273bfb8",
+      "fichier": "eec87f726273bfb8.webp",
+      "site_id": "tricastin",
+      "type": "sol",
+      "difficulte": 2,
+      "auteur": "EDF",
+      "licence": "droits-reserves",
+      "url_source": "https://www.edf.fr/la-centrale-nucleaire-du-tricastin/les-actualites-de-la-centrale-nucleaire-du-tricastin?page=3",
+      "alt": "Photo d'une centrale nucléaire à identifier, vue depuis le sol",
+      "largeur": 1600,
+      "hauteur": 900,
+      "poids_octets": 89834,
       "substitut": false
     },
     {
@@ -1833,18 +2808,18 @@
       "substitut": false
     },
     {
-      "id": "ba215462448a0ac4",
-      "fichier": "ba215462448a0ac4.webp",
+      "id": "f4af872441a30f45",
+      "fichier": "f4af872441a30f45.webp",
       "site_id": "tricastin",
-      "type": "satellite",
+      "type": "detail",
       "difficulte": 3,
-      "auteur": "IGN – BD ORTHO Historique",
-      "licence": "Etalab-2.0",
-      "url_source": "https://geoservices.ign.fr/bdorthohisto",
-      "alt": "Vue satellite d'une centrale nucléaire à identifier",
-      "largeur": 1600,
-      "hauteur": 1067,
-      "poids_octets": 188092,
+      "auteur": "Gential LAMBERT",
+      "licence": "CC-BY-2.0",
+      "url_source": "https://www.flickr.com/photos/25204075@N08/7164405368",
+      "alt": "Détail d'une centrale nucléaire à identifier",
+      "largeur": 1024,
+      "hauteur": 832,
+      "poids_octets": 233612,
       "substitut": false
     }
   ]

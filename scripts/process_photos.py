@@ -95,19 +95,9 @@ ALT_SUBSTITUT = "Image de test, aucune centrale représentée"
 
 DIFFICULTES = {"1": 1, "facile": 1, "2": 2, "moyenne": 2, "moyen": 2, "3": 3, "difficile": 3}
 
-#: Licences acceptées (forme normalisée). Interdites : NC (pas d'usage commercial) et ND (pas de modification,
-#: or on recadre et on floute). Les versions « portées » de Commons (CC-BY-SA-3.0-FR…) sont acceptées.
-MOTIF_LICENCE = re.compile(
-    r"^(CC0-1\.0|CC-BY(-SA)?-(1\.0|2\.0|2\.5|3\.0|4\.0)(-[A-Z]{2})?|Etalab-2\.0|domaine-public|accord-auteur|image-generee)$"
-)
-#: Licences qui imposent un lien vers l'original.
-LICENCES_SANS_URL = ("accord-auteur", "image-generee")
-#: Sources interdites (voir docs/SOURCING_PHOTOS.md) : on refuse une url_source qui y mène.
-DOMAINES_INTERDITS = (
-    "google.", "gstatic.com", "googleusercontent.com", "bing.com", "edf.fr", "edf.com", "orano.group",
-    "orano.com", "cea.fr", "asn.fr", "asnr.fr", "irsn.fr", "pinterest.", "shutterstock.", "gettyimages.",
-    "alamy.", "istockphoto.", "adobe.com",
-)
+#: Usage interne : toute licence est acceptée (y compris NC, ND et « droits réservés »), sauf « image-generee »,
+#: réservée aux substituts. Les licences Creative Commons et Etalab imposent un lien vers l'original.
+MOTIF_LICENCE_AVEC_URL = re.compile(r"^(CC|Etalab)")
 
 EXTENSIONS_IMAGES = (".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".heic", ".bmp")
 MOTIF_ID = re.compile(rf"^[0-9a-f]{{{LONGUEUR_ID}}}$")
@@ -137,8 +127,13 @@ def normaliser_licence(texte: str) -> str:
         return "domaine-public"
     if t.lower() in ("accord-auteur", "accord auteur", "accord de l'auteur", "photo personnelle"):
         return "accord-auteur"
+    if t.lower().replace(" ", "-") in ("image-generee", "image-générée"):
+        return "image-generee"
     if t.lower().replace(" ", "-") in ("etalab-2.0", "licence-ouverte-2.0", "lo-2.0", "etalab"):
         return "Etalab-2.0"
+    if re.sub(r"[\s_-]+", " ", sans_accents(t).lower()).strip("© ") in (
+            "droits reserves", "tous droits reserves", "all rights reserved", "copyright", ""):
+        return "droits-reserves"
     t = re.sub(r"[\s_]+", "-", t.upper())  # « CC BY-SA 3.0 fr » → « CC-BY-SA-3.0-FR »
     if t in ("CC0", "CC-0"):
         return "CC0-1.0"
@@ -318,18 +313,13 @@ def lire_credits(chemin_csv: Path) -> tuple[list[Ligne], list[str], set[str]]:
         if not valeurs["auteur"]:
             probleme.append("auteur manquant")
         licence = normaliser_licence(valeurs["licence"])
-        if licence == "image-generee" or not MOTIF_LICENCE.match(licence):
-            probleme.append(
-                f"licence « {valeurs['licence']} » refusée (acceptées : CC0, CC BY, CC BY-SA, Etalab 2.0, "
-                "domaine public, accord-auteur ; jamais NC ni ND)")
+        if licence == "image-generee":
+            probleme.append("licence « image-generee » réservée aux images de test")
         url = valeurs["url_source"] or None
-        if url is None and licence not in LICENCES_SANS_URL:
+        if url is None and MOTIF_LICENCE_AVEC_URL.match(licence):
             probleme.append("url_source obligatoire pour cette licence (lien vers la page de l'original)")
-        if url is not None:
-            if not url.startswith("https://"):
-                probleme.append("url_source doit commencer par https://")
-            elif any(d in url.lower() for d in DOMAINES_INTERDITS):
-                probleme.append(f"source interdite ({url}) : voir docs/SOURCING_PHOTOS.md")
+        if url is not None and not url.startswith(("https://", "http://")):
+            probleme.append("url_source doit commencer par https:// ou http://")
         if probleme:
             erreurs.append(f"ligne {numero} ({valeurs['fichier'] or 'sans fichier'}) : " + " ; ".join(probleme))
             continue

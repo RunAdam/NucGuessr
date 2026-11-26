@@ -4,7 +4,7 @@ Ce guide explique, pas à pas, comment trouver des photos de centrales, vérifie
 
 **En résumé :**
 
-1. Trouver une photo sur une **source autorisée** et vérifier sa licence.
+1. Trouver une photo (toutes sources acceptées, usage interne) et noter sa provenance.
 2. La copier dans `photos_sources/` (ce dossier n'est jamais envoyé sur GitHub).
 3. Recadrer ou flouter les panneaux, logos et noms visibles.
 4. Noter ses crédits dans `photos_sources/credits.csv`.
@@ -12,21 +12,21 @@ Ce guide explique, pas à pas, comment trouver des photos de centrales, vérifie
 
 ---
 
-## 1. Sources autorisées et interdites
+## 1. Sources et licences
 
-| | Source | Licence | Ce qu'il faut noter |
-|---|---|---|---|
-| ✅ | **Wikimedia Commons** (commons.wikimedia.org) | CC0, CC BY, CC BY-SA (toutes versions, y compris les versions « portées » comme CC BY-SA 3.0 FR), domaine public | Auteur, licence exacte, lien vers la page `File:` |
-| ✅ | **Orthophotos IGN** (BD ORTHO, via Géoportail ou cartes.gouv.fr) | Licence ouverte Etalab 2.0 | Auteur « IGN – BD ORTHO », licence `Etalab-2.0`, lien vers la page de la donnée |
-| ✅ | **Photos personnelles** de la promo | Accord **écrit** de l'auteur (un message suffit, à conserver) | Nom de l'auteur tel qu'il veut être crédité, licence `accord-auteur` |
-| ❌ | Google Images, Bing Images, Pinterest | Pas de licence : le fait qu'une image soit en ligne ne donne aucun droit | |
-| ❌ | Photos de presse ou de communication d'**EDF, Orano, CEA, ASNR, IRSN** | Droits réservés, sauf autorisation écrite | |
-| ❌ | Captures de **Google Maps / Google Earth / Apple Plans / Bing Maps** | Interdit par leurs conditions d'utilisation | |
-| ❌ | Banques d'images (Getty, Shutterstock, Alamy, Adobe Stock…) | Payantes, droits réservés | |
-| ❌ | Toute licence **NC** (pas d'usage commercial) ou **ND** (pas de modification) | NC : incertain pour un site public ; ND : on recadre et on floute, donc on modifie | |
-| ❌ | Photos prises illégalement : **drone** au-dessus d'une centrale (zone interdite de survol), intérieur d'un site sans autorisation | Ne jamais les utiliser, même « libres » | |
+NucGuessr est un jeu à **usage interne** (promo) : toutes les sources sont acceptées, quelle que soit la licence.
 
-Le script `process_photos.py` refuse automatiquement les licences NC et ND et les liens vers les domaines interdits, mais il ne peut pas tout vérifier : **la responsabilité de la vérification est la vôtre**.
+| Source | Ce qu'il faut noter |
+|---|---|
+| **Wikimedia Commons**, Flickr, Openverse | Auteur, licence affichée, lien vers la page de l'original |
+| **Photos EDF** (pages des centrales, médiathèque, réseaux sociaux), y compris les vues de **drone** | Auteur `EDF` (ou le photographe cité), licence `droits réservés`, lien vers la page |
+| **Web en général** (presse, blogs, sites des communes…) | Auteur ou site, licence `droits réservés`, lien vers la page |
+| **Orthophotos IGN** (BD ORTHO, BD ORTHO historique) | Auteur « IGN – BD ORTHO », licence `Etalab-2.0`, lien vers la page de la donnée |
+| **Photos personnelles** de la promo | Nom de l'auteur, licence `accord-auteur`, lien vide |
+
+Le script accepte toute licence (CC, y compris NC et ND, `droits réservés`, `Etalab 2.0`, `domaine public`, `accord-auteur`). Seule exigence : une licence Creative Commons ou Etalab doit avoir son lien (`url_source`). Le crédit et le lien ne s'affichent qu'**après** le round.
+
+Évitez les images portant un **filigrane** (banques d'images) ou une légende incrustée : elles trahissent la réponse ou sont illisibles. Pour les orthophotos IGN récentes, la centrale est souvent pixellisée par l'IGN (zone sensible) : préférez les couches historiques ou d'autres vues.
 
 ### Trouver des photos sur Wikimedia Commons
 
@@ -34,15 +34,13 @@ Le script `process_photos.py` refuse automatiquement les licences NC et ND et le
 - Cherchez aussi dans les catégories voisines : la commune, le fleuve (« Rhône à Cruas »), les vues prises depuis un village ou une colline voisine. Les meilleures photos pour le jeu sont souvent celles où la centrale est **dans son paysage**.
 - Préférez les fichiers d'au moins **1 600 px de large** (la taille s'affiche sous l'image). En dessous de 1 200 px, la photo sera floue en jeu : le script le signale.
 
-### Vérifier la licence sur Commons
+### Noter les crédits d'une photo Commons
 
 Sur la page `File:` de la photo, descendez jusqu'à la section **« Licensing » / « Conditions d'utilisation »** :
 
-1. La licence est-elle CC0, CC BY, CC BY-SA ou domaine public ? Si elle contient **NC** ou **ND**, ou si la page dit « copyright » ou « all rights reserved » : **abandonnez**.
-2. Plusieurs licences au choix (par exemple GFDL + CC BY-SA 3.0) : prenez la CC BY ou CC BY-SA.
-3. L'auteur est-il clairement indiqué (champ « Author / Auteur ») ? Notez-le **tel quel** (nom ou pseudonyme). Si l'auteur demande une formule précise d'attribution (« Attribution: … »), notez-la à la place.
-4. Méfiez-vous des fichiers marqués « possible copyright violation » ou « deletion request » : n'utilisez pas.
-5. Le lien à noter est l'adresse de la page `File:` (elle commence par `https://commons.wikimedia.org/wiki/File:`), **pas** celle du fichier image `upload.wikimedia.org`.
+1. Notez la licence affichée. Plusieurs licences au choix (par exemple GFDL + CC BY-SA 3.0) : prenez la CC.
+2. L'auteur est-il clairement indiqué (champ « Author / Auteur ») ? Notez-le **tel quel** (nom ou pseudonyme). Si l'auteur demande une formule précise d'attribution (« Attribution: … »), notez-la à la place.
+3. Le lien à noter est l'adresse de la page `File:` (elle commence par `https://commons.wikimedia.org/wiki/File:`), **pas** celle du fichier image `upload.wikimedia.org`.
 
 Pour télécharger : bouton « Télécharger » / « Download » en haut de la page, en choisissant la **taille originale**.
 
@@ -100,8 +98,8 @@ Les colonnes :
 | `type` | `sol`, `aérienne`, `satellite` ou `détail` (accents facultatifs) | `aérienne` |
 | `difficulte` | `1` facile, `2` moyenne, `3` difficile (voir ci-dessous) | `2` |
 | `auteur` | Auteur tel qu'indiqué sur la page de l'original | `Jean Dupont` |
-| `licence` | `CC0`, `CC BY 4.0`, `CC BY-SA 3.0`, `CC BY-SA 3.0 FR`, `Etalab 2.0`, `domaine public` ou `accord-auteur` | `CC BY-SA 4.0` |
-| `url_source` | Lien vers la page de l'original (obligatoire, sauf photo de la promo) | `https://commons.wikimedia.org/wiki/File:…` |
+| `licence` | Telle qu'indiquée : `CC BY-SA 4.0`, `CC BY-NC 2.0`, `Etalab 2.0`, `domaine public`, `droits réservés`, `accord-auteur`… | `CC BY-SA 4.0` |
+| `url_source` | Lien vers la page de l'original (obligatoire pour les licences CC et Etalab, conseillé sinon) | `https://commons.wikimedia.org/wiki/File:…` |
 
 **Identifiants des sites :** `belleville`, `blayais`, `bugey`, `cattenom`, `chinon`, `chooz`, `civaux`, `cruas`, `dampierre`, `flamanville`, `golfech`, `gravelines`, `nogent`, `paluel`, `penly`, `saint-alban`, `saint-laurent`, `tricastin`. (Quelques variantes sont comprises : `Nogent-sur-Seine`, `St Laurent`…)
 
